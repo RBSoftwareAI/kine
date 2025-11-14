@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1026510332084",
+    "project_id": "kinecare-81f52",
+    "storage_bucket": "kinecare-81f52.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1026510332084:android:df4d962b0e50e641d1b7e1",
+        "android_client_info": {
+          "package_name": "com.workoutwarrior.kinecare"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgExPyK8BeKSyDSkMqBAlGcGHQWGOXh3g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
