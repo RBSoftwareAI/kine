@@ -1,0 +1,27 @@
+# Data directory
+data/
+*.db
+*.db-journal
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+
+# Logs
+*.log
+server.log
+
+# Backups
+backups/
+
+# Environment
+.env
+.venv
+env/
+venv/

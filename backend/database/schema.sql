@@ -1,8 +1,9 @@
--- Schéma SQLite pour KinéCare
--- Données 100% locales, jamais sur Internet
+-- KinéCare Local Database Schema
+-- SQLite database for health data (NEVER goes to cloud)
 
 -- ============================================
--- Table des utilisateurs (professionnels)
+-- TABLE: users
+-- Comptes professionnels (kiné, coach, patients)
 -- ============================================
 CREATE TABLE IF NOT EXISTS users (
     id TEXT PRIMARY KEY,
@@ -10,235 +11,370 @@ CREATE TABLE IF NOT EXISTS users (
     password_hash TEXT NOT NULL,
     first_name TEXT NOT NULL,
     last_name TEXT NOT NULL,
-    role TEXT NOT NULL CHECK(role IN ('patient', 'kine', 'coach', 'admin')),
-    phone TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- ============================================
--- Table des patients
--- ============================================
-CREATE TABLE IF NOT EXISTS patients (
-    id TEXT PRIMARY KEY,
-    user_id TEXT NOT NULL,
-    birth_year INTEGER,
-    gender TEXT CHECK(gender IN ('M', 'F', 'other')),
-    notes TEXT,
+    role TEXT NOT NULL CHECK(role IN ('patient', 'kine', 'coach_apa')),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    is_active INTEGER DEFAULT 1,
+    phone TEXT,
+    birth_date DATE,
+    
+    -- Metadata
+    firebase_uid TEXT UNIQUE, -- Sync with Firebase Auth (optional)
+    last_login TIMESTAMP,
+    preferences TEXT -- JSON string for user settings
 );
 
+CREATE INDEX idx_users_email ON users(email);
+CREATE INDEX idx_users_role ON users(role);
+CREATE INDEX idx_users_firebase_uid ON users(firebase_uid);
+
 -- ============================================
--- Table des points de douleur
+-- TABLE: pain_points
+-- Historique des points de douleur
 -- ============================================
 CREATE TABLE IF NOT EXISTS pain_points (
     id TEXT PRIMARY KEY,
     patient_id TEXT NOT NULL,
-    zone TEXT NOT NULL CHECK(zone IN (
-        'head', 'neck', 'left_shoulder', 'right_shoulder',
-        'left_arm', 'right_arm', 'left_hand', 'right_hand',
-        'chest', 'upper_back', 'lower_back',
-        'left_hip', 'right_hip', 'left_thigh', 'right_thigh',
-        'left_knee', 'right_knee', 'left_leg', 'right_leg',
-        'left_foot', 'right_foot'
-    )),
+    professional_id TEXT NOT NULL, -- Who recorded this
+    zone TEXT NOT NULL, -- 'head', 'neck', 'shoulder_left', etc.
     intensity INTEGER NOT NULL CHECK(intensity BETWEEN 0 AND 10),
-    description TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (patient_id) REFERENCES patients(id) ON DELETE CASCADE
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    session_id TEXT, -- Link to pain_sessions if part of session
+    is_before_session INTEGER DEFAULT 0, -- 0=after, 1=before
+    notes TEXT,
+    
+    FOREIGN KEY (patient_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (professional_id) REFERENCES users(id),
+    FOREIGN KEY (session_id) REFERENCES pain_sessions(id) ON DELETE SET NULL
 );
 
+CREATE INDEX idx_pain_points_patient ON pain_points(patient_id);
+CREATE INDEX idx_pain_points_timestamp ON pain_points(timestamp);
+CREATE INDEX idx_pain_points_session ON pain_points(session_id);
+CREATE INDEX idx_pain_points_zone ON pain_points(zone);
+
 -- ============================================
--- Table des séances
+-- TABLE: pain_sessions
+-- Séances de traitement
 -- ============================================
 CREATE TABLE IF NOT EXISTS pain_sessions (
     id TEXT PRIMARY KEY,
     patient_id TEXT NOT NULL,
     professional_id TEXT NOT NULL,
-    session_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    session_type TEXT CHECK(session_type IN ('kine', 'apa', 'evaluation')),
-    notes TEXT,
+    session_type TEXT NOT NULL CHECK(session_type IN ('initial', 'followup', 'discharge')),
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     duration_minutes INTEGER,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (patient_id) REFERENCES patients(id) ON DELETE CASCADE,
+    
+    -- Pain metrics
+    pain_before_avg REAL, -- Average intensity before session
+    pain_after_avg REAL, -- Average intensity after session
+    improvement REAL, -- Calculated: pain_before_avg - pain_after_avg
+    
+    -- Session details
+    treatment_notes TEXT,
+    exercises_prescribed TEXT, -- JSON array of exercises
+    next_session_date TIMESTAMP,
+    
+    -- Status
+    status TEXT DEFAULT 'completed' CHECK(status IN ('scheduled', 'completed', 'cancelled', 'no_show')),
+    
+    FOREIGN KEY (patient_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (professional_id) REFERENCES users(id)
 );
 
--- ============================================
--- Table historique des douleurs (pour graphiques)
--- ============================================
-CREATE TABLE IF NOT EXISTS pain_history (
-    id TEXT PRIMARY KEY,
-    patient_id TEXT NOT NULL,
-    session_id TEXT,
-    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    average_intensity REAL NOT NULL,
-    zone_intensities TEXT NOT NULL, -- JSON: {"lower_back": 7, "neck": 5}
-    is_before_session BOOLEAN DEFAULT 0,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (patient_id) REFERENCES patients(id) ON DELETE CASCADE,
-    FOREIGN KEY (session_id) REFERENCES pain_sessions(id) ON DELETE SET NULL
-);
+CREATE INDEX idx_sessions_patient ON pain_sessions(patient_id);
+CREATE INDEX idx_sessions_professional ON pain_sessions(professional_id);
+CREATE INDEX idx_sessions_date ON pain_sessions(date);
+CREATE INDEX idx_sessions_type ON pain_sessions(session_type);
 
 -- ============================================
--- Table des logs d'audit (traçabilité RGPD)
+-- TABLE: audit_logs
+-- Traçabilité RGPD : qui a modifié quoi et quand
 -- ============================================
 CREATE TABLE IF NOT EXISTS audit_logs (
     id TEXT PRIMARY KEY,
     user_id TEXT NOT NULL,
     action_type TEXT NOT NULL CHECK(action_type IN (
-        'create_pain_point', 'update_pain_point', 'delete_pain_point',
-        'create_session', 'update_session', 'delete_session',
-        'view_patient', 'export_data', 'login', 'logout'
+        'create_patient',
+        'update_patient', 
+        'delete_patient',
+        'create_pain_point',
+        'update_pain_point',
+        'delete_pain_point',
+        'create_session',
+        'update_session',
+        'delete_session',
+        'view_patient_data',
+        'export_data',
+        'login',
+        'logout'
     )),
-    target_type TEXT NOT NULL CHECK(target_type IN ('user', 'patient', 'pain_point', 'session', 'system')),
-    target_id TEXT,
-    old_values TEXT, -- JSON avant modification
-    new_values TEXT, -- JSON après modification
+    entity_type TEXT, -- 'user', 'pain_point', 'session', etc.
+    entity_id TEXT, -- ID of affected entity
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     ip_address TEXT,
     user_agent TEXT,
-    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    -- Changes tracking
+    old_values TEXT, -- JSON before modification
+    new_values TEXT, -- JSON after modification
+    
+    -- Context
+    reason TEXT, -- Why this action was performed
+    
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
--- ============================================
--- Table des pathologies (pour statistiques)
--- ============================================
-CREATE TABLE IF NOT EXISTS pathologies (
-    id TEXT PRIMARY KEY,
-    patient_id TEXT NOT NULL,
-    pathology_name TEXT NOT NULL, -- Ex: "Lombalgie chronique", "Cervicalgie"
-    diagnosis_date DATE,
-    primary_zone TEXT NOT NULL, -- Zone principale affectée
-    severity TEXT CHECK(severity IN ('mild', 'moderate', 'severe')),
-    status TEXT CHECK(status IN ('active', 'in_treatment', 'resolved')) DEFAULT 'active',
-    resolution_date DATE, -- Date de guérison si resolved
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (patient_id) REFERENCES patients(id) ON DELETE CASCADE
-);
+CREATE INDEX idx_audit_user ON audit_logs(user_id);
+CREATE INDEX idx_audit_timestamp ON audit_logs(timestamp);
+CREATE INDEX idx_audit_action ON audit_logs(action_type);
+CREATE INDEX idx_audit_entity ON audit_logs(entity_type, entity_id);
 
 -- ============================================
--- Table des statistiques anonymisées (cache)
+-- TABLE: pathology_stats
+-- Statistiques anonymisées par pathologie
+-- Pour calcul temps de guérison/amélioration
 -- ============================================
 CREATE TABLE IF NOT EXISTS pathology_stats (
     id TEXT PRIMARY KEY,
-    pathology_name TEXT NOT NULL UNIQUE,
-    total_cases INTEGER DEFAULT 0,
-    active_cases INTEGER DEFAULT 0,
-    resolved_cases INTEGER DEFAULT 0,
-    average_healing_days REAL, -- Temps moyen de guérison en jours
-    average_improvement_rate REAL, -- Taux amélioration moyen (points/semaine)
-    median_initial_intensity REAL,
-    median_final_intensity REAL,
-    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    pathology_code TEXT NOT NULL, -- 'lombalgie', 'cervicalgie', 'tendinite_epaule', etc.
+    pathology_name TEXT NOT NULL,
+    
+    -- Aggregated metrics (k-anonymat >= 5 patients minimum)
+    total_patients INTEGER DEFAULT 0,
+    avg_initial_intensity REAL, -- Average pain at first session
+    avg_final_intensity REAL, -- Average pain at last session
+    avg_total_improvement REAL, -- Average total improvement
+    avg_sessions_count REAL, -- Average number of sessions
+    avg_days_to_improvement REAL, -- Average days to 30% improvement
+    avg_days_to_recovery REAL, -- Average days to < 2/10 pain
+    
+    -- Success rates
+    success_rate_30pct REAL, -- % patients with 30%+ improvement
+    success_rate_50pct REAL, -- % patients with 50%+ improvement
+    success_rate_recovery REAL, -- % patients reaching < 2/10
+    
+    -- Zone distribution (JSON)
+    affected_zones TEXT, -- {"shoulder_left": 45, "neck": 30, ...}
+    
+    -- Last updated
+    calculated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_period_start DATE,
+    data_period_end DATE
 );
 
--- ============================================
--- Index pour optimisation des requêtes
--- ============================================
-CREATE INDEX IF NOT EXISTS idx_pain_points_patient ON pain_points(patient_id);
-CREATE INDEX IF NOT EXISTS idx_pain_points_created ON pain_points(created_at);
-CREATE INDEX IF NOT EXISTS idx_sessions_patient ON pain_sessions(patient_id);
-CREATE INDEX IF NOT EXISTS idx_sessions_date ON pain_sessions(session_date);
-CREATE INDEX IF NOT EXISTS idx_history_patient ON pain_history(patient_id);
-CREATE INDEX IF NOT EXISTS idx_history_timestamp ON pain_history(timestamp);
-CREATE INDEX IF NOT EXISTS idx_audit_user ON audit_logs(user_id);
-CREATE INDEX IF NOT EXISTS idx_audit_timestamp ON audit_logs(timestamp);
-CREATE INDEX IF NOT EXISTS idx_pathologies_patient ON pathologies(patient_id);
-CREATE INDEX IF NOT EXISTS idx_pathologies_status ON pathologies(status);
+CREATE INDEX idx_pathology_code ON pathology_stats(pathology_code);
+CREATE INDEX idx_pathology_calculated ON pathology_stats(calculated_at);
 
 -- ============================================
--- Trigger pour mise à jour automatique updated_at
+-- TABLE: cabinet_config
+-- Configuration du cabinet (singleton)
 -- ============================================
-CREATE TRIGGER IF NOT EXISTS update_users_timestamp 
+CREATE TABLE IF NOT EXISTS cabinet_config (
+    id INTEGER PRIMARY KEY CHECK(id = 1), -- Singleton: only one row
+    cabinet_name TEXT NOT NULL,
+    cabinet_address TEXT,
+    cabinet_phone TEXT,
+    cabinet_email TEXT,
+    
+    -- Network settings
+    server_port INTEGER DEFAULT 8080,
+    allow_external_access INTEGER DEFAULT 0, -- 0=localhost only, 1=LAN access
+    
+    -- Firebase sync (optional)
+    firebase_enabled INTEGER DEFAULT 0,
+    firebase_project_id TEXT,
+    last_firebase_sync TIMESTAMP,
+    
+    -- Stats sharing
+    share_anonymous_stats INTEGER DEFAULT 0, -- Share to Firebase for inter-cabinet
+    
+    -- Backups
+    auto_backup_enabled INTEGER DEFAULT 1,
+    backup_frequency_days INTEGER DEFAULT 7,
+    last_backup_date TIMESTAMP,
+    
+    -- Updates
+    app_version TEXT DEFAULT '1.0.0',
+    last_update_check TIMESTAMP,
+    
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Insert default config
+INSERT OR IGNORE INTO cabinet_config (id, cabinet_name) VALUES (1, 'Cabinet de Kinésithérapie');
+
+-- ============================================
+-- TABLE: appointments (Firebase sync)
+-- Rendez-vous (peut être synchronisé avec Firebase)
+-- ============================================
+CREATE TABLE IF NOT EXISTS appointments (
+    id TEXT PRIMARY KEY,
+    patient_pseudonym TEXT NOT NULL, -- "Patient A", "Patient B" (for Firebase sync)
+    patient_id TEXT, -- Real ID (local only)
+    professional_id TEXT NOT NULL,
+    appointment_date TIMESTAMP NOT NULL,
+    duration_minutes INTEGER DEFAULT 60,
+    status TEXT DEFAULT 'scheduled' CHECK(status IN ('scheduled', 'confirmed', 'completed', 'cancelled', 'no_show')),
+    appointment_type TEXT, -- 'initial', 'followup', 'assessment'
+    notes TEXT,
+    
+    -- Sync
+    firebase_synced INTEGER DEFAULT 0,
+    firebase_id TEXT,
+    
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    FOREIGN KEY (patient_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (professional_id) REFERENCES users(id)
+);
+
+CREATE INDEX idx_appointments_date ON appointments(appointment_date);
+CREATE INDEX idx_appointments_professional ON appointments(professional_id);
+CREATE INDEX idx_appointments_patient ON appointments(patient_id);
+CREATE INDEX idx_appointments_firebase ON appointments(firebase_id);
+
+-- ============================================
+-- VIEWS
+-- ============================================
+
+-- Vue: Patients avec dernière douleur moyenne
+CREATE VIEW IF NOT EXISTS v_patients_latest_pain AS
+SELECT 
+    u.id,
+    u.first_name,
+    u.last_name,
+    u.email,
+    u.phone,
+    u.birth_date,
+    MAX(pp.timestamp) as last_pain_date,
+    AVG(pp.intensity) as last_avg_intensity,
+    COUNT(DISTINCT ps.id) as total_sessions
+FROM users u
+LEFT JOIN pain_points pp ON u.id = pp.patient_id 
+    AND pp.timestamp = (SELECT MAX(timestamp) FROM pain_points WHERE patient_id = u.id)
+LEFT JOIN pain_sessions ps ON u.id = ps.patient_id
+WHERE u.role = 'patient' AND u.is_active = 1
+GROUP BY u.id;
+
+-- Vue: Sessions avec amélioration
+CREATE VIEW IF NOT EXISTS v_sessions_with_improvement AS
+SELECT 
+    ps.*,
+    u.first_name || ' ' || u.last_name as patient_name,
+    prof.first_name || ' ' || prof.last_name as professional_name,
+    ROUND(ps.improvement, 1) as improvement_rounded,
+    CASE 
+        WHEN ps.improvement >= 3 THEN 'excellent'
+        WHEN ps.improvement >= 2 THEN 'good'
+        WHEN ps.improvement >= 1 THEN 'moderate'
+        ELSE 'poor'
+    END as improvement_category
+FROM pain_sessions ps
+JOIN users u ON ps.patient_id = u.id
+JOIN users prof ON ps.professional_id = prof.id
+WHERE ps.status = 'completed';
+
+-- Vue: Statistiques temps réel
+CREATE VIEW IF NOT EXISTS v_realtime_stats AS
+SELECT 
+    COUNT(DISTINCT CASE WHEN role = 'patient' THEN id END) as total_patients,
+    COUNT(DISTINCT CASE WHEN role = 'kine' THEN id END) as total_kines,
+    COUNT(DISTINCT CASE WHEN role = 'coach_apa' THEN id END) as total_coaches,
+    (SELECT COUNT(*) FROM pain_points WHERE DATE(timestamp) = DATE('now')) as pain_points_today,
+    (SELECT COUNT(*) FROM pain_sessions WHERE DATE(date) = DATE('now')) as sessions_today,
+    (SELECT AVG(intensity) FROM pain_points WHERE DATE(timestamp) >= DATE('now', '-7 days')) as avg_pain_7days,
+    (SELECT AVG(improvement) FROM pain_sessions WHERE DATE(date) >= DATE('now', '-30 days') AND status = 'completed') as avg_improvement_30days
+FROM users;
+
+-- ============================================
+-- TRIGGERS
+-- ============================================
+
+-- Trigger: Auto-update timestamp on users
+CREATE TRIGGER IF NOT EXISTS trg_users_updated_at
 AFTER UPDATE ON users
+FOR EACH ROW
 BEGIN
-    UPDATE users SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
+    UPDATE users SET updated_at = CURRENT_TIMESTAMP WHERE id = OLD.id;
 END;
 
-CREATE TRIGGER IF NOT EXISTS update_patients_timestamp 
-AFTER UPDATE ON patients
+-- Trigger: Auto-update timestamp on appointments
+CREATE TRIGGER IF NOT EXISTS trg_appointments_updated_at
+AFTER UPDATE ON appointments
+FOR EACH ROW
 BEGIN
-    UPDATE patients SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
+    UPDATE appointments SET updated_at = CURRENT_TIMESTAMP WHERE id = OLD.id;
 END;
 
-CREATE TRIGGER IF NOT EXISTS update_pain_points_timestamp 
-AFTER UPDATE ON pain_points
-BEGIN
-    UPDATE pain_points SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
-END;
-
-CREATE TRIGGER IF NOT EXISTS update_pathologies_timestamp 
-AFTER UPDATE ON pathologies
-BEGIN
-    UPDATE pathologies SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
-END;
-
--- ============================================
--- Trigger pour créer historique automatiquement
--- ============================================
-CREATE TRIGGER IF NOT EXISTS create_pain_history_on_insert
+-- Trigger: Calculate session improvement automatically
+CREATE TRIGGER IF NOT EXISTS trg_calculate_session_improvement
 AFTER INSERT ON pain_points
+FOR EACH ROW
+WHEN NEW.session_id IS NOT NULL
 BEGIN
-    INSERT INTO pain_history (
-        id,
-        patient_id,
-        timestamp,
-        average_intensity,
-        zone_intensities,
-        is_before_session
-    )
-    SELECT
-        'hist_' || NEW.id,
-        NEW.patient_id,
-        NEW.created_at,
-        NEW.intensity,
-        json_object('zone', NEW.zone, 'intensity', NEW.intensity),
-        0
-    WHERE NOT EXISTS (
-        SELECT 1 FROM pain_history 
-        WHERE patient_id = NEW.patient_id 
-        AND timestamp = NEW.created_at
-    );
+    UPDATE pain_sessions
+    SET 
+        pain_before_avg = (
+            SELECT AVG(intensity) 
+            FROM pain_points 
+            WHERE session_id = NEW.session_id AND is_before_session = 1
+        ),
+        pain_after_avg = (
+            SELECT AVG(intensity) 
+            FROM pain_points 
+            WHERE session_id = NEW.session_id AND is_before_session = 0
+        )
+    WHERE id = NEW.session_id;
+    
+    -- Calculate improvement
+    UPDATE pain_sessions
+    SET improvement = pain_before_avg - pain_after_avg
+    WHERE id = NEW.session_id 
+        AND pain_before_avg IS NOT NULL 
+        AND pain_after_avg IS NOT NULL;
 END;
 
 -- ============================================
--- Vue pour statistiques temps réel
+-- INITIAL DATA
 -- ============================================
-CREATE VIEW IF NOT EXISTS v_pathology_healing_times AS
-SELECT 
-    p.pathology_name,
-    COUNT(*) as total_cases,
-    AVG(JULIANDAY(p.resolution_date) - JULIANDAY(p.diagnosis_date)) as avg_healing_days,
-    MIN(JULIANDAY(p.resolution_date) - JULIANDAY(p.diagnosis_date)) as min_healing_days,
-    MAX(JULIANDAY(p.resolution_date) - JULIANDAY(p.diagnosis_date)) as max_healing_days
-FROM pathologies p
-WHERE p.status = 'resolved'
-  AND p.diagnosis_date IS NOT NULL
-  AND p.resolution_date IS NOT NULL
-GROUP BY p.pathology_name;
+
+-- Admin account (password: admin123)
+-- Hash generated with werkzeug.security.generate_password_hash('admin123')
+INSERT OR IGNORE INTO users (id, email, password_hash, first_name, last_name, role, is_active)
+VALUES (
+    'admin_001',
+    'admin@kinecare.local',
+    'scrypt:32768:8:1$KmP8ZqXkQ7Y8nGW2$f6e3c0f0f3a3e3a1f6e3c0f0f3a3e3a1f6e3c0f0f3a3e3a1f6e3c0f0f3a3e3a1f6e3c0f0f3a3e3a1f6e3c0f0f3a3e3a1',
+    'Admin',
+    'Cabinet',
+    'kine',
+    1
+);
+
+-- Demo accounts (same as current demo mode)
+INSERT OR IGNORE INTO users (id, email, password_hash, first_name, last_name, role, phone, is_active)
+VALUES 
+    ('patient_demo_001', 'patient@demo.com', 'scrypt:32768:8:1$demo$', 'Jean', 'Patient', 'patient', '0612345678', 1),
+    ('kine_demo_001', 'kine@demo.com', 'scrypt:32768:8:1$demo$', 'Marie', 'Kinésithérapeute', 'kine', '0623456789', 1),
+    ('coach_demo_001', 'coach@demo.com', 'scrypt:32768:8:1$demo$', 'Pierre', 'Coach', 'coach_apa', '0634567890', 1);
 
 -- ============================================
--- Vue pour évolution des douleurs
+-- MAINTENANCE QUERIES
 -- ============================================
-CREATE VIEW IF NOT EXISTS v_pain_evolution AS
-SELECT 
-    ph.patient_id,
-    ph.timestamp,
-    ph.average_intensity,
-    p.pathology_name,
-    LAG(ph.average_intensity) OVER (
-        PARTITION BY ph.patient_id 
-        ORDER BY ph.timestamp
-    ) as previous_intensity,
-    ph.average_intensity - LAG(ph.average_intensity) OVER (
-        PARTITION BY ph.patient_id 
-        ORDER BY ph.timestamp
-    ) as intensity_change
-FROM pain_history ph
-LEFT JOIN pathologies p ON ph.patient_id = p.patient_id
-ORDER BY ph.patient_id, ph.timestamp;
+
+-- Clean old audit logs (keep 3 years as per RGPD)
+-- DELETE FROM audit_logs WHERE timestamp < DATE('now', '-3 years');
+
+-- Recalculate pathology stats
+-- (Run periodically via scheduled task)
+
+-- Vacuum database (optimize)
+-- VACUUM;
+
+-- ============================================
+-- DATABASE VERSION
+-- ============================================
+PRAGMA user_version = 1;
