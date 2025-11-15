@@ -1,0 +1,19 @@
+# Backend Local KinéCare - Configuration minimale
+# Installation : pip install -r requirements.txt
+
+# Framework Web léger
+Flask==3.0.0
+Flask-CORS==4.0.0
+
+# Base de données locale
+# SQLite est inclus avec Python - pas de dépendance externe
+
+# Sécurité et authentification
+PyJWT==2.8.0
+bcrypt==4.1.2
+
+# Firebase SDK (optionnel - uniquement pour rendez-vous)
+firebase-admin==6.4.0
+
+# Utilitaires
+python-dateutil==2.8.2
