@@ -21,7 +21,7 @@ from services.statistics_service import StatisticsService
 
 # Initialize Flask app
 app = Flask(__name__, static_folder='../../../build/web')
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'kinecare-local-secret-change-in-production')
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'medidesk-local-secret-change-in-production')
 app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY', 'jwt-secret-key-change-in-production')
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=24)
 

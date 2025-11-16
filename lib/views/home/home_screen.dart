@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('KinéCare'),
+        title: const Text('MediDesk'),
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),

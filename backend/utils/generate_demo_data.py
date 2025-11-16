@@ -65,7 +65,7 @@ def generate_users(db):
     
     for i, (first, last) in enumerate(kine_names[:NUM_KINES]):
         user_id = f"kine_{uuid.uuid4().hex[:12]}"
-        email = f"{first.lower()}.{last.lower()}@kinecare.demo"
+        email = f"{first.lower()}.{last.lower()}@medidesk.demo"
         
         user_data = {
             'id': user_id,
@@ -91,7 +91,7 @@ def generate_users(db):
     
     for i, (first, last) in enumerate(coach_names[:NUM_COACHES]):
         user_id = f"coach_{uuid.uuid4().hex[:12]}"
-        email = f"{first.lower()}.{last.lower()}@kinecare.demo"
+        email = f"{first.lower()}.{last.lower()}@medidesk.demo"
         
         user_data = {
             'id': user_id,
@@ -330,8 +330,8 @@ def main():
             print(f"   - {table}: {count}")
     
     print("\n🔑 Comptes de démonstration:")
-    print("   - admin@kinecare.local / admin123")
-    print("   - marie.dubois@kinecare.demo / demo123")
+    print("   - admin@medidesk.local / admin123")
+    print("   - marie.dubois@medidesk.demo / demo123")
     print("   - jean.dupont@email.demo / demo123")
     
     print("\n🚀 Démarrer le serveur:")

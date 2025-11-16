@@ -1,6 +1,6 @@
 {
-    "name": "kinecare",
-    "short_name": "kinecare",
+    "name": "medidesk",
+    "short_name": "medidesk",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

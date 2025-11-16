@@ -220,9 +220,9 @@ def setup_encryption_cli():
     print("=" * 60)
     print()
     
-    db_path = input("Database path [data/kinecare.db]: ").strip()
+    db_path = input("Database path [data/medidesk.db]: ").strip()
     if not db_path:
-        db_path = "data/kinecare.db"
+        db_path = "data/medidesk.db"
     
     if not os.path.exists(db_path):
         print(f"❌ Database not found: {db_path}")

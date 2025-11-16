@@ -1,4 +1,4 @@
-# 🚀 Installation Backend Local KinéCare
+# 🚀 Installation Backend Local MediDesk
 
 ## 📋 Prérequis
 
@@ -68,10 +68,10 @@ python3 api/app.py
 **Sortie attendue :**
 ```
 ============================================================
-🏥 KinéCare - Backend Local Démarré
+🏥 MediDesk - Backend Local Démarré
 ============================================================
 📍 URL: http://localhost:8080
-🗄️  Base de données: /chemin/vers/backend/data/kinecare.db
+🗄️  Base de données: /chemin/vers/backend/data/medidesk.db
 🔒 Données 100% locales - Aucune connexion Internet requise
 📊 Statistiques temps guérison: Activées
 ============================================================
@@ -92,7 +92,7 @@ http://localhost:8080/api/health
 ```json
 {
   "status": "healthy",
-  "service": "KinéCare Local Backend",
+  "service": "MediDesk Local Backend",
   "version": "1.0.0",
   "database": "connected"
 }
@@ -171,7 +171,7 @@ http://localhost:8080/api/health
 La base de données SQLite est créée automatiquement au premier démarrage :
 
 ```
-backend/data/kinecare.db
+backend/data/medidesk.db
 ```
 
 **Tables créées automatiquement :**
@@ -242,7 +242,7 @@ if __name__ == '__main__':
 def __init__(self, db_path: str = None):
     if db_path is None:
         # Modifier le chemin ici
-        db_path = "/chemin/personnalise/kinecare.db"
+        db_path = "/chemin/personnalise/medidesk.db"
     # ...
 ```
 
@@ -276,7 +276,7 @@ pip install --force-reinstall -r requirements.txt
 **Solution :**
 ```bash
 # Sauvegarder l'ancienne base
-mv backend/data/kinecare.db backend/data/kinecare.db.backup
+mv backend/data/medidesk.db backend/data/medidesk.db.backup
 
 # Redémarrer le serveur (créera une nouvelle base)
 python api/app.py
@@ -354,7 +354,7 @@ http://localhost:8080/api/stats/pathologies
 4. **Sauvegardes régulières** :
    ```bash
    # Créer une sauvegarde quotidienne
-   cp backend/data/kinecare.db backend/backups/kinecare_$(date +%Y%m%d).db
+   cp backend/data/medidesk.db backend/backups/medidesk_$(date +%Y%m%d).db
    ```
 
 ---

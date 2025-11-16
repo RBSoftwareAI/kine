@@ -1,4 +1,4 @@
-# ⏱️ Guide Démo KinéCare - 15 Minutes
+# ⏱️ Guide Démo MediDesk - 15 Minutes
 
 > **Script pour convaincre en un quart d'heure**
 
@@ -6,7 +6,7 @@
 
 ## 🎯 Objectif
 
-Montrer la **valeur concrète** de KinéCare en 15 minutes chrono :
+Montrer la **valeur concrète** de MediDesk en 15 minutes chrono :
 - ✅ Interface intuitive
 - ✅ Gain de temps
 - ✅ Visualisation évolution
@@ -42,7 +42,7 @@ Patient          : jean.dupont@demo.com / demo123
 > *"Imaginez : enregistrer les douleurs d'un patient en 2 minutes au lieu de 5, voir son évolution en un coup d'œil, et avoir des statistiques sur vos résultats par pathologie. Tout ça gratuitement, sans risque, et en gardant vos données 100% locales. Je vous montre ?"*
 
 **👀 Captez l'attention :**
-- Montrer écran accueil KinéCare
+- Montrer écran accueil MediDesk
 - Design orange/noir professionnel
 - Logo moderne
 
@@ -54,7 +54,7 @@ Patient          : jean.dupont@demo.com / demo123
 
 **Étape 1 : Connexion (15 sec)**
 ```
-URL : kinecare-demo.app
+URL : medidesk-demo.app
 Login : marie.dubois@demo.com
 Password : demo123
 → Clic "Se connecter"
@@ -273,7 +273,7 @@ Ouvrir même URL sur smartphone
 *"Ça ne prend que 30 minutes à installer"*
 
 **✅ Bonne réponse :**  
-*"Justement ! KinéCare vous fait GAGNER du temps. Regardez : 2 minutes pour enregistrer vs 5 minutes papier. Sur 10 patients/jour, c'est 30 minutes économisées. Dès la première semaine, c'est rentabilisé."*
+*"Justement ! MediDesk vous fait GAGNER du temps. Regardez : 2 minutes pour enregistrer vs 5 minutes papier. Sur 10 patients/jour, c'est 30 minutes économisées. Dès la première semaine, c'est rentabilisé."*
 
 ---
 
@@ -323,7 +323,7 @@ Ouvrir même URL sur smartphone
 *"C'est gratuit"*
 
 **✅ Bonne réponse :**  
-*"0€. Vraiment 0€. Logiciel open source, pas d'abonnement, pas de limite de patients, pas de frais cachés. Comparez : solutions cloud classiques = 50-200€/mois. KinéCare = 0€. Pourquoi ? Parce que développé pour les cabinets, pas pour faire du profit."*
+*"0€. Vraiment 0€. Logiciel open source, pas d'abonnement, pas de limite de patients, pas de frais cachés. Comparez : solutions cloud classiques = 50-200€/mois. MediDesk = 0€. Pourquoi ? Parce que développé pour les cabinets, pas pour faire du profit."*
 
 ---
 
@@ -366,7 +366,7 @@ Ouvrir même URL sur smartphone
 
 ### Introduction (30 sec)
 
-*"Bonjour [Prénom] ! Je vais vous montrer KinéCare en 15 minutes. C'est une application gratuite qui simplifie le suivi des douleurs de vos patients. Vous allez voir : c'est rapide, visuel, et ça génère des statistiques automatiquement. On y va ?"*
+*"Bonjour [Prénom] ! Je vais vous montrer MediDesk en 15 minutes. C'est une application gratuite qui simplifie le suivi des douleurs de vos patients. Vous allez voir : c'est rapide, visuel, et ça génère des statistiques automatiquement. On y va ?"*
 
 ---
 
@@ -390,7 +390,7 @@ Ouvrir même URL sur smartphone
 
 ### Conclusion (30 sec)
 
-*"Voilà KinéCare en 15 minutes. Récap : gain de temps, graphiques automatiques, statistiques exploitables, 0€, données locales sécurisées. Vous voulez tester dans votre cabinet ? Je peux installer ça en 30 minutes et vous former l'équipe en 2h. Ou vous continuez à explorer la démo en ligne. Qu'en dites-vous ?"*
+*"Voilà MediDesk en 15 minutes. Récap : gain de temps, graphiques automatiques, statistiques exploitables, 0€, données locales sécurisées. Vous voulez tester dans votre cabinet ? Je peux installer ça en 30 minutes et vous former l'équipe en 2h. Ou vous continuez à explorer la démo en ligne. Qu'en dites-vous ?"*
 
 ---
 
@@ -409,14 +409,14 @@ Ouvrir même URL sur smartphone
 ### Email de Suivi (Modèle)
 
 ```
-Objet : KinéCare - Résumé démo + liens utiles
+Objet : MediDesk - Résumé démo + liens utiles
 
 Bonjour [Prénom],
 
-Merci d'avoir pris 15 minutes pour découvrir KinéCare !
+Merci d'avoir pris 15 minutes pour découvrir MediDesk !
 
 🔗 Liens utiles :
-- Démo en ligne : https://kinecare-demo.app
+- Démo en ligne : https://medidesk-demo.app
 - Documentation : https://github.com/RBSoftwareAI/kine/tree/main/docs
 - Présentation complète : [Lien PDF]
 

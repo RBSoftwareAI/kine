@@ -8,12 +8,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:kinecare/main.dart';
+import 'package:medidesk/main.dart';
 
 void main() {
-  testWidgets('KinéCare app initialization test', (WidgetTester tester) async {
+  testWidgets('MediDesk app initialization test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const KineCareApp());
+    await tester.pumpWidget(const MediDeskApp());
 
     // Verify that the app starts with login or loading screen
     await tester.pumpAndSettle();
@@ -21,7 +21,7 @@ void main() {
     // Should find either loading indicator or login screen
     expect(
       find.byType(CircularProgressIndicator).evaluate().isNotEmpty ||
-      find.text('KinéCare').evaluate().isNotEmpty,
+      find.text('MediDesk').evaluate().isNotEmpty,
       true,
     );
   });

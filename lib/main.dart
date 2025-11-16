@@ -15,11 +15,11 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   
-  runApp(const KineCareApp());
+  runApp(const MediDeskApp());
 }
 
-class KineCareApp extends StatelessWidget {
-  const KineCareApp({super.key});
+class MediDeskApp extends StatelessWidget {
+  const MediDeskApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class KineCareApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AuthProvider()),
       ],
       child: MaterialApp(
-        title: 'KinéCare',
+        title: 'MediDesk',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
@@ -63,7 +63,7 @@ class AuthWrapper extends StatelessWidget {
                   ),
                   SizedBox(height: 20),
                   Text(
-                    'KinéCare',
+                    'MediDesk',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,

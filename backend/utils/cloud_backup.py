@@ -82,7 +82,7 @@ class CloudBackupManager:
             Path to backup file or None
         """
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        backup_name = f"kinecare_backup_{timestamp}"
+        backup_name = f"medidesk_backup_{timestamp}"
         
         # Créer dossier temporaire
         temp_dir = Path(self.db_path).parent / 'temp_backup'
@@ -256,7 +256,7 @@ class CloudBackupManager:
         cutoff_time = datetime.now().timestamp() - (retention_days * 86400)
         
         deleted = 0
-        for file in Path(backup_dir).glob('kinecare_backup_*'):
+        for file in Path(backup_dir).glob('medidesk_backup_*'):
             if file.stat().st_mtime < cutoff_time:
                 file.unlink()
                 deleted += 1
@@ -332,9 +332,9 @@ def setup_cloud_backup_cli():
     print("=" * 60)
     print()
     
-    db_path = input("Database path [data/kinecare.db]: ").strip()
+    db_path = input("Database path [data/medidesk.db]: ").strip()
     if not db_path:
-        db_path = "data/kinecare.db"
+        db_path = "data/medidesk.db"
     
     manager = CloudBackupManager(db_path)
     

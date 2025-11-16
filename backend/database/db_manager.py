@@ -25,7 +25,7 @@ class DatabaseManager:
             app_dir = Path(__file__).parent.parent.parent
             data_dir = app_dir / 'data'
             data_dir.mkdir(exist_ok=True)
-            db_path = str(data_dir / 'kinecare.db')
+            db_path = str(data_dir / 'medidesk.db')
         
         self.db_path = db_path
         self.connection: Optional[sqlite3.Connection] = None
@@ -290,7 +290,7 @@ class DatabaseManager:
             backup_dir = Path(self.db_path).parent / 'backups'
             backup_dir.mkdir(exist_ok=True)
             timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-            backup_path = str(backup_dir / f'kinecare_backup_{timestamp}.db')
+            backup_path = str(backup_dir / f'medidesk_backup_{timestamp}.db')
         
         self.connect()
         
@@ -360,7 +360,7 @@ if __name__ == "__main__":
     print("🧪 Testing DatabaseManager...")
     
     # Create test database
-    test_db = DatabaseManager('test_kinecare.db')
+    test_db = DatabaseManager('test_medidesk.db')
     test_db.initialize_schema()
     
     # Get info

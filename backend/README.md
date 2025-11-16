@@ -1,4 +1,4 @@
-# 🏥 KinéCare - Backend Local
+# 🏥 MediDesk - Backend Local
 
 **Serveur API REST autonome pour stockage local des données de santé**
 
@@ -59,7 +59,7 @@ backend/
 │   ├── pain_service.py     # Gestion douleurs
 │   └── stats_service.py    # Calcul statistiques
 ├── data/
-│   └── kinecare.db         # Base SQLite (créée automatiquement)
+│   └── medidesk.db         # Base SQLite (créée automatiquement)
 ├── requirements.txt        # Dépendances Python
 ├── INSTALLATION.md         # Guide installation détaillé
 ├── INTEGRATION_FLUTTER.md  # Intégration avec Flutter
@@ -95,10 +95,10 @@ python api/app.py
 **Sortie attendue :**
 ```
 ============================================================
-🏥 KinéCare - Backend Local Démarré
+🏥 MediDesk - Backend Local Démarré
 ============================================================
 📍 URL: http://localhost:8080
-🗄️  Base de données: /chemin/vers/backend/data/kinecare.db
+🗄️  Base de données: /chemin/vers/backend/data/medidesk.db
 🔒 Données 100% locales - Aucune connexion Internet requise
 📊 Statistiques temps guérison: Activées
 ============================================================
@@ -115,7 +115,7 @@ http://localhost:8080/api/health
 ```json
 {
   "status": "healthy",
-  "service": "KinéCare Local Backend",
+  "service": "MediDesk Local Backend",
   "version": "1.0.0",
   "database": "connected"
 }
@@ -325,16 +325,16 @@ Créés automatiquement avec `python DEMO_DATA.py` :
 **Automatique (recommandé) :**
 ```bash
 # Ajouter au cron (Linux/macOS) ou tâches planifiées (Windows)
-cp backend/data/kinecare.db backend/backups/kinecare_$(date +%Y%m%d).db
+cp backend/data/medidesk.db backend/backups/medidesk_$(date +%Y%m%d).db
 ```
 
 **Manuel :**
 ```bash
 # Créer une sauvegarde
-cp backend/data/kinecare.db backend/data/kinecare.db.backup
+cp backend/data/medidesk.db backend/data/medidesk.db.backup
 
 # Restaurer depuis sauvegarde
-cp backend/data/kinecare.db.backup backend/data/kinecare.db
+cp backend/data/medidesk.db.backup backend/data/medidesk.db
 ```
 
 ### Logs
@@ -376,7 +376,7 @@ pip install --force-reinstall -r requirements.txt
 
 ```bash
 # Sauvegarder
-mv backend/data/kinecare.db backend/data/kinecare.db.old
+mv backend/data/medidesk.db backend/data/medidesk.db.old
 
 # Redémarrer (créera nouvelle base)
 python api/app.py

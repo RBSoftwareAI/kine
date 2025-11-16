@@ -1,4 +1,4 @@
-# 📅 Système de Rendez-vous Optionnel - KinéCare
+# 📅 Système de Rendez-vous Optionnel - MediDesk
 
 ## 🎯 Philosophie
 
@@ -8,7 +8,7 @@ Le système de rendez-vous intégré est **100% optionnel** car la réalité des
 ✅ **Téléphone** : Toujours utilisé  
 ✅ **iCal/Google Calendar** : Synchronisation existante  
 
-**→ KinéCare s'adapte à VOTRE workflow existant**
+**→ MediDesk s'adapte à VOTRE workflow existant**
 
 ---
 
@@ -16,7 +16,7 @@ Le système de rendez-vous intégré est **100% optionnel** car la réalité des
 
 ### Mode 1 : Import Doctolib/iCal (Recommandé)
 
-**Principe :** KinéCare importe les rendez-vous depuis Doctolib ou Google Calendar
+**Principe :** MediDesk importe les rendez-vous depuis Doctolib ou Google Calendar
 
 **Avantages :**
 - ✅ Pas besoin changer vos habitudes
@@ -51,7 +51,7 @@ calendar_sync:
 
 ### Mode 2 : Saisie Manuelle Téléphone
 
-**Principe :** Patient appelle, vous notez le RDV dans KinéCare
+**Principe :** Patient appelle, vous notez le RDV dans MediDesk
 
 **Avantages :**
 - ✅ Simple et rapide
@@ -93,7 +93,7 @@ calendar_sync:
 📱 Patient reçoit SMS 24h avant:
 "Votre RDV demain 14h. Pour optimiser votre séance,
 indiquez vos douleurs actuelles : 
-https://kinecare.app/pain-check/abc123"
+https://medidesk.app/pain-check/abc123"
 
 → Le kiné arrive avec données à jour
 → Gain de temps consultation
@@ -124,17 +124,17 @@ Cabinet Dashboard:
 
 ## 🎁 Valeur Ajoutée vs Doctolib
 
-| Fonctionnalité | Doctolib | KinéCare RDV | Avantage |
+| Fonctionnalité | Doctolib | MediDesk RDV | Avantage |
 |----------------|----------|--------------|----------|
 | **Prise RDV en ligne** | ✅ | ✅ | Égalité |
 | **Rappels SMS/Email** | ✅ | ✅ | Égalité |
 | **Gestion agenda** | ✅ | ✅ | Égalité |
-| **Saisie douleurs pré-RDV** | ❌ | ✅ | **KinéCare** |
-| **Lien dossier patient** | ❌ | ✅ | **KinéCare** |
-| **Suggestions créneaux intelligentes** | ❌ | ✅ | **KinéCare** |
-| **Statistiques temps guérison** | ❌ | ✅ | **KinéCare** |
-| **Données 100% locales** | ❌ | ✅ | **KinéCare** |
-| **Coût mensuel** | 129€ | 0€ | **KinéCare** |
+| **Saisie douleurs pré-RDV** | ❌ | ✅ | **MediDesk** |
+| **Lien dossier patient** | ❌ | ✅ | **MediDesk** |
+| **Suggestions créneaux intelligentes** | ❌ | ✅ | **MediDesk** |
+| **Statistiques temps guérison** | ❌ | ✅ | **MediDesk** |
+| **Données 100% locales** | ❌ | ✅ | **MediDesk** |
+| **Coût mensuel** | 129€ | 0€ | **MediDesk** |
 
 ---
 
@@ -151,13 +151,13 @@ appointments:
   source: doctolib
   enable_online_booking: false
   
-# KinéCare importe les RDV mais ne les gère pas
+# MediDesk importe les RDV mais ne les gère pas
 # Patients continuent de prendre RDV via Doctolib
 ```
 
 **Bénéfice :**
 - Zéro changement pour les patients
-- Lien automatique RDV → dossier KinéCare
+- Lien automatique RDV → dossier MediDesk
 - Rappel saisie douleurs pré-RDV
 
 ### Scénario B : Cabinet Sans Doctolib
@@ -291,7 +291,7 @@ python3 backend/utils/configure_calendar_sync.py
 ```
 
 **Résultat :**
-- RDV apparaissent dans KinéCare
+- RDV apparaissent dans MediDesk
 - Lien automatique avec dossiers patients
 - Aucun changement côté patient
 
@@ -316,7 +316,7 @@ appointments:
 appointments:
   online_booking:
     enabled: true
-    public_url: https://kinecare.app/book/cabinet-tourcoing
+    public_url: https://medidesk.app/book/cabinet-tourcoing
 ```
 
 **Résultat :**
@@ -332,7 +332,7 @@ appointments:
 
 **Coût :**
 - Doctolib : 129€/mois (inchangé)
-- KinéCare : 0€
+- MediDesk : 0€
 
 **Bénéfice :**
 - ✅ Lien RDV → dossier patient
@@ -343,12 +343,12 @@ appointments:
 
 **Coût :**
 - Doctolib : 0€ (résiliation)
-- KinéCare : 0€
+- MediDesk : 0€
 
 **Économie :** 1 548€/an
 
 **Bénéfice :**
-- ✅ Toutes fonctionnalités KinéCare
+- ✅ Toutes fonctionnalités MediDesk
 - ✅ Données 100% locales
 - ✅ Pas de dépendance externe
 
@@ -371,7 +371,7 @@ appointments:
 - [ ] Pas de problème budget 129€/mois
 - [ ] Équipe habituée interface Doctolib
 
-**Activer Module KinéCare si :**
+**Activer Module MediDesk si :**
 - [ ] Besoin lien fort RDV ↔ dossier patient
 - [ ] Volonté améliorer préparation séances
 - [ ] Budget contraint
@@ -379,9 +379,9 @@ appointments:
 - [ ] Fonctionnalités métier spécifiques
 
 **Solution Hybride (Recommandée) :**
-- [ ] Import Doctolib dans KinéCare
+- [ ] Import Doctolib dans MediDesk
 - [ ] Activation rappels préparation
-- [ ] Module prise RDV KinéCare désactivé (pas de concurrence)
+- [ ] Module prise RDV MediDesk désactivé (pas de concurrence)
 - [ ] Réévaluation dans 6 mois
 
 ---
@@ -415,7 +415,7 @@ appointments:
 
 ---
 
-**Philosophie KinéCare :**  
+**Philosophie MediDesk :**  
 > "S'adapter à votre workflow, pas l'inverse"
 
 **Version :** 1.0.0  

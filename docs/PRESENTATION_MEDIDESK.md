@@ -1,4 +1,4 @@
-# 🏥 KinéCare - Présentation pour Cabinet de Kinésithérapie
+# 🏥 MediDesk - Présentation pour Cabinet de Kinésithérapie
 
 > **Transformez votre suivi patient avec une solution moderne, gratuite et sécurisée**
 
@@ -6,7 +6,7 @@
 
 ## 👋 En Quelques Mots
 
-KinéCare est une application web gratuite qui simplifie le suivi des douleurs de vos patients grâce à :
+MediDesk est une application web gratuite qui simplifie le suivi des douleurs de vos patients grâce à :
 
 ✅ **Silhouettes anatomiques interactives** - Visualisation immédiate des zones douloureuses  
 ✅ **Graphiques d'évolution** - Progrès patient en un coup d'œil  
@@ -20,7 +20,7 @@ KinéCare est une application web gratuite qui simplifie le suivi des douleurs d
 
 ---
 
-## 🎯 Pourquoi KinéCare ?
+## 🎯 Pourquoi MediDesk ?
 
 ### Le Problème Actuel
 
@@ -36,7 +36,7 @@ KinéCare est une application web gratuite qui simplifie le suivi des douleurs d
 - ❌ Complexité d'utilisation
 - ❌ Dépendance fournisseur externe
 
-### La Solution KinéCare
+### La Solution MediDesk
 
 **🎨 Interface Intuitive :**
 - ✅ Silhouettes anatomiques (18 zones)
@@ -68,7 +68,7 @@ KinéCare est une application web gratuite qui simplifie le suivi des douleurs d
 
 ### Option 1 : Demo En Ligne (Plus Simple)
 
-**🌐 URL de Démonstration :** `https://kinecare-demo.app`  
+**🌐 URL de Démonstration :** `https://medidesk-demo.app`  
 _(Note : URL à configurer avec votre serveur de test)_
 
 **👥 Comptes de Test Disponibles :**
@@ -145,7 +145,7 @@ http://localhost:8080
 
 **👤 Patient : Marc, 45 ans, lombalgie depuis 3 mois**
 
-**Avant KinéCare :**
+**Avant MediDesk :**
 ```
 Notes papier : "Douleur bas du dos 8/10"
 Séance 1 : "Amélioration ressentie"
@@ -153,7 +153,7 @@ Séance 5 : "Toujours douleur, mais moins ?"
 → Difficile de quantifier l'évolution
 ```
 
-**Avec KinéCare :**
+**Avec MediDesk :**
 ```
 📊 Séance 1 : Zones L4-L5 = 8/10
 📊 Séance 5 : Zones L4-L5 = 4/10
@@ -172,7 +172,7 @@ Séance 5 : "Toujours douleur, mais moins ?"
 
 **Responsable Cabinet : "Quels sont nos résultats sur les cervicalgies ?"**
 
-**Avant KinéCare :**
+**Avant MediDesk :**
 ```
 ❌ Nécessite relecture manuelle de tous les dossiers
 ❌ Calculs Excel manuels
@@ -180,7 +180,7 @@ Séance 5 : "Toujours douleur, mais moins ?"
 → Réponse : "Je ne sais pas précisément"
 ```
 
-**Avec KinéCare :**
+**Avec MediDesk :**
 ```
 ✅ Statistiques → Cervicalgies
 ✅ Résultats instantanés :
@@ -202,14 +202,14 @@ Séance 5 : "Toujours douleur, mais moins ?"
 
 **Audit CNIL : "Qui a accédé au dossier patient X ?"**
 
-**Avant KinéCare :**
+**Avant MediDesk :**
 ```
 ❌ Pas de traçabilité informatique
 ❌ Reconstitution manuelle impossible
 → Non-conformité Article 30 RGPD
 ```
 
-**Avec KinéCare :**
+**Avec MediDesk :**
 ```
 ✅ Historique complet :
    - 15/01/2025 14:30 - Marie Dubois (kiné) - Consultation dossier
@@ -224,7 +224,7 @@ Séance 5 : "Toujours douleur, mais moins ?"
 
 ## 📊 Comparaison Solutions
 
-| Critère | Dossiers Papier | Logiciel Cloud | **KinéCare** |
+| Critère | Dossiers Papier | Logiciel Cloud | **MediDesk** |
 |---------|-----------------|----------------|--------------|
 | **Coût** | Gratuit | 50-200€/mois | **0€** |
 | **Installation** | N/A | Inscription en ligne | 5 minutes |
@@ -237,7 +237,7 @@ Séance 5 : "Toujours douleur, mais moins ?"
 | **Conformité HDS** | N/A | Payant | **Non nécessaire (local)** |
 | **Dépendance Internet** | Non | **Oui** | **Non** |
 
-**🏆 Gagnant : KinéCare** (meilleur rapport fonctionnalités/coût/sécurité)
+**🏆 Gagnant : MediDesk** (meilleur rapport fonctionnalités/coût/sécurité)
 
 ---
 
@@ -430,14 +430,14 @@ Séance 5 : "Toujours douleur, mais moins ?"
 
 **Option A : Test En Ligne (Recommandé - 0 installation)**
 
-1. **Visitez :** `https://kinecare-demo.app`
+1. **Visitez :** `https://medidesk-demo.app`
 2. **Connectez-vous :** `marie.dubois@demo.com` / `demo123`
 3. **Explorez :** 15 minutes de libre découverte
 4. **Partagez :** Invitez collègues à tester aussi
 
 **Option B : Installation Cabinet**
 
-1. **Contactez-nous :** `kinecare@support.com`
+1. **Contactez-nous :** `medidesk@support.com`
 2. **RDV installation :** Visio 30 min ou sur place
 3. **Formation équipe :** 2h collective
 4. **Démarrage test :** Semaine suivante
@@ -473,7 +473,7 @@ Séance 5 : "Toujours douleur, mais moins ?"
 
 ## 🎯 En Résumé
 
-### KinéCare, c'est :
+### MediDesk, c'est :
 
 ✅ **Gratuit** - 0€, pas d'abonnement  
 ✅ **Simple** - Test en ligne 15 min  
@@ -503,10 +503,10 @@ Séance 5 : "Toujours douleur, mais moins ?"
 ## 📧 Contact & Test
 
 **🌐 Test En Ligne Immédiat :**  
-`https://kinecare-demo.app`
+`https://medidesk-demo.app`
 
 **📧 Questions & Démonstration :**  
-`kinecare@support.com`
+`medidesk@support.com`
 
 **💻 Code Source :**  
 `https://github.com/RBSoftwareAI/kine`
@@ -565,4 +565,4 @@ _(À ajouter : screenshots de l'interface)_
 
 ---
 
-**💡 N'attendez plus ! Testez KinéCare dès aujourd'hui et rejoignez les cabinets innovants.**
+**💡 N'attendez plus ! Testez MediDesk dès aujourd'hui et rejoignez les cabinets innovants.**

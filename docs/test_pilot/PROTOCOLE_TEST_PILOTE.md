@@ -1,4 +1,4 @@
-# PROTOCOLE DE TEST PILOTE - Application KinéCare
+# PROTOCOLE DE TEST PILOTE - Application MediDesk
 
 **Version:** 1.0  
 **Date:** 14 Novembre 2025  
@@ -12,7 +12,7 @@
 
 ### 1.1 Présentation du Projet
 
-**KinéCare** est une application mobile en cours de développement destinée à améliorer le suivi des patients en kinésithérapie et coaching APA (Activité Physique Adaptée).
+**MediDesk** est une application mobile en cours de développement destinée à améliorer le suivi des patients en kinésithérapie et coaching APA (Activité Physique Adaptée).
 
 ### 1.2 Objectifs du Test Pilote
 
@@ -86,7 +86,7 @@
 ❌ Numéro de sécurité sociale
 ❌ Adresse postale complète
 ❌ Numéro de téléphone
-❌ Email personnel (utiliser email test: patient001@test-kinecare.local)
+❌ Email personnel (utiliser email test: patient001@test-medidesk.local)
 ❌ Diagnostic médical précis
 ❌ Prescriptions médicales
 ❌ Photos identifiantes
@@ -151,7 +151,7 @@ Téléphone: [Numéro du cabinet]
 **Suivi et Support:**
 - ✅ Point mensuel avec chaque participant
 - ✅ Hotline test: [Numéro support]
-- ✅ Email support: support-test@kinecare-pilot.fr
+- ✅ Email support: support-test@medidesk-pilot.fr
 
 **Collecte de Feedback:**
 - 📋 Questionnaire satisfaction à M1, M3, M6
@@ -253,7 +253,7 @@ Le test peut être interrompu dans les cas suivants :
 
 Les données anonymisées du test pourront être utilisées pour :
 
-- ✅ Amélioration de l'application KinéCare
+- ✅ Amélioration de l'application MediDesk
 - ✅ Communication scientifique (congrès, articles)
 - ✅ Documentation commerciale (anonyme)
 
@@ -277,7 +277,7 @@ Les données anonymisées du test pourront être utilisées pour :
 | Contact | Fonction | Coordonnées |
 |---------|----------|-------------|
 | **Responsable Test** | Kinésithérapeute | [Email] / [Tél] |
-| **Support Technique** | Développeur | support-test@kinecare.fr |
+| **Support Technique** | Développeur | support-test@medidesk.fr |
 | **RGPD** | DPO / Responsable | rgpd@cabinet-tourcoing.fr |
 
 ### 9.2 Autorités de Contrôle

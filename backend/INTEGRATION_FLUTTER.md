@@ -2,7 +2,7 @@
 
 ## 📋 Vue d'ensemble
 
-Ce guide explique comment connecter l'application Flutter KinéCare au backend local SQLite.
+Ce guide explique comment connecter l'application Flutter MediDesk au backend local SQLite.
 
 **Architecture :**
 ```

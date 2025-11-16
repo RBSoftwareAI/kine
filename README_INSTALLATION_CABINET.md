@@ -1,12 +1,12 @@
-# 🏥 KinéCare - Installation Cabinet de Kinésithérapie
+# 🏥 MediDesk - Installation Cabinet de Kinésithérapie
 
 > **Solution 100% locale - Zéro coût - Données sécurisées**
 
 ---
 
-## 🎯 Qu'est-ce que KinéCare ?
+## 🎯 Qu'est-ce que MediDesk ?
 
-KinéCare est une application de suivi des douleurs pour cabinets de kinésithérapie et coachs APA.
+MediDesk est une application de suivi des douleurs pour cabinets de kinésithérapie et coachs APA.
 
 **✅ Ce que vous obtenez :**
 - Suivi des zones de douleur sur silhouettes anatomiques
@@ -31,7 +31,7 @@ KinéCare est une application de suivi des douleurs pour cabinets de kinésithé
 **Lien GitHub :** https://github.com/RBSoftwareAI/kine
 
 Cliquez sur **"Code"** → **"Download ZIP"**  
-Extraire dans un dossier (ex: `C:\KinéCare`)
+Extraire dans un dossier (ex: `C:\MediDesk`)
 
 ### Étape 2 : Installer Python
 
@@ -42,7 +42,7 @@ Si pas déjà installé :
 
 ### Étape 3 : Installer les dépendances
 
-Ouvrir un terminal dans le dossier KinéCare :
+Ouvrir un terminal dans le dossier MediDesk :
 
 ```bash
 pip install -r backend/requirements.txt
@@ -66,10 +66,10 @@ python3 backend/start_server.py
 
 **Vous verrez :**
 ```
-🏥 KinéCare Local Server Started
+🏥 MediDesk Local Server Started
 ===============================================================
 
-✅ Database: /path/to/data/kinecare.db
+✅ Database: /path/to/data/medidesk.db
 ✅ API Endpoints: http://localhost:8080/api/
 ✅ Flutter Web: http://localhost:8080/
 
@@ -94,9 +94,9 @@ Ouvrir navigateur → `http://192.168.1.25:8080/`
 
 | Rôle | Email | Mot de passe |
 |------|-------|--------------|
-| **Administrateur** | admin@kinecare.local | admin123 |
-| **Kinésithérapeute** | marie.dubois@kinecare.demo | demo123 |
-| **Coach APA** | pierre.leroy@kinecare.demo | demo123 |
+| **Administrateur** | admin@medidesk.local | admin123 |
+| **Kinésithérapeute** | marie.dubois@medidesk.demo | demo123 |
+| **Coach APA** | pierre.leroy@medidesk.demo | demo123 |
 | **Patient** | jean.dupont@email.demo | demo123 |
 
 **⚠️ À faire après installation :**
@@ -113,7 +113,7 @@ Ouvrir navigateur → `http://192.168.1.25:8080/`
 2. Aller sur `http://192.168.x.x:8080/`
 3. Appuyer sur le bouton **Partager** (carré avec flèche)
 4. Choisir **"Sur l'écran d'accueil"**
-5. L'icône KinéCare apparaît comme une app native !
+5. L'icône MediDesk apparaît comme une app native !
 
 ### Android
 
@@ -195,12 +195,12 @@ L'hébergement de données de santé (HDS) est obligatoire uniquement pour les d
 ### Où sont les données ?
 
 ```
-KinéCare/
+MediDesk/
 ├── data/
-│   ├── kinecare.db          ← Base de données principale
+│   ├── medidesk.db          ← Base de données principale
 │   └── backups/             ← Sauvegardes automatiques
-│       ├── kinecare_backup_20250115_120000.db
-│       ├── kinecare_backup_20250108_120000.db
+│       ├── medidesk_backup_20250115_120000.db
+│       ├── medidesk_backup_20250108_120000.db
 │       └── ...
 ```
 
@@ -213,7 +213,7 @@ python3 -c "from backend.database.db_manager import get_db; get_db().backup_data
 ### Restauration
 
 1. Arrêter le serveur (Ctrl+C)
-2. Remplacer `data/kinecare.db` par le fichier de sauvegarde
+2. Remplacer `data/medidesk.db` par le fichier de sauvegarde
 3. Redémarrer : `python3 backend/start_server.py`
 
 **💡 Recommandation :** Copier le dossier `data/backups/` sur clé USB chaque semaine.

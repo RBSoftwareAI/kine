@@ -1,9 +1,9 @@
-# MENTIONS LÉGALES - Test Pilote KinéCare
+# MENTIONS LÉGALES - Test Pilote MediDesk
 ## ⚠️ Hébergement Firebase (Non-HDS)
 
 **Version:** 1.0  
 **Date:** 14 Novembre 2025  
-**Application:** KinéCare Test Pilote
+**Application:** MediDesk Test Pilote
 
 ---
 
@@ -46,7 +46,7 @@
 
 **RBSoftware AI**
 - **Statut:** Développeur indépendant / Micro-entreprise
-- **Email technique:** support-test@kinecare.fr
+- **Email technique:** support-test@medidesk.fr
 - **Rôle:** Développement, maintenance technique, support
 
 ---
@@ -256,7 +256,7 @@ https://firebase.google.com/support/privacy/data-processing-terms
 
 ## 8. PROPRIÉTÉ INTELLECTUELLE
 
-### 8.1 Application KinéCare
+### 8.1 Application MediDesk
 
 **Droits d'auteur:**  
 © 2025 RBSoftware AI - Tous droits réservés
@@ -266,8 +266,8 @@ Licence temporaire accordée aux participants du test pilote uniquement, non ces
 
 ### 8.2 Marques et Logos
 
-- **"KinéCare"** : Marque déposée (en cours)
-- **Logo KinéCare** : Propriété de RBSoftware AI
+- **"MediDesk"** : Marque déposée (en cours)
+- **Logo MediDesk** : Propriété de RBSoftware AI
 - **Thème Workout Warrior** : Inspiration visuelle (non commerciale)
 
 ### 8.3 Données Générées par les Utilisateurs
@@ -305,7 +305,7 @@ L'éditeur s'engage à :
 ╔══════════════════════════════════════════════════════════╗
 ║  ⚠️  AVERTISSEMENT MÉDICAL                              ║
 ║                                                          ║
-║  KinéCare est un OUTIL D'AIDE au suivi, pas un          ║
+║  MediDesk est un OUTIL D'AIDE au suivi, pas un          ║
 ║  dispositif médical certifié.                           ║
 ║                                                          ║
 ║  ❌ NE REMPLACE PAS une consultation médicale           ║
@@ -385,7 +385,7 @@ En cas de litige, les **tribunaux de Lille** (France) seront compétents.
 
 | Contact | Fonction | Coordonnées |
 |---------|----------|-------------|
-| **Support Test** | Assistance technique | support-test@kinecare.fr |
+| **Support Test** | Assistance technique | support-test@medidesk.fr |
 | **RGPD** | Protection données | rgpd@cabinet-tourcoing.fr |
 | **Responsable Test** | Cabinet Tourcoing | [Téléphone] |
 | **Incident Sécurité** | Urgence | incident-security@cabinet-tourcoing.fr |
@@ -435,4 +435,4 @@ En cas de litige, les **tribunaux de Lille** (France) seront compétents.
 
 *Ces mentions légales sont conformes au RGPD (UE 2016/679), à la Loi Informatique et Libertés (modifiée 2019), et au Code de la Santé Publique français.*
 
-**Pour toute question:** support-test@kinecare.fr
+**Pour toute question:** support-test@medidesk.fr

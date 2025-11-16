@@ -1,5 +1,5 @@
 # REGISTRE DES TRAITEMENTS DE DONNÉES PERSONNELLES
-## Application KinéCare - Test Pilote
+## Application MediDesk - Test Pilote
 
 **Organisme:** Cabinet de Kinésithérapie Tourcoing  
 **Responsable de traitement:** [Nom du Kinésithérapeute Principal]  
@@ -410,7 +410,7 @@ https://firebase.google.com/support/privacy/data-processing-terms
 |------|-----|-------|-----------|
 | **Responsable de traitement** | [Nom] | rgpd@cabinet-tourcoing.fr | [Tél] |
 | **DPO (si applicable)** | [Nom] | dpo@cabinet-tourcoing.fr | [Tél] |
-| **Support technique** | RBSoftware AI | support-test@kinecare.fr | - |
+| **Support technique** | RBSoftware AI | support-test@medidesk.fr | - |
 
 ### Autorité de Contrôle
 

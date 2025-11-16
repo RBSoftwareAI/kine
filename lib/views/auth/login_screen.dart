@@ -67,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const SizedBox(height: 20),
                     const Text(
-                      'KinéCare',
+                      'MediDesk',
                       style: TextStyle(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Suivi kinésithérapie professionnel',
+                      'Suivi patient professionnel',
                       style: TextStyle(
                         fontSize: 16,
                         color: AppTheme.grey,

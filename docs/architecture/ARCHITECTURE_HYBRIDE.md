@@ -2,7 +2,7 @@
 
 ## 📋 Vue d'ensemble
 
-KinéCare utilise une **architecture hybride intelligente** qui combine :
+MediDesk utilise une **architecture hybride intelligente** qui combine :
 - **Stockage local SQLite** pour les données de santé sensibles
 - **Firebase Cloud (optionnel)** pour les données non-sensibles (rendez-vous, messagerie)
 

@@ -1,4 +1,4 @@
-# 🏗️ KinéCare - Architecture Hybride Local + Cloud
+# 🏗️ MediDesk - Architecture Hybride Local + Cloud
 
 ## 📊 Vue d'Ensemble
 
@@ -11,7 +11,7 @@
 │  │  🖥️  PC Principal Salle de Soin                      │  │
 │  │                                                        │  │
 │  │  ┌──────────────────────────────────────────────┐    │  │
-│  │  │  KinéCare Server (Python Flask)             │    │  │
+│  │  │  MediDesk Server (Python Flask)             │    │  │
 │  │  │  • Port 8080 (configurable)                 │    │  │
 │  │  │  • API REST complète                        │    │  │
 │  │  │  • SQLite database (données santé)          │    │  │
@@ -66,7 +66,7 @@
 | **pathology_stats** | Stats anonymisées (k≥5) | 1 an |
 | **cabinet_config** | Configuration cabinet | Permanente |
 
-**📍 Emplacement:** `data/kinecare.db` (local uniquement)  
+**📍 Emplacement:** `data/medidesk.db` (local uniquement)  
 **💾 Sauvegardes:** `data/backups/` (hebdomadaire automatique)  
 **🔐 Accès:** Réseau local uniquement (pas Internet)
 

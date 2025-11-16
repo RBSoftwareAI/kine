@@ -1,5 +1,5 @@
 # PLAN DE MIGRATION FIREBASE → HDS
-## KinéCare - Passage en Production Certifiée
+## MediDesk - Passage en Production Certifiée
 
 **Version:** 1.0  
 **Date:** 14 Novembre 2025  
@@ -11,7 +11,7 @@
 
 ### Objectif
 
-Migrer l'application KinéCare depuis **Firebase (test pilote)** vers un **hébergeur certifié HDS** pour un déploiement commercial conforme à la réglementation française sur les données de santé.
+Migrer l'application MediDesk depuis **Firebase (test pilote)** vers un **hébergeur certifié HDS** pour un déploiement commercial conforme à la réglementation française sur les données de santé.
 
 ### Timeline Globale
 
@@ -196,7 +196,7 @@ https://www.ovhcloud.com/fr/public-cloud/healthcare-data-hosting/
 **Tâches:**
 1. ✅ Créer compte OVH Cloud
 2. ✅ Activer option Health Data (HDS)
-3. ✅ Créer projet "kinecare-production"
+3. ✅ Créer projet "medidesk-production"
 4. ✅ Provisionner ressources:
    - VM Compute (2 vCPU, 4GB RAM)
    - PostgreSQL Database (Shared Plan)
@@ -322,8 +322,8 @@ if __name__ == "__main__":
     
     pg_conn = psycopg2.connect(
         host="postgresql.hds.ovh.net",
-        database="kinecare",
-        user="kinecare_user",
+        database="medidesk",
+        user="medidesk_user",
         password="SECURE_PASSWORD"
     )
     
@@ -391,7 +391,7 @@ class FirebaseRepository implements DataRepository {
 ```dart
 // lib/repositories/hds_repository.dart
 class HdsRepository implements DataRepository {
-  final String _apiBaseUrl = 'https://api-kinecare.hds.ovh.net';
+  final String _apiBaseUrl = 'https://api-medidesk.hds.ovh.net';
   final http.Client _client = http.Client();
   String? _authToken;
   
@@ -435,7 +435,7 @@ class AppConfig {
   static String _getHdsApiUrl() {
     return const String.fromEnvironment(
       'HDS_API_URL',
-      defaultValue: 'https://api-kinecare.hds.ovh.net',
+      defaultValue: 'https://api-medidesk.hds.ovh.net',
     );
   }
 }
@@ -510,7 +510,7 @@ flutter drive --target=test_driver/app.dart
 **Tools utilisés:**
 ```bash
 # Scan sécurité
-owasp-zap -quickurl https://api-kinecare.hds.ovh.net
+owasp-zap -quickurl https://api-medidesk.hds.ovh.net
 
 # Test charge
 artillery run load-test-config.yml
@@ -525,36 +525,36 @@ artillery run load-test-config.yml
 **Déploiement VM OVH:**
 ```bash
 # Connexion VM
-ssh ubuntu@vm-kinecare-prod.ovh.net
+ssh ubuntu@vm-medidesk-prod.ovh.net
 
 # Installation stack
 sudo apt update && sudo apt upgrade -y
 sudo apt install python3.12 python3-pip nginx -y
 
 # Déploiement API
-cd /opt/kinecare-api
+cd /opt/medidesk-api
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 
 # Service systemd
-sudo systemctl start kinecare-api
-sudo systemctl enable kinecare-api
+sudo systemctl start medidesk-api
+sudo systemctl enable medidesk-api
 
 # Configuration Nginx (reverse proxy)
-sudo cp nginx.conf /etc/nginx/sites-available/kinecare
-sudo ln -s /etc/nginx/sites-available/kinecare /etc/nginx/sites-enabled/
+sudo cp nginx.conf /etc/nginx/sites-available/medidesk
+sudo ln -s /etc/nginx/sites-available/medidesk /etc/nginx/sites-enabled/
 sudo systemctl reload nginx
 
 # Certificat SSL (Let's Encrypt)
-sudo certbot --nginx -d api-kinecare.hds.ovh.net
+sudo certbot --nginx -d api-medidesk.hds.ovh.net
 ```
 
 **Configuration PostgreSQL:**
 ```sql
 -- Création utilisateur production
-CREATE USER kinecare_prod WITH PASSWORD 'STRONG_RANDOM_PASSWORD';
-GRANT ALL PRIVILEGES ON DATABASE kinecare TO kinecare_prod;
+CREATE USER medidesk_prod WITH PASSWORD 'STRONG_RANDOM_PASSWORD';
+GRANT ALL PRIVILEGES ON DATABASE medidesk TO medidesk_prod;
 
 -- Optimisations
 ALTER SYSTEM SET shared_buffers = '1GB';
@@ -565,7 +565,7 @@ ALTER SYSTEM SET effective_cache_size = '3GB';
 
 **1. Backup Firebase (avant migration):**
 ```bash
-firebase firestore:export gs://kinecare-backup/$(date +%Y%m%d)
+firebase firestore:export gs://medidesk-backup/$(date +%Y%m%d)
 ```
 
 **2. Migration données test:**
@@ -596,7 +596,7 @@ SELECT * FROM pain_points WHERE intensity > 10;
 **5. Switch DNS (si applicable):**
 ```bash
 # Pointer domaine vers OVH
-api.kinecare.app → vm-kinecare-prod.ovh.net
+api.medidesk.app → vm-medidesk-prod.ovh.net
 ```
 
 ---
@@ -747,7 +747,7 @@ api.kinecare.app → vm-kinecare-prod.ovh.net
 | Rôle | Nom | Contact |
 |------|-----|---------|
 | **Responsable projet** | [Nom] | [Email] |
-| **Développeur lead** | RBSoftware AI | support@kinecare.fr |
+| **Développeur lead** | RBSoftware AI | support@medidesk.fr |
 | **Référent OVH** | [À assigner] | - |
 | **Responsable RGPD** | [Nom] | rgpd@cabinet-tourcoing.fr |
 
@@ -819,4 +819,4 @@ TOTAL: 13 semaines (~3 mois)
 
 *Ce plan de migration est conforme aux exigences HDS et RGPD pour le déploiement d'applications de santé numérique en France.*
 
-**Contact:** support@kinecare.fr
+**Contact:** support@medidesk.fr

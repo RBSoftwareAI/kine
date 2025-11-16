@@ -37,7 +37,7 @@ python3 backend/database/encryption_manager.py
 
 **Processus :**
 ```
-🔐 KinéCare Database Encryption Setup
+🔐 MediDesk Database Encryption Setup
 ===============================================================
 
 Enter master passphrase: ************
@@ -49,7 +49,7 @@ Confirm passphrase: ************
 📋 Next steps:
    1. Test database access with new passphrase
    2. Verify application still works
-   3. Delete backup file: data/kinecare.db.backup
+   3. Delete backup file: data/medidesk.db.backup
 
 🔑 Master Passphrase Recovery:
    - Store passphrase in password manager
@@ -60,11 +60,11 @@ Confirm passphrase: ************
 **Résultat :**
 ```bash
 # Avant chiffrement
-file data/kinecare.db
+file data/medidesk.db
 → SQLite 3.x database
 
 # Après chiffrement
-file data/kinecare.db
+file data/medidesk.db
 → data (impossible à lire sans mot de passe)
 ```
 
@@ -115,7 +115,7 @@ Exemple FORT:
 K1n3-C@r3_T0urc01ng!2025
 
 Exemple FAIBLE:
-kinecare123  ❌
+medidesk123  ❌
 ```
 
 **Pour les comptes utilisateurs :**
@@ -153,11 +153,11 @@ two_factor_auth:
 - **2** supports différents
 - **1** copie hors site
 
-**Application KinéCare :**
+**Application MediDesk :**
 
 **Copy 1 : Base principale**
 ```
-📂 data/kinecare.db (chiffrée)
+📂 data/medidesk.db (chiffrée)
 └─ PC serveur cabinet
 ```
 
@@ -188,7 +188,7 @@ python3 backend/utils/cloud_backup.py
 
 **Assistant :**
 ```
-☁️  KinéCare Cloud Backup Setup
+☁️  MediDesk Cloud Backup Setup
 ===============================================================
 
 📋 Available providers:
@@ -199,14 +199,14 @@ python3 backend/utils/cloud_backup.py
 
 Select provider [1]: 1
 
-Backup folder [/home/user/KinéCare_Backups_Cloud]: /media/usb_backup
+Backup folder [/home/user/MediDesk_Backups_Cloud]: /media/usb_backup
 
 Backup frequency in hours [24]: 12
 Retention period in days [30]: 90
 
 🧪 Testing backup...
 ✅ Backup created: 87 KB (compressed + encrypted)
-✅ Backup uploaded to: /media/usb_backup/kinecare_backup_20250115_143000.db.gz.enc
+✅ Backup uploaded to: /media/usb_backup/medidesk_backup_20250115_143000.db.gz.enc
 
 ✅ BACKUP CONFIGURATION SUCCESSFUL
 
@@ -280,22 +280,22 @@ backup_config = {
 **Procédure :**
 
 ```bash
-# 1. Installer KinéCare sur nouveau PC
+# 1. Installer MediDesk sur nouveau PC
 git clone https://github.com/RBSoftwareAI/kine.git
 cd kine
 pip install -r backend/requirements.txt
 
 # 2. Récupérer dernière sauvegarde
 # Depuis Google Drive / USB / Dropbox
-cp /media/usb_backup/kinecare_backup_20250115_143000.db.gz.enc data/
+cp /media/usb_backup/medidesk_backup_20250115_143000.db.gz.enc data/
 
 # 3. Déchiffrer la sauvegarde
-python3 backend/utils/restore_backup.py data/kinecare_backup_20250115_143000.db.gz.enc
+python3 backend/utils/restore_backup.py data/medidesk_backup_20250115_143000.db.gz.enc
 
 Enter master passphrase: ************
 🔄 Decrypting backup...
 🔄 Decompressing...
-✅ Database restored: data/kinecare.db
+✅ Database restored: data/medidesk.db
 
 # 4. Vérifier intégrité
 python3 backend/database/db_manager.py

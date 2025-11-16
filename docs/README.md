@@ -1,6 +1,6 @@
 # 📚 DOCUMENTATION TEST PILOTE KINECARE
 
-Ce dossier contient toute la documentation nécessaire pour le **test pilote** de l'application KinéCare à Tourcoing.
+Ce dossier contient toute la documentation nécessaire pour le **test pilote** de l'application MediDesk à Tourcoing.
 
 ---
 
@@ -51,7 +51,7 @@ docs/
 
 - [ ] Imprimer Protocole de Test (1 exemplaire par participant)
 - [ ] Imprimer Formulaire Consentement (2 exemplaires par participant)
-- [ ] Créer dossier physique "Test Pilote KinéCare"
+- [ ] Créer dossier physique "Test Pilote MediDesk"
 - [ ] Intégrer Mentions Légales dans l'application
 
 ### 2️⃣ **Informations à Compléter**
@@ -196,7 +196,7 @@ Pour rester dans un cadre R&D acceptable.
 ## 📞 CONTACTS
 
 ### Support Technique
-📧 Email: support-test@kinecare.fr  
+📧 Email: support-test@medidesk.fr  
 📱 Téléphone: [À compléter]
 
 ### RGPD / Protection Données
@@ -246,6 +246,6 @@ Semaine 13+ : Évaluation finale + migration HDS
 
 ---
 
-**📧 Pour toute question sur ces documents:** support-test@kinecare.fr
+**📧 Pour toute question sur ces documents:** support-test@medidesk.fr
 
-**🎯 Objectif:** Tester KinéCare dans un cadre légal sécurisé, puis migrer vers HDS pour commercialisation conforme.
+**🎯 Objectif:** Tester MediDesk dans un cadre légal sécurisé, puis migrer vers HDS pour commercialisation conforme.

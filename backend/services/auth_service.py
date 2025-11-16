@@ -12,7 +12,7 @@ from typing import Dict, Any, Optional
 class AuthService:
     """Service d'authentification et gestion des utilisateurs"""
     
-    def __init__(self, db_manager, secret_key: str = 'kinecare-jwt-secret-2024'):
+    def __init__(self, db_manager, secret_key: str = 'medidesk-jwt-secret-2024'):
         self.db = db_manager
         self.secret_key = secret_key
         self.algorithm = 'HS256'

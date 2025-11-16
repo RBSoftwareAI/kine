@@ -1,8 +1,8 @@
-# 📦 Installation KinéCare - Serveur Local
+# 📦 Installation MediDesk - Serveur Local
 
 ## 🎯 Objectif
 
-Installer KinéCare sur un PC dans la salle de soin avec accès depuis d'autres appareils sur le réseau local (PC, tablettes, smartphones).
+Installer MediDesk sur un PC dans la salle de soin avec accès depuis d'autres appareils sur le réseau local (PC, tablettes, smartphones).
 
 ---
 
@@ -45,7 +45,7 @@ Installer KinéCare sur un PC dans la salle de soin avec accès depuis d'autres 
 
 ## 🚀 Installation Rapide (< 5 minutes)
 
-### Étape 1: Télécharger KinéCare
+### Étape 1: Télécharger MediDesk
 
 **Option A: Depuis GitHub**
 ```bash
@@ -55,7 +55,7 @@ cd kine
 
 **Option B: Depuis archive ZIP**
 1. Télécharger: https://github.com/RBSoftwareAI/kine/archive/main.zip
-2. Extraire dans un dossier (ex: `C:\KinéCare` ou `~/KinéCare`)
+2. Extraire dans un dossier (ex: `C:\MediDesk` ou `~/MediDesk`)
 3. Ouvrir un terminal dans ce dossier
 
 ### Étape 2: Installer les dépendances
@@ -90,10 +90,10 @@ python3 backend/start_server.py
 
 **Vous verrez:**
 ```
-🏥 KinéCare Local Server Started
+🏥 MediDesk Local Server Started
 ===============================================================
 
-✅ Database: /path/to/data/kinecare.db
+✅ Database: /path/to/data/medidesk.db
 ✅ API Endpoints: http://localhost:8080/api/
 ✅ Flutter Web: http://localhost:8080/
 
@@ -123,9 +123,9 @@ Si vous avez généré les données de démonstration:
 
 | Rôle | Email | Mot de passe |
 |------|-------|--------------|
-| **Administrateur** | admin@kinecare.local | admin123 |
-| **Kinésithérapeute** | marie.dubois@kinecare.demo | demo123 |
-| **Coach APA** | pierre.leroy@kinecare.demo | demo123 |
+| **Administrateur** | admin@medidesk.local | admin123 |
+| **Kinésithérapeute** | marie.dubois@medidesk.demo | demo123 |
+| **Coach APA** | pierre.leroy@medidesk.demo | demo123 |
 | **Patient** | jean.dupont@email.demo | demo123 |
 
 ---
@@ -149,7 +149,7 @@ Si vous avez généré les données de démonstration:
 **Sur iOS (iPhone/iPad):**
 1. Appuyer sur le bouton **Partager** (carré avec flèche)
 2. Choisir **Sur l'écran d'accueil**
-3. L'icône KinéCare apparaît comme une app native
+3. L'icône MediDesk apparaît comme une app native
 
 **Sur Android:**
 1. Menu → **Installer l'application**
@@ -214,7 +214,7 @@ ip addr show
 ### Sauvegarde Automatique
 
 Le système crée automatiquement des sauvegardes hebdomadaires dans:
-- `data/backups/kinecare_backup_YYYYMMDD_HHMMSS.db`
+- `data/backups/medidesk_backup_YYYYMMDD_HHMMSS.db`
 
 ### Sauvegarde Manuelle
 
@@ -231,7 +231,7 @@ python3 -c "from backend.database.db_manager import get_db; get_db().backup_data
 ### Restauration depuis Sauvegarde
 
 1. Arrêter le serveur (Ctrl+C)
-2. Remplacer `data/kinecare.db` par le fichier de sauvegarde
+2. Remplacer `data/medidesk.db` par le fichier de sauvegarde
 3. Redémarrer le serveur
 
 ---

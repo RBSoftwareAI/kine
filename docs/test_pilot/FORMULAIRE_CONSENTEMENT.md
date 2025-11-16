@@ -1,5 +1,5 @@
 # FORMULAIRE DE CONSENTEMENT ÉCLAIRÉ
-## Test Pilote Application KinéCare
+## Test Pilote Application MediDesk
 
 **Cabinet de Kinésithérapie - Tourcoing**  
 **Version:** 1.0 | **Date:** 14 Novembre 2025
@@ -9,7 +9,7 @@
 ## INFORMATIONS SUR LE TEST
 
 ### Titre du Projet
-**Test pilote de l'application mobile KinéCare pour le suivi des patients en kinésithérapie**
+**Test pilote de l'application mobile MediDesk pour le suivi des patients en kinésithérapie**
 
 ### Responsable du Test
 **Cabinet de Kinésithérapie Tourcoing**  
@@ -20,13 +20,13 @@ Email: [Email]
 
 ### Développeur
 **RBSoftware AI**  
-Email technique: support-test@kinecare.fr
+Email technique: support-test@medidesk.fr
 
 ---
 
 ## 1. OBJECTIF DU TEST
 
-Je comprends que l'application KinéCare est actuellement en **phase de test pilote** et que ma participation vise à :
+Je comprends que l'application MediDesk est actuellement en **phase de test pilote** et que ma participation vise à :
 
 - ✅ Évaluer l'ergonomie et la facilité d'utilisation
 - ✅ Tester la fiabilité du suivi des douleurs
@@ -239,7 +239,7 @@ Je peux **retirer mon consentement à tout moment**, sans justification et sans 
 
 **Pour toute question durant le test :**
 
-📞 **Support technique :** support-test@kinecare.fr  
+📞 **Support technique :** support-test@medidesk.fr  
 📞 **Responsable test :** [Téléphone cabinet]  
 📧 **RGPD :** rgpd@cabinet-kine-tourcoing.fr
 
@@ -265,7 +265,7 @@ Je peux **retirer mon consentement à tout moment**, sans justification et sans 
 
 ### ☑️ Je consens librement à :
 
-- [ ] **Participer** au test pilote de l'application KinéCare
+- [ ] **Participer** au test pilote de l'application MediDesk
 - [ ] **Utiliser** l'application selon le protocole défini
 - [ ] **Permettre** la collecte de mes données pseudonymisées
 - [ ] **Répondre** aux questionnaires de satisfaction
@@ -274,7 +274,7 @@ Je peux **retirer mon consentement à tout moment**, sans justification et sans 
 ### ☑️ Après la fin du test, j'accepte (optionnel) :
 
 - [ ] **Conservation anonymisée** de mes données pour statistiques agrégées
-- [ ] **Être recontacté(e)** pour la version commerciale de KinéCare
+- [ ] **Être recontacté(e)** pour la version commerciale de MediDesk
 
 ---
 

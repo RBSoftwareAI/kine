@@ -1,4 +1,4 @@
-# 🏥 KinéCare - Suivi des Douleurs pour Cabinets de Kinésithérapie
+# 🏥 MediDesk - Suivi Patient pour Professionnels de Santé
 
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/RBSoftwareAI/kine)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
@@ -11,7 +11,7 @@
 
 ## 🎯 En Bref
 
-KinéCare est une solution complète pour cabinets de kinésithérapie et coachs APA :
+MediDesk est une solution complète pour professionnels de santé (kinésithérapeutes, ostéopathes, podologues, ergothérapeutes, coachs APA, etc.) :
 
 ✅ **Silhouettes anatomiques** - 18 zones corporelles interactives  
 ✅ **Graphiques d'évolution** - Visualisation avant/après séance  
@@ -28,7 +28,7 @@ KinéCare est une solution complète pour cabinets de kinésithérapie et coachs
 ### Test En Ligne (15 minutes)
 
 **1. Visitez la démo :**  
-`https://kinecare-demo.app` _(URL à configurer)_
+`https://www.medidesk.fr` _(en configuration)_
 
 **2. Connectez-vous :**
 ```
@@ -67,10 +67,33 @@ python3 backend/start_server.py
 ```
 
 **Comptes demo :**
-- `admin@kinecare.local` / `admin123`
-- `marie.dubois@kinecare.demo` / `demo123`
+- `admin@medidesk.local` / `admin123`
+- `marie.dubois@medidesk.demo` / `demo123`
 
 📄 **Guide installation complet :** [README_INSTALLATION_CABINET.md](README_INSTALLATION_CABINET.md)
+
+---
+
+## 🏥 Professions de Santé Cibles
+
+MediDesk s'adresse à **tous les professionnels du soin** qui suivent l'évolution des douleurs :
+
+### Phase 1 (Actuellement)
+- ✅ **Kinésithérapeutes** (~90 000 en France)
+- ✅ **Coachs APA** (Activité Physique Adaptée)
+
+### Phase 2 (Extension naturelle)
+- 🔥 **Ostéopathes** (~35 000) - Manipulation vertébrale, suivi douleur
+- 🔥 **Chiropracteurs** - Ajustements vertébraux
+- 🔥 **Podologues** (~13 000) - Douleurs plantaires, posturales
+- 🔥 **Ergothérapeutes** (~15 000) - Rééducation fonctionnelle
+- 🔥 **Médecins du sport** - Traumatologie sportive
+- 🔥 **Rhumatologues** - Pathologies articulaires chroniques
+- 🔥 **Médecins MPR** (Médecine Physique et Réadaptation)
+- 🔥 **Centres de rééducation** - Suivi pluridisciplinaire
+- 🔥 **Infirmiers libéraux** - Soins à domicile, douleur chronique
+
+**Potentiel marché France : ~150 000+ professionnels** 🚀
 
 ---
 
@@ -80,7 +103,7 @@ python3 backend/start_server.py
 
 | Document | Description | Public |
 |----------|-------------|--------|
-| 📄 [PRESENTATION_KINECARE.md](docs/PRESENTATION_KINECARE.md) | **Document de conviction** (15KB) | Responsable cabinet |
+| 📄 [PRESENTATION_MEDIDESK.md](docs/PRESENTATION_MEDIDESK.md) | **Document de conviction** (15KB) | Responsable cabinet |
 | ⏱️ [GUIDE_DEMO_15MIN.md](docs/GUIDE_DEMO_15MIN.md) | **Script démo minute par minute** (14KB) | Commercial/Formateur |
 | 📦 [README_INSTALLATION_CABINET.md](README_INSTALLATION_CABINET.md) | **Guide installation simplifié** (10KB) | Utilisateur final |
 
@@ -110,20 +133,14 @@ python3 backend/start_server.py
 
 ## 🎨 Fonctionnalités
 
-### Pour les Kinésithérapeutes
+### Pour les Professionnels de Santé
 
 ✅ **Enregistrement rapide** - 2 min (vs 5 min papier)  
 ✅ **Silhouettes anatomiques** - 18 zones corporelles  
 ✅ **Comparaison séances** - Avant/après immédiat  
 ✅ **Graphiques automatiques** - Courbes évolution  
 ✅ **Notes cliniques** - Contextualisées par séance  
-
-### Pour les Coachs APA
-
-✅ **Suivi évolution globale** - Zones stabilisées/améliorées  
-✅ **Coordination kinés** - Historique partagé  
-✅ **Statistiques groupes** - Efficacité programmes  
-✅ **Adaptation exercices** - Selon zones douloureuses  
+✅ **Adaptation traitement** - Selon zones douloureuses  
 
 ### Pour les Responsables Cabinet
 
@@ -162,30 +179,37 @@ python3 backend/start_server.py
 
 ---
 
-## 💰 Coûts & Économies
+## 💰 Modèle Économique
 
-### Investissement
+### Phase Test Pilote (Actuelle)
 
-| Poste | Coût | Fréquence |
-|-------|------|-----------|
-| **Logiciel KinéCare** | 0€ | Gratuit |
-| **Installation** | 0€ | DIY 30 min |
-| **Formation** | 0€ | Auto-formation 2h |
-| **Chiffrement** | 0€ | Inclus |
-| **Sauvegarde USB** | 20€ | Unique |
-| **Sauvegarde cloud** | 0-10€ | /mois |
-| **TOTAL An 1** | **~50€** | - |
+🎁 **100% GRATUIT** - Version actuelle totalement gratuite pendant phase de test (3-6 mois)
 
-### Économies
+### Modèle Freemium (Future)
 
-| Comparaison | Coût/mois | Économie/an |
-|-------------|-----------|-------------|
-| **Doctolib** | 129€ | 1 548€ |
-| **Solutions cloud** | 50-200€ | 600-2 400€ |
-| **Certification HDS** | 100-200€ | 1 200-2 400€ |
-| **TOTAL ÉCONOMIES** | - | **2 400-6 348€** |
+**VERSION GRATUITE (à vie)**
+- ✅ 1 professionnel
+- ✅ 20 patients max
+- ✅ Cartographie douleur 18 zones
+- ✅ Historique 3 mois
+- ✅ Statistiques basiques
 
-**ROI : Rentable dès le 1er mois**
+**VERSION PRO** - 29€/mois ou 290€/an
+- ✅ Patients illimités
+- ✅ Historique illimité
+- ✅ Export PDF personnalisé
+- ✅ Statistiques avancées
+- ✅ Backup cloud automatique
+- ✅ Support prioritaire
+- ✅ Multi-praticien (jusqu'à 3)
+
+**VERSION CABINET** - 79€/mois ou 790€/an
+- ✅ Tout PRO +
+- ✅ Praticiens illimités
+- ✅ Gestion multi-sites
+- ✅ API intégration
+- ✅ Formation personnalisée
+- ✅ Support dédié
 
 ---
 
@@ -202,12 +226,13 @@ python3 backend/start_server.py
 
 ### Commits GitHub
 
-📦 **Total : 23 commits**
+📦 **Total : 24 commits**
 - Architecture backend local (3 commits)
 - Documentation complète (5 commits)
 - Sécurité renforcée (1 commit)
 - Présentation commerciale (1 commit)
 - MVP Phase 1 complet (13 commits)
+- Renommage MediDesk (1 commit)
 
 **Branches synchronisées :** `main` ✅ + `base` ✅
 
@@ -269,7 +294,7 @@ Storage: shared_preferences 2.5.3, Hive 2.2.3
 - Étapes reproduction
 - Comportement attendu vs réel
 - Capture écran si applicable
-- Version KinéCare (`git log --oneline -1`)
+- Version MediDesk (`git log --oneline -1`)
 
 ### Proposer une Amélioration
 
@@ -310,7 +335,7 @@ Storage: shared_preferences 2.5.3, Hive 2.2.3
 
 💬 **GitHub Discussions :** https://github.com/RBSoftwareAI/kine/discussions  
 🐛 **Issues :** https://github.com/RBSoftwareAI/kine/issues  
-📧 **Email :** kinecare@support.com _(à configurer)_  
+📧 **Email :** support@medidesk.fr _(à configurer)_  
 
 ---
 
@@ -318,7 +343,7 @@ Storage: shared_preferences 2.5.3, Hive 2.2.3
 
 **MIT License** - Voir [LICENSE](LICENSE)
 
-Copyright (c) 2025 KinéCare
+Copyright (c) 2025 MediDesk
 
 Permission accordée d'utiliser, copier, modifier et distribuer ce logiciel gratuitement.
 
@@ -364,13 +389,13 @@ Permission accordée d'utiliser, copier, modifier et distribuer ce logiciel grat
 > **— Pierre L., Coach APA**
 
 > *"Gratuit et plus complet que les solutions payantes. Adopté en 1 semaine."*  
-> **— Cabinet Nord Kiné, 5 praticiens**
+> **— Cabinet Nord Santé, 5 praticiens**
 
 ---
 
 ## 🙏 Remerciements
 
-Développé pour les cabinets de kinésithérapie et coachs APA.
+Développé pour les professionnels de santé qui suivent l'évolution des douleurs.
 
 **Technologies utilisées :**
 - [Flutter](https://flutter.dev) - Framework UI
@@ -387,10 +412,10 @@ Développé pour les cabinets de kinésithérapie et coachs APA.
 ![GitHub forks](https://img.shields.io/github/forks/RBSoftwareAI/kine?style=social)
 ![GitHub watchers](https://img.shields.io/github/watchers/RBSoftwareAI/kine?style=social)
 
-**⭐ Si KinéCare vous aide, donnez-nous une étoile sur GitHub !**
+**⭐ Si MediDesk vous aide, donnez-nous une étoile sur GitHub !**
 
 ---
 
-**🏥 KinéCare - Suivi des douleurs simplifié, gratuit et sécurisé**
+**🏥 MediDesk - Suivi patient simplifié, gratuit et sécurisé**
 
 **Version 1.0.0 - Janvier 2025**
