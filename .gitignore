@@ -43,3 +43,40 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# MediDesk - Secrets & Configuration (CRITICAL)
+*.env
+*.key
+*.pem
+*-admin-sdk.json
+google-services.json
+firebase_options.dart
+key.properties
+
+# MediDesk - Données locales sensibles
+data/*.db
+data/*.sqlite
+data/*.sqlite3
+data/backups/*
+*.db-shm
+*.db-wal
+
+# MediDesk - Logs & Cache
+*.log
+flutter.log
+flutter2.log
+server.log
+backend/**/__pycache__/
+backend/**/*.pyc
+
+# MediDesk - Certificats & Clés
+*.jks
+*.keystore
+release-key.jks
+debug.keystore
+
+# MediDesk - Fichiers temporaires
+.flutter-plugins
+.packages
+.pub/
+.dart_tool/build_cache/

@@ -1,9 +1,11 @@
 # 🏥 MediDesk - Suivi Patient pour Professionnels de Santé
 
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/RBSoftwareAI/kine)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/)
 [![Flutter](https://img.shields.io/badge/Flutter-3.35.4-02569B.svg)](https://flutter.dev)
 [![Python](https://img.shields.io/badge/Python-3.8+-3776AB.svg)](https://www.python.org)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 > **Application gratuite de suivi des douleurs avec silhouettes anatomiques interactives, graphiques d'évolution et statistiques par pathologie**
 
