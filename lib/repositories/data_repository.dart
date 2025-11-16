@@ -4,7 +4,7 @@ library;
 
 import '../models/user_model.dart';
 import '../models/pain_point.dart';
-import '../models/pain_session.dart';
+import '../models/session_note.dart';
 import '../models/audit_log.dart';
 
 /// Interface abstraite pour tous les repositories
@@ -59,13 +59,13 @@ abstract class DataRepository {
   // ============================================
   
   /// Récupérer les séances d'un patient
-  Future<List<PainSession>> getSessions(String patientId);
+  Future<List<SessionNote>> getSessions(String patientId);
   
   /// Créer une séance
-  Future<PainSession> createSession(PainSession session);
+  Future<SessionNote> createSession(SessionNote session);
   
   /// Mettre à jour une séance
-  Future<void> updateSession(PainSession session);
+  Future<void> updateSession(SessionNote session);
   
   // ============================================
   // AUDIT LOGS

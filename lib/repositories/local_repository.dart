@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'data_repository.dart';
 import '../models/user_model.dart';
 import '../models/pain_point.dart';
-import '../models/pain_session.dart';
+import '../models/session_note.dart';
 import '../models/audit_log.dart';
 
 /// Implémentation du repository pour le serveur local (Flask)
@@ -191,8 +191,7 @@ class LocalRepository implements DataRepository {
           'first_name': user.firstName,
           'last_name': user.lastName,
           'role': user.role.toString().split('.').last,
-          'phone': user.phone,
-          'birth_date': user.birthDate?.toIso8601String(),
+          'phone': user.phoneNumber,
         }),
       );
       
@@ -279,7 +278,7 @@ class LocalRepository implements DataRepository {
   // ============================================
   
   @override
-  Future<List<PainSession>> getSessions(String patientId) async {
+  Future<List<SessionNote>> getSessions(String patientId) async {
     try {
       await _loadToken();
       
@@ -290,7 +289,7 @@ class LocalRepository implements DataRepository {
       
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
-        return data.map((json) => PainSession.fromFirestore(json, json['id'])).toList();
+        return data.map((json) => SessionNote.fromFirestore(json, json['id'])).toList();
       } else {
         print('❌ Get sessions failed: ${response.statusCode}');
         return [];
@@ -302,7 +301,7 @@ class LocalRepository implements DataRepository {
   }
   
   @override
-  Future<PainSession> createSession(PainSession session) async {
+  Future<SessionNote> createSession(SessionNote session) async {
     try {
       await _loadToken();
       
@@ -314,7 +313,7 @@ class LocalRepository implements DataRepository {
       
       if (response.statusCode == 201) {
         final data = json.decode(response.body);
-        return PainSession.fromFirestore(data, data['id']);
+        return SessionNote.fromFirestore(data, data['id']);
       } else {
         throw Exception('Create session failed: ${response.body}');
       }
@@ -325,7 +324,7 @@ class LocalRepository implements DataRepository {
   }
   
   @override
-  Future<void> updateSession(PainSession session) async {
+  Future<void> updateSession(SessionNote session) async {
     throw UnimplementedError('Update session not yet implemented');
   }
   

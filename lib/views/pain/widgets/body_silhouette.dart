@@ -221,7 +221,7 @@ class _BodySilhouettePainter extends CustomPainter {
 
       // LIGNE VERTÉBRALE CENTRALE (caractéristique dos)
       final spinePaint = Paint()
-        ..color = AppTheme.darkGrey.withValues(alpha: 0.6)
+        ..color = AppTheme.grey.withValues(alpha: 0.6)
         ..style = PaintingStyle.stroke
         ..strokeWidth = 2.5;
       
@@ -241,7 +241,7 @@ class _BodySilhouettePainter extends CustomPainter {
 
       // MARQUEURS VERTÉBRAUX (C7, T12, L5)
       final vertebraePaint = Paint()
-        ..color = AppTheme.darkGrey
+        ..color = AppTheme.grey
         ..style = PaintingStyle.fill;
       
       // C7 (Cervicale 7) - Base du cou
