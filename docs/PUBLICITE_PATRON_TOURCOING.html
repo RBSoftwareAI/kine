@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediDesk - Proposition Responsable Cabinet Tourcoing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            padding: 60px 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #FF6B35 0%, #FF8C42 100%);
+        }
+        
+        .header h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header .subtitle {
+            font-size: 22px;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+        
+        .header .tagline {
+            font-size: 18px;
+            opacity: 0.8;
+            font-style: italic;
+        }
+        
+        .executive-badge {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            display: inline-block;
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .section {
+            padding: 50px;
+        }
+        
+        .section-title {
+            color: #FF6B35;
+            font-size: 32px;
+            margin-bottom: 25px;
+            border-left: 6px solid #FF6B35;
+            padding-left: 20px;
+        }
+        
+        .intro-executive {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            padding: 40px;
+            margin: 30px 0;
+            border-radius: 15px;
+            font-size: 20px;
+            line-height: 1.8;
+        }
+        
+        .roi-box {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: #1a1a1a;
+            padding: 40px;
+            border-radius: 20px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(255,215,0,0.3);
+        }
+        
+        .roi-box h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .big-roi {
+            font-size: 72px;
+            font-weight: bold;
+            text-align: center;
+            margin: 30px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .calculation-box {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 5px solid #FF6B35;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            line-height: 2;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .benefit-card {
+            background: linear-gradient(135deg, #FFF9F5 0%, #FFE8E0 100%);
+            border: 3px solid #FF6B35;
+            border-radius: 15px;
+            padding: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(255,107,53,0.25);
+        }
+        
+        .benefit-number {
+            background: #FF6B35;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .benefit-title {
+            color: #FF6B35;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .benefit-desc {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.7;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .comparison-table thead {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%);
+            color: white;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            padding: 18px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comparison-table th {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .comparison-table tr:hover {
+            background: #FFF9F5;
+        }
+        
+        .comparison-table .highlight {
+            background: #E8F5E9;
+            font-weight: bold;
+        }
+        
+        .vs-medidesk {
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            color: #1a1a1a;
+            font-weight: bold;
+            padding: 20px !important;
+        }
+        
+        .investment-box {
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            padding: 35px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        
+        .investment-box h3 {
+            color: #1565C0;
+            font-size: 26px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .zero-investment {
+            font-size: 64px;
+            font-weight: bold;
+            color: #2E7D32;
+            text-align: center;
+            margin: 25px 0;
+        }
+        
+        .risk-box {
+            background: linear-gradient(135deg, #FFEBEE 0%, #FFCDD2 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+            border-left: 5px solid #C62828;
+        }
+        
+        .risk-title {
+            color: #C62828;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .stats-highlight {
+            background: #1a1a1a;
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .stat-row {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 48px;
+            font-weight: bold;
+            color: #FF6B35;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .timeline {
+            position: relative;
+            padding: 30px 0;
+            margin: 30px 0;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 60px;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-marker {
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #FF6B35;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .timeline-content {
+            background: #FFF9F5;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 3px solid #FF6B35;
+        }
+        
+        .timeline-title {
+            color: #FF6B35;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%);
+            color: white;
+            padding: 60px 50px;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 42px;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #FF6B35;
+            padding: 22px 55px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 22px;
+            font-weight: bold;
+            margin: 20px 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        
+        .cta-button:hover {
+            transform: scale(1.08);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+        }
+        
+        .urgency-box {
+            background: #1a1a1a;
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 3px solid #FFD700;
+        }
+        
+        .urgency-title {
+            color: #FFD700;
+            font-size: 26px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .bonus-package {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            padding: 35px;
+            border-radius: 20px;
+            margin: 30px 0;
+            border: 4px solid #FF6B35;
+            box-shadow: 0 10px 30px rgba(255,215,0,0.4);
+        }
+        
+        .bonus-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1a1a1a;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .bonus-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 5px solid #FF6B35;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+            .section {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <h1>🏥 MediDesk</h1>
+            <div class="subtitle">Modernisez Votre Cabinet Sans Investissement</div>
+            <div class="tagline">"De 0€ investi à +72 000€/an de potentiel"</div>
+            <div class="executive-badge">📍 Proposition Test Pilote Exclusif - Cabinet Tourcoing</div>
+        </div>
+
+        <!-- INTRO EXECUTIVE -->
+        <div class="section">
+            <div class="intro-executive">
+                <strong style="font-size: 24px;">Monsieur le Responsable,</strong><br><br>
+                Je vous propose de <strong>transformer votre cabinet en vitrine technologique</strong> pendant <strong>3 à 6 mois</strong>, <strong>gratuitement</strong>, tout en améliorant concrètement l'efficacité de vos praticiens.
+            </div>
+        </div>
+
+        <!-- ROI PRINCIPAL -->
+        <div class="section">
+            <div class="roi-box">
+                <h3>💰 RETOUR SUR INVESTISSEMENT</h3>
+                <div class="big-roi">ROI : ∞ (INFINI)</div>
+                <div class="calculation-box">
+Cabinet 4 kinés × 15 séances/jour × 50€/séance = 3 000€/jour
+
+Avec MediDesk :
+• Gain temps = 1h45/jour/kiné
+• = 1 à 2 séances supplémentaires possibles
+• = 4 kinés × 1,5 séances × 50€ = +300€/jour
+• = +6 000€/mois
+• = +72 000€/an de potentiel
+
+POUR 0€ D'INVESTISSEMENT
+                </div>
+            </div>
+        </div>
+
+        <!-- 4 AVANTAGES MAJEURS -->
+        <div class="section">
+            <h2 class="section-title">🎯 4 Avantages Majeurs Pour Votre Cabinet</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-number">1</div>
+                    <div class="benefit-title">Rentabilité Immédiate</div>
+                    <div class="benefit-desc">
+                        <strong>+10-15% capacité séances</strong> (même effectif)<br>
+                        <strong>-23% temps/séance</strong> (35 min → 27 min)<br>
+                        <strong>Gains estimés : 44-50k€</strong> sur 6 mois
+                    </div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-number">2</div>
+                    <div class="benefit-title">Image Modernisée</div>
+                    <div class="benefit-desc">
+                        <strong>1er cabinet Tourcoing</strong> avec suivi numérique<br>
+                        <strong>Attractivité recrutement</strong> jeunes kinés<br>
+                        <strong>Communication marketing</strong> "Cabinet équipé MediDesk"
+                    </div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-number">3</div>
+                    <div class="benefit-title">Conformité RGPD Auto</div>
+                    <div class="benefit-desc">
+                        <strong>Traçabilité automatique</strong> (qui/quoi/quand)<br>
+                        <strong>Registre Art. 30 pré-rempli</strong><br>
+                        <strong>Économie 2-5k€</strong> consultant RGPD
+                    </div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-number">4</div>
+                    <div class="benefit-title">Dashboard Gestionnaire</div>
+                    <div class="benefit-desc">
+                        <strong>Vision temps réel</strong> activité<br>
+                        <strong>Statistiques globales</strong> cabinet<br>
+                        <strong>Pilotage data-driven</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- INVESTISSEMENT REQUIS -->
+        <div class="section">
+            <h2 class="section-title">💼 Investissement Requis</h2>
+            <div class="investment-box">
+                <h3>Coût Total du Test Pilote :</h3>
+                <div class="zero-investment">0€</div>
+                <table style="width: 100%; margin-top: 20px;">
+                    <tr style="border-bottom: 1px solid #999;">
+                        <td style="padding: 10px;"><strong>Logiciel MediDesk</strong></td>
+                        <td style="padding: 10px; text-align: right;"><strong style="color: #2E7D32;">0€</strong></td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #999;">
+                        <td style="padding: 10px;"><strong>Installation professionnelle</strong></td>
+                        <td style="padding: 10px; text-align: right;"><strong style="color: #2E7D32;">0€</strong></td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #999;">
+                        <td style="padding: 10px;"><strong>Formation équipe (4h)</strong></td>
+                        <td style="padding: 10px; text-align: right;"><strong style="color: #2E7D32;">0€</strong></td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #999;">
+                        <td style="padding: 10px;"><strong>Support 6 mois</strong></td>
+                        <td style="padding: 10px; text-align: right;"><strong style="color: #2E7D32;">0€</strong></td>
+                    </tr>
+                    <tr style="border-bottom: 3px solid #FF6B35;">
+                        <td style="padding: 15px;"><strong style="font-size: 20px;">TOTAL</strong></td>
+                        <td style="padding: 15px; text-align: right;"><strong style="font-size: 24px; color: #2E7D32;">0€</strong></td>
+                    </tr>
+                </table>
+                <p style="text-align: center; margin-top: 20px; font-size: 18px; font-weight: bold;">
+                    + 4 heures de formation (je m'occupe de tout)
+                </p>
+            </div>
+        </div>
+
+        <!-- COMPARAISON MARCHÉ -->
+        <div class="section">
+            <h2 class="section-title">📊 MediDesk vs Concurrence</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Critère</th>
+                        <th>Solutions Classiques</th>
+                        <th style="background: #2E7D32;">MediDesk</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Prix</strong></td>
+                        <td>50-200€/mois</td>
+                        <td class="vs-medidesk">0€ (test 6 mois)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Installation</strong></td>
+                        <td>500-2000€</td>
+                        <td class="vs-medidesk">0€ (je fais)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Formation</strong></td>
+                        <td>300-800€</td>
+                        <td class="vs-medidesk">0€ (incluse)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Support</strong></td>
+                        <td>Ticket/email lent</td>
+                        <td class="vs-medidesk">Téléphone direct</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Données</strong></td>
+                        <td>Cloud tiers (risque)</td>
+                        <td class="vs-medidesk">Local (sécurisé)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>RGPD</strong></td>
+                        <td>Complexe</td>
+                        <td class="vs-medidesk">Auto inclus</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Engagement</strong></td>
+                        <td>12-36 mois</td>
+                        <td class="vs-medidesk">Zéro (arrêt anytime)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="text-align: center; font-size: 22px; font-weight: bold; color: #2E7D32; margin-top: 25px;">
+                🏆 MediDesk est imbattable sur TOUS les critères
+            </p>
+        </div>
+
+        <!-- PLANNING DÉPLOIEMENT -->
+        <div class="section">
+            <h2 class="section-title">🚀 Planning de Déploiement (Sans Perturber Votre Activité)</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker">1</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Semaine 1 : Préparation</div>
+                        Présentation collective (30 min) + Installation technique (1 jour) + Formation individuelle (1h/kiné)
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">2</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Semaine 2-4 : Lancement Doux</div>
+                        Test progressif 3-5 patients "faciles" → Extension tous patients + Support réactif (<30 min)
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">3</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Mois 2-6 : Utilisation Normale</div>
+                        Routine intégrée + Réunion mensuelle (30 min) + Évolutions selon vos demandes
+                    </div>
+                </div>
+            </div>
+            <p style="text-align: center; font-size: 20px; font-weight: bold; color: #2E7D32; margin-top: 25px;">
+                ✅ Vous ne sentez AUCUNE perturbation après 2 semaines
+            </p>
+        </div>
+
+        <!-- BÉNÉFICES QUANTIFIABLES -->
+        <div class="section">
+            <h2 class="section-title">📈 Bénéfices Quantifiables (6 mois)</h2>
+            <div class="stats-highlight">
+                <h3 style="font-size: 28px; margin-bottom: 30px;">Gains Estimés Conservateurs</h3>
+                <div class="stat-row">
+                    <div class="stat-item">
+                        <div class="stat-value">36k€</div>
+                        <div class="stat-label">Gain productivité<br>(+1,5 séances/jour/kiné)</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">2,4k€</div>
+                        <div class="stat-label">Économie logiciel<br>(vs solutions payantes)</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">4k€</div>
+                        <div class="stat-label">Économie RGPD<br>(consultant évité)</div>
+                    </div>
+                </div>
+                <div style="border-top: 2px solid #FF6B35; margin: 30px 0; padding-top: 30px;">
+                    <div style="font-size: 24px; margin-bottom: 15px;">TOTAL BÉNÉFICES</div>
+                    <div style="font-size: 56px; font-weight: bold; color: #FFD700;">44-50k€</div>
+                    <div style="font-size: 20px; margin-top: 15px; opacity: 0.9;">sur 6 mois de test</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GESTION RISQUES -->
+        <div class="section">
+            <h2 class="section-title">🛡️ Gestion des Risques</h2>
+            <div class="risk-box">
+                <div class="risk-title">❌ Vos Inquiétudes Légitimes</div>
+                <ul style="list-style: none; margin-left: 0;">
+                    <li style="padding: 12px 0; font-size: 16px;"><strong>"Et si ça ne marche pas ?"</strong> → Arrêt à tout moment, zéro pénalité</li>
+                    <li style="padding: 12px 0; font-size: 16px;"><strong>"Et si mes kinés n'adhèrent pas ?"</strong> → Formation + Support dédié 6 mois</li>
+                    <li style="padding: 12px 0; font-size: 16px;"><strong>"Et si ça casse ?"</strong> → Sauvegarde cloud, restauration <24h</li>
+                    <li style="padding: 12px 0; font-size: 16px;"><strong>"Données sécurisées ?"</strong> → 100% local, chiffrement AES-256</li>
+                    <li style="padding: 12px 0; font-size: 16px;"><strong>"Support arrêté ?"</strong> → Code source disponible, engagement 6 mois</li>
+                </ul>
+            </div>
+            <p style="text-align: center; font-size: 22px; font-weight: bold; color: #2E7D32; margin-top: 25px;">
+                ✅ Tous les risques couverts, zéro surprise
+            </p>
+        </div>
+
+        <!-- BONUS EXCLUSIF -->
+        <div class="section">
+            <div class="bonus-package">
+                <div class="bonus-title">🎁 BONUS EXCLUSIF CABINET TOURCOING</div>
+                <div style="text-align: center; font-size: 18px; margin-bottom: 25px;">
+                    <strong>Si décision avant [DATE], je rajoute GRATUITEMENT :</strong>
+                </div>
+                <div class="bonus-item">
+                    <strong style="color: #FF6B35; font-size: 20px;">🎥 Vidéo promo cabinet personnalisée</strong><br>
+                    Vidéo 2 min présentant votre cabinet équipé MediDesk<br>
+                    <em style="color: #666;">Valeur : 500€</em>
+                </div>
+                <div class="bonus-item">
+                    <strong style="color: #FF6B35; font-size: 20px;">📊 Dashboard statistiques custom</strong><br>
+                    Indicateurs spécifiques que VOUS voulez suivre<br>
+                    <em style="color: #666;">Valeur : 300€</em>
+                </div>
+                <div class="bonus-item">
+                    <strong style="color: #FF6B35; font-size: 20px;">🏆 Badge "Cabinet Pilote MediDesk"</strong><br>
+                    Logo vitrine + mention site web MediDesk<br>
+                    <em style="color: #666;">Unique - Visibilité garantie</em>
+                </div>
+                <div style="text-align: center; margin-top: 25px; font-size: 22px; font-weight: bold;">
+                    Valeur totale bonus : 800€ → OFFERT
+                </div>
+            </div>
+        </div>
+
+        <!-- URGENCE -->
+        <div class="section">
+            <div class="urgency-box">
+                <div class="urgency-title">⏰ Proposition Valable Jusqu'au [DATE + 2 SEMAINES]</div>
+                <p style="text-align: center; font-size: 18px; margin-top: 15px;">
+                    Après cette date, les conditions privilégiées et les bonus exclusifs<br>
+                    ne seront plus disponibles pour le test pilote Tourcoing.
+                </p>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-section">
+            <h2>📞 Prenons Rendez-vous</h2>
+            <p style="font-size: 22px; margin: 25px 0;">
+                <strong>1 heure de démonstration personnalisée</strong><br>
+                Calcul ROI précis selon vos chiffres + Questions/Réponses<br>
+                <em style="font-size: 18px;">Aucune obligation de signature</em>
+            </p>
+            <a href="tel:[VOTRE_NUMERO]" class="cta-button">📱 Appeler Maintenant</a>
+            <a href="mailto:[VOTRE_EMAIL]" class="cta-button">📧 Email Direct</a>
+            
+            <div style="background: white; color: #1a1a1a; padding: 35px; border-radius: 15px; margin: 40px 0;">
+                <h3 style="color: #FF6B35; font-size: 26px; margin-bottom: 25px;">Contact Direct</h3>
+                <div style="font-size: 20px; margin: 15px 0; color: #FF6B35; font-weight: bold;">
+                    📱 [VOTRE NUMÉRO]
+                </div>
+                <div style="font-size: 20px; margin: 15px 0; color: #FF6B35; font-weight: bold;">
+                    📧 [VOTRE EMAIL]
+                </div>
+                <div style="font-size: 18px; margin-top: 25px;">
+                    💬 <strong>Je passe au cabinet sur rendez-vous</strong>
+                </div>
+            </div>
+            
+            <p style="margin-top: 40px; font-size: 20px;">
+                <strong>"Le meilleur moment pour moderniser votre cabinet,<br>
+                c'était il y a 5 ans. Le deuxième meilleur moment,<br>
+                c'est MAINTENANT."</strong>
+            </p>
+            
+            <p style="margin-top: 30px; font-size: 18px; opacity: 0.95;">
+                🏥 <strong>MediDesk - Test Pilote Exclusif Cabinet Tourcoing</strong><br>
+                Proposition valable jusqu'au [DATE + 2 SEMAINES]
+            </p>
+        </div>
+    </div>
+</body>
+</html>
