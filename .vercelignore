@@ -1,0 +1,37 @@
+# Flutter
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+pubspec.lock
+
+# Android
+android/
+ios/
+linux/
+macos/
+windows/
+
+# Test & Documentation
+test/
+docs/
+*.md
+!README.md
+
+# Backend (deployed separately on Railway)
+backend/
+data/
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Misc
+*.log
+.DS_Store
