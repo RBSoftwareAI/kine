@@ -69,23 +69,40 @@ class AuthProvider with ChangeNotifier {
   /// Récupère un utilisateur de démonstration local
   UserModel? _getDemoUser(String email, String password) {
     final demoAccounts = {
+      'sadmin@medidesk.local': {
+        'password': 'sadmin123',
+        'firstName': 'Super',
+        'lastName': 'Admin',
+        'role': UserRole.sadmin,
+        'canManagePermissions': true,
+      },
+      'patron@medidesk.local': {
+        'password': 'manager123',
+        'firstName': 'Patron',
+        'lastName': 'Cabinet',
+        'role': UserRole.manager,
+        'canManagePermissions': true,
+      },
       'patient@demo.com': {
         'password': 'patient123',
         'firstName': 'Jean',
         'lastName': 'Patient',
         'role': UserRole.patient,
+        'canManagePermissions': false,
       },
       'kine@demo.com': {
         'password': 'kine123',
         'firstName': 'Marie',
         'lastName': 'Kinésithérapeute',
         'role': UserRole.kine,
+        'canManagePermissions': false,
       },
       'coach@demo.com': {
         'password': 'coach123',
         'firstName': 'Pierre',
         'lastName': 'Coach',
         'role': UserRole.coach,
+        'canManagePermissions': false,
       },
     };
 
@@ -98,6 +115,7 @@ class AuthProvider with ChangeNotifier {
           firstName: account['firstName'] as String,
           lastName: account['lastName'] as String,
           role: account['role'] as UserRole,
+          canManagePermissions: account['canManagePermissions'] as bool? ?? false,
           createdAt: DateTime.now(),
           lastLoginAt: DateTime.now(),
         );

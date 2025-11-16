@@ -1,9 +1,9 @@
--- KinéCare Local Database Schema
+-- MediDesk Local Database Schema
 -- SQLite database for health data (NEVER goes to cloud)
 
 -- ============================================
 -- TABLE: users
--- Comptes professionnels (kiné, coach, patients)
+-- Comptes professionnels (kiné, coach, patients) + admins
 -- ============================================
 CREATE TABLE IF NOT EXISTS users (
     id TEXT PRIMARY KEY,
@@ -11,12 +11,17 @@ CREATE TABLE IF NOT EXISTS users (
     password_hash TEXT NOT NULL,
     first_name TEXT NOT NULL,
     last_name TEXT NOT NULL,
-    role TEXT NOT NULL CHECK(role IN ('patient', 'kine', 'coach_apa')),
+    role TEXT NOT NULL CHECK(role IN ('patient', 'kine', 'coach_apa', 'manager', 'sadmin')),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     is_active INTEGER DEFAULT 1,
     phone TEXT,
     birth_date DATE,
+    
+    -- Permissions management
+    can_manage_permissions INTEGER DEFAULT 0, -- 1 si peut gérer permissions (manager/délégué)
+    delegated_by TEXT, -- ID de l'utilisateur qui a délégué les permissions
+    delegation_expires_at TIMESTAMP, -- Expiration délégation (NULL = permanent)
     
     -- Metadata
     firebase_uid TEXT UNIQUE, -- Sync with Firebase Auth (optional)
@@ -341,25 +346,39 @@ END;
 -- INITIAL DATA
 -- ============================================
 
--- Admin account (password: admin123)
--- Hash generated with werkzeug.security.generate_password_hash('admin123')
-INSERT OR IGNORE INTO users (id, email, password_hash, first_name, last_name, role, is_active)
+-- Super Admin account (password: sadmin123)
+-- Hash generated with werkzeug.security.generate_password_hash('sadmin123')
+INSERT OR IGNORE INTO users (id, email, password_hash, first_name, last_name, role, is_active, can_manage_permissions)
 VALUES (
-    'admin_001',
-    'admin@kinecare.local',
-    'scrypt:32768:8:1$KmP8ZqXkQ7Y8nGW2$f6e3c0f0f3a3e3a1f6e3c0f0f3a3e3a1f6e3c0f0f3a3e3a1f6e3c0f0f3a3e3a1f6e3c0f0f3a3e3a1f6e3c0f0f3a3e3a1',
+    'sadmin_001',
+    'sadmin@medidesk.local',
+    'scrypt:32768:8:1$EfD26oF2NvEMhXbw$a0db7799323dae5085023305f90705a2194fed4caf9c5460fdeab2955302ae006ba11b97309a5129a0d1af7b79a020057a2dbaa56d89f525ccde45368c187f74',
+    'Super',
     'Admin',
+    'sadmin',
+    1,
+    1
+);
+
+-- Manager account (password: manager123) - Patron cabinet
+INSERT OR IGNORE INTO users (id, email, password_hash, first_name, last_name, role, is_active, can_manage_permissions)
+VALUES (
+    'manager_001',
+    'patron@medidesk.local',
+    'scrypt:32768:8:1$25mILREsmDHS6TMR$349df676532c4a9b3adea0e16cede5e5659ff8403718f5f9d9dddc93722c7e1a0b91ce0330b3d838d6904de08bdc60eb92a60b9309c6a7c793e83365018d0f0f',
+    'Patron',
     'Cabinet',
-    'kine',
+    'manager',
+    1,
     1
 );
 
 -- Demo accounts (same as current demo mode)
-INSERT OR IGNORE INTO users (id, email, password_hash, first_name, last_name, role, phone, is_active)
+INSERT OR IGNORE INTO users (id, email, password_hash, first_name, last_name, role, phone, is_active, can_manage_permissions)
 VALUES 
-    ('patient_demo_001', 'patient@demo.com', 'scrypt:32768:8:1$demo$', 'Jean', 'Patient', 'patient', '0612345678', 1),
-    ('kine_demo_001', 'kine@demo.com', 'scrypt:32768:8:1$demo$', 'Marie', 'Kinésithérapeute', 'kine', '0623456789', 1),
-    ('coach_demo_001', 'coach@demo.com', 'scrypt:32768:8:1$demo$', 'Pierre', 'Coach', 'coach_apa', '0634567890', 1);
+    ('patient_demo_001', 'patient@demo.com', 'scrypt:32768:8:1$QBZsCcan8NK7y3TS$a95c6c182b39ca84e5d90518f018d41ca5ad6f647925c862bedf821b16e1f817ecd1420a0cee2538c7e43987529492dfc5460497d7977d80d734230d979a6ae0', 'Jean', 'Patient', 'patient', '0612345678', 1, 0),
+    ('kine_demo_001', 'kine@demo.com', 'scrypt:32768:8:1$kDGIPLRIlMgLwOij$d7157fe5b3050e58e8dc9c22ecd909af20b9786807beeb62b1e25c0b99d73862b5f58aff576e56288a90c62dacc2e4581d867bf2d3be941f8d35dc9b7628ae52', 'Marie', 'Kinésithérapeute', 'kine', '0623456789', 1, 0),
+    ('coach_demo_001', 'coach@demo.com', 'scrypt:32768:8:1$7ITv216JdrZX4iV4$51d16f2ac6ae7ed678b0455f66b53cdf97a7a03f56f948f17d0b34d52d3f4c8cf9da14afa7400c828b968282aeb648ae52a27b0bd591dc0da3a9c08fa67d7f84', 'Pierre', 'Coach', 'coach_apa', '0634567890', 1, 0);
 
 -- ============================================
 -- MAINTENANCE QUERIES

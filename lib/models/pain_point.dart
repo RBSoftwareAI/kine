@@ -11,9 +11,6 @@ class PainPoint {
   final String? description;
   final DateTime recordedAt;
   final String recordedBy; // ID de l'utilisateur qui a saisi
-  final bool needsConsent; // Si modification par professionnel
-  final bool consentGiven; // Consentement patient
-  final DateTime? consentDate;
 
   PainPoint({
     required this.id,
@@ -27,9 +24,6 @@ class PainPoint {
     this.description,
     required this.recordedAt,
     required this.recordedBy,
-    this.needsConsent = false,
-    this.consentGiven = false,
-    this.consentDate,
   });
 
   /// Conversion depuis Firestore
@@ -58,9 +52,6 @@ class PainPoint {
       description: data['description'] as String?,
       recordedAt: (data['recordedAt'] as dynamic)?.toDate() ?? DateTime.now(),
       recordedBy: data['recordedBy'] as String? ?? '',
-      needsConsent: data['needsConsent'] as bool? ?? false,
-      consentGiven: data['consentGiven'] as bool? ?? false,
-      consentDate: (data['consentDate'] as dynamic)?.toDate(),
     );
   }
 
@@ -77,9 +68,6 @@ class PainPoint {
       'description': description,
       'recordedAt': recordedAt,
       'recordedBy': recordedBy,
-      'needsConsent': needsConsent,
-      'consentGiven': consentGiven,
-      'consentDate': consentDate,
     };
   }
 
@@ -88,8 +76,6 @@ class PainPoint {
     PainIntensity? intensity,
     PainFrequency? frequency,
     String? description,
-    bool? consentGiven,
-    DateTime? consentDate,
   }) {
     return PainPoint(
       id: id,
@@ -103,9 +89,6 @@ class PainPoint {
       description: description ?? this.description,
       recordedAt: recordedAt,
       recordedBy: recordedBy,
-      needsConsent: needsConsent,
-      consentGiven: consentGiven ?? this.consentGiven,
-      consentDate: consentDate ?? this.consentDate,
     );
   }
 }

@@ -169,7 +169,7 @@ class _BodySilhouettePainter extends CustomPainter {
       canvas.drawPath(rightLegPath, paint);
 
     } else {
-      // DOS - Silhouette simplifiée similaire mais vue arrière
+      // DOS - Vue arrière AMÉLIORÉE avec colonne vertébrale visible
 
       // Tête
       canvas.drawCircle(
@@ -192,17 +192,78 @@ class _BodySilhouettePainter extends CustomPainter {
       canvas.drawPath(neckPath, fillPaint);
       canvas.drawPath(neckPath, paint);
 
-      // Dos (forme similaire au torse face)
+      // Dos avec courbure naturelle
       final backPath = Path()
-        ..moveTo(centerX - size.width * 0.15, size.height * 0.2)
-        ..lineTo(centerX + size.width * 0.15, size.height * 0.2)
-        ..lineTo(centerX + size.width * 0.18, size.height * 0.35)
-        ..lineTo(centerX + size.width * 0.16, size.height * 0.5)
+        ..moveTo(centerX - size.width * 0.15, size.height * 0.2) // Épaule gauche
+        ..lineTo(centerX + size.width * 0.15, size.height * 0.2) // Épaule droite
+        // Courbure thoracique (légère convexité)
+        ..quadraticBezierTo(
+          centerX + size.width * 0.17, size.height * 0.3,
+          centerX + size.width * 0.16, size.height * 0.4,
+        )
+        // Courbure lombaire (légère concavité)
+        ..quadraticBezierTo(
+          centerX + size.width * 0.14, size.height * 0.45,
+          centerX + size.width * 0.16, size.height * 0.5,
+        )
         ..lineTo(centerX - size.width * 0.16, size.height * 0.5)
-        ..lineTo(centerX - size.width * 0.18, size.height * 0.35)
+        ..quadraticBezierTo(
+          centerX - size.width * 0.14, size.height * 0.45,
+          centerX - size.width * 0.16, size.height * 0.4,
+        )
+        ..quadraticBezierTo(
+          centerX - size.width * 0.17, size.height * 0.3,
+          centerX - size.width * 0.15, size.height * 0.2,
+        )
         ..close();
       canvas.drawPath(backPath, fillPaint);
       canvas.drawPath(backPath, paint);
+
+      // LIGNE VERTÉBRALE CENTRALE (caractéristique dos)
+      final spinePaint = Paint()
+        ..color = AppTheme.darkGrey.withValues(alpha: 0.6)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2.5;
+      
+      final spinePath = Path()
+        ..moveTo(centerX, size.height * 0.2) // C7
+        // Courbure thoracique
+        ..quadraticBezierTo(
+          centerX + size.width * 0.02, size.height * 0.3,
+          centerX, size.height * 0.4,
+        )
+        // Courbure lombaire
+        ..quadraticBezierTo(
+          centerX - size.width * 0.015, size.height * 0.45,
+          centerX, size.height * 0.5, // L5
+        );
+      canvas.drawPath(spinePath, spinePaint);
+
+      // MARQUEURS VERTÉBRAUX (C7, T12, L5)
+      final vertebraePaint = Paint()
+        ..color = AppTheme.darkGrey
+        ..style = PaintingStyle.fill;
+      
+      // C7 (Cervicale 7) - Base du cou
+      canvas.drawCircle(
+        Offset(centerX, size.height * 0.21),
+        4,
+        vertebraePaint,
+      );
+      
+      // T12 (Thoracique 12) - Milieu du dos
+      canvas.drawCircle(
+        Offset(centerX, size.height * 0.35),
+        4,
+        vertebraePaint,
+      );
+      
+      // L5 (Lombaire 5) - Bas du dos
+      canvas.drawCircle(
+        Offset(centerX, size.height * 0.47),
+        4,
+        vertebraePaint,
+      );
 
       // Bras (identiques à la vue face)
       final leftArmPath = Path()

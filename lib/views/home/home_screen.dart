@@ -7,6 +7,7 @@ import '../pain/pain_tracking_screen.dart';
 import '../professional/patients_dashboard_screen.dart';
 import '../audit/audit_history_screen.dart';
 import '../evolution/evolution_screen.dart';
+import '../admin/permissions_management_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -228,22 +229,13 @@ class HomeScreen extends StatelessWidget {
           );
         },
       ),
-      _buildMenuCard(
-        context,
-        icon: Icons.verified_user,
-        title: 'Consentements',
-        subtitle: 'Gérer les autorisations',
-        color: AppTheme.success,
-        onTap: () {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Fonctionnalité en développement')),
-          );
-        },
-      ),
     ];
   }
 
   List<Widget> _buildProfessionalMenu(BuildContext context) {
+    final authProvider = context.read<AuthProvider>();
+    final user = authProvider.currentUser;
+    
     return [
       const Text(
         'Mes patients',
@@ -253,6 +245,28 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       const SizedBox(height: 12),
+      
+      // Menu Gestion Permissions (sadmin et manager uniquement)
+      if (user!.isAdmin) ...[
+        _buildMenuCard(
+          context,
+          icon: Icons.admin_panel_settings,
+          title: 'Gestion des Permissions',
+          subtitle: user.isSadmin 
+            ? 'Configuration système (Super Admin)' 
+            : 'Gérer professionnels et délégations',
+          color: AppTheme.error,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const PermissionsManagementScreen(),
+              ),
+            );
+          },
+        ),
+      ],
+      
       _buildMenuCard(
         context,
         icon: Icons.people,
