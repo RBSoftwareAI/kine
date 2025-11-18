@@ -43,6 +43,32 @@ stats_service = StatisticsService(db)
 
 
 # ============================================
+# HEALTH CHECK ENDPOINT (for Docker/monitoring)
+# ============================================
+
+@app.route('/health', methods=['GET'])
+def health_check():
+    """Health check endpoint for Docker healthcheck and monitoring"""
+    try:
+        # Vérifier que la base de données est accessible
+        info = db.get_database_info()
+        return jsonify({
+            'status': 'healthy',
+            'timestamp': datetime.utcnow().isoformat(),
+            'database': {
+                'connected': True,
+                'total_records': info.get('total_records', 0)
+            }
+        }), 200
+    except Exception as e:
+        return jsonify({
+            'status': 'unhealthy',
+            'timestamp': datetime.utcnow().isoformat(),
+            'error': str(e)
+        }), 503
+
+
+# ============================================
 # AUTHENTICATION ENDPOINTS
 # ============================================
 
