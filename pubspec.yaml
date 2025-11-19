@@ -38,9 +38,6 @@ dependencies:
   firebase_storage: 12.3.2
   cloud_functions: 5.1.3
   
-  # Firebase UI (pour interface auth simplifiée)
-  firebase_ui_auth: 1.18.0
-  
   # State management & utilities
   provider: 6.1.5+1
   shared_preferences: 2.5.3

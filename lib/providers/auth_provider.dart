@@ -1,35 +1,113 @@
 import 'package:flutter/foundation.dart';
-import '../models/user_model.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import '../services/firebase_auth_service.dart';
+import '../models/user.dart';
+import '../models/centre.dart';
 
-/// Provider pour gérer l'authentification
-class AuthProvider with ChangeNotifier {
+/// Provider pour la gestion de l'état d'authentification
+class AuthProvider extends ChangeNotifier {
   final FirebaseAuthService _authService = FirebaseAuthService();
-  
-  UserModel? _currentUser;
-  bool _isLoading = true;
-  String? _errorMessage;
 
-  UserModel? get currentUser => _currentUser;
+  // État
+  firebase_auth.User? _firebaseUser;
+  User? _appUser;
+  Centre? _centre;
+  bool _isLoading = false;
+  String? _error;
+
+  // Getters
+  firebase_auth.User? get firebaseUser => _firebaseUser;
+  User? get appUser => _appUser;
+  Centre? get centre => _centre;
   bool get isLoading => _isLoading;
-  bool get isAuthenticated => _currentUser != null;
-  String? get errorMessage => _errorMessage;
+  String? get error => _error;
+  bool get isAuthenticated => _firebaseUser != null && _appUser != null;
 
   AuthProvider() {
-    _initAuth();
+    // Écouter les changements d'état d'authentification
+    _authService.authStateChanges.listen(_onAuthStateChanged);
   }
 
-  /// Initialisation de l'authentification
-  Future<void> _initAuth() async {
+  /// Gérer les changements d'état d'authentification
+  Future<void> _onAuthStateChanged(firebase_auth.User? firebaseUser) async {
+    _firebaseUser = firebaseUser;
+
+    if (firebaseUser != null) {
+      // Utilisateur connecté - charger les données
+      await loadUserData();
+    } else {
+      // Utilisateur déconnecté - réinitialiser
+      _appUser = null;
+      _centre = null;
+    }
+
+    notifyListeners();
+  }
+
+  /// Charger les données utilisateur et centre depuis Firestore
+  Future<void> loadUserData() async {
+    if (_firebaseUser == null) return;
+
     _isLoading = true;
+    _error = null;
     notifyListeners();
 
     try {
-      _currentUser = await _authService.getCurrentUser();
+      // Charger les données utilisateur
+      _appUser = await _authService.getUserData(_firebaseUser!.uid);
+
+      // Charger les données du centre
+      _centre = await _authService.getUserCentre(_appUser!.centreId);
+
+      _error = null;
     } catch (e) {
+      _error = 'Erreur lors du chargement des données : $e';
       if (kDebugMode) {
-        debugPrint('Error initializing auth: $e');
+        print('Erreur loadUserData: $e');
       }
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  /// Inscription
+  Future<bool> signup({
+    required String email,
+    required String password,
+    required String nom,
+    required String prenom,
+    required String specialite,
+    required String centreName,
+    required String centreAdresse,
+    String? centreTelephone,
+    String? centreEmail,
+  }) async {
+    _isLoading = true;
+    _error = null;
+    notifyListeners();
+
+    try {
+      await _authService.signup(
+        email: email,
+        password: password,
+        nom: nom,
+        prenom: prenom,
+        specialite: specialite,
+        centreName: centreName,
+        centreAdresse: centreAdresse,
+        centreTelephone: centreTelephone,
+        centreEmail: centreEmail,
+      );
+
+      // Les données seront chargées automatiquement via authStateChanges
+      return true;
+    } catch (e) {
+      _error = e.toString();
+      if (kDebugMode) {
+        print('Erreur signup: $e');
+      }
+      return false;
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -37,135 +115,43 @@ class AuthProvider with ChangeNotifier {
   }
 
   /// Connexion
-  Future<bool> signIn(String email, String password) async {
+  Future<bool> login(String email, String password) async {
     _isLoading = true;
-    _errorMessage = null;
+    _error = null;
     notifyListeners();
 
     try {
-      // MODE DÉMONSTRATION LOCAL - Vérifier si c'est un compte de démo
-      final demoUser = _getDemoUser(email, password);
-      if (demoUser != null) {
-        // Connexion locale réussie
-        _currentUser = demoUser;
-        _isLoading = false;
-        notifyListeners();
-        return true;
-      }
+      await _authService.login(email, password);
 
-      // Sinon, utiliser Firebase Auth
-      _currentUser = await _authService.signIn(email, password);
-      _isLoading = false;
-      notifyListeners();
+      // Les données seront chargées automatiquement via authStateChanges
       return true;
     } catch (e) {
-      _errorMessage = e.toString().replaceAll('Exception: ', '');
-      _isLoading = false;
-      notifyListeners();
-      return false;
-    }
-  }
-
-  /// Récupère un utilisateur de démonstration local
-  UserModel? _getDemoUser(String email, String password) {
-    final demoAccounts = {
-      'sadmin@medidesk.local': {
-        'password': 'sadmin123',
-        'firstName': 'Super',
-        'lastName': 'Admin',
-        'role': UserRole.sadmin,
-        'canManagePermissions': true,
-      },
-      'patron@medidesk.local': {
-        'password': 'manager123',
-        'firstName': 'Patron',
-        'lastName': 'Cabinet',
-        'role': UserRole.manager,
-        'canManagePermissions': true,
-      },
-      'patient@demo.com': {
-        'password': 'patient123',
-        'firstName': 'Jean',
-        'lastName': 'Patient',
-        'role': UserRole.patient,
-        'canManagePermissions': false,
-      },
-      'kine@demo.com': {
-        'password': 'kine123',
-        'firstName': 'Marie',
-        'lastName': 'Kinésithérapeute',
-        'role': UserRole.kine,
-        'canManagePermissions': false,
-      },
-      'coach@demo.com': {
-        'password': 'coach123',
-        'firstName': 'Pierre',
-        'lastName': 'Coach',
-        'role': UserRole.coach,
-        'canManagePermissions': false,
-      },
-    };
-
-    if (demoAccounts.containsKey(email)) {
-      final account = demoAccounts[email]!;
-      if (account['password'] == password) {
-        return UserModel(
-          id: 'demo_${account['role'].toString().split('.').last}',
-          email: email,
-          firstName: account['firstName'] as String,
-          lastName: account['lastName'] as String,
-          role: account['role'] as UserRole,
-          canManagePermissions: account['canManagePermissions'] as bool? ?? false,
-          createdAt: DateTime.now(),
-          lastLoginAt: DateTime.now(),
-        );
+      _error = e.toString();
+      if (kDebugMode) {
+        print('Erreur login: $e');
       }
-    }
-    return null;
-  }
-
-  /// Inscription
-  Future<bool> signUp(
-    String email,
-    String password,
-    String firstName,
-    String lastName,
-    UserRole role,
-  ) async {
-    _isLoading = true;
-    _errorMessage = null;
-    notifyListeners();
-
-    try {
-      _currentUser = await _authService.signUp(
-        email,
-        password,
-        firstName,
-        lastName,
-        role,
-      );
-      _isLoading = false;
-      notifyListeners();
-      return true;
-    } catch (e) {
-      _errorMessage = e.toString().replaceAll('Exception: ', '');
-      _isLoading = false;
-      notifyListeners();
       return false;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
     }
   }
 
   /// Déconnexion
-  Future<void> signOut() async {
+  Future<void> logout() async {
     _isLoading = true;
     notifyListeners();
 
     try {
-      await _authService.signOut();
-      _currentUser = null;
+      await _authService.logout();
+      _firebaseUser = null;
+      _appUser = null;
+      _centre = null;
+      _error = null;
     } catch (e) {
+      _error = 'Erreur lors de la déconnexion : $e';
       if (kDebugMode) {
-        debugPrint('Error signing out: $e');
+        print('Erreur logout: $e');
       }
     } finally {
       _isLoading = false;
@@ -173,9 +159,30 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  /// Réinitialiser le message d'erreur
+  /// Réinitialiser le mot de passe
+  Future<bool> resetPassword(String email) async {
+    _isLoading = true;
+    _error = null;
+    notifyListeners();
+
+    try {
+      await _authService.resetPassword(email);
+      return true;
+    } catch (e) {
+      _error = e.toString();
+      if (kDebugMode) {
+        print('Erreur resetPassword: $e');
+      }
+      return false;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  /// Effacer l'erreur
   void clearError() {
-    _errorMessage = null;
+    _error = null;
     notifyListeners();
   }
 }
