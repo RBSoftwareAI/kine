@@ -11,11 +11,16 @@ class FirestorePatientService {
     return _firestore
         .collection(_collection)
         .where('centre_id', isEqualTo: centreId)
-        .where('actif', isEqualTo: true)
-        .orderBy('nom')
         .snapshots()
         .map((snapshot) {
-      return snapshot.docs.map((doc) => Patient.fromFirestore(doc)).toList();
+      // Filtrer les patients actifs en mémoire et trier par nom
+      final patients = snapshot.docs
+          .map((doc) => Patient.fromFirestore(doc))
+          .where((p) => p.actif)
+          .toList();
+      
+      patients.sort((a, b) => a.nom.compareTo(b.nom));
+      return patients;
     });
   }
 
@@ -24,11 +29,16 @@ class FirestorePatientService {
     final snapshot = await _firestore
         .collection(_collection)
         .where('centre_id', isEqualTo: centreId)
-        .where('actif', isEqualTo: true)
-        .orderBy('nom')
         .get();
 
-    return snapshot.docs.map((doc) => Patient.fromFirestore(doc)).toList();
+    // Filtrer les patients actifs en mémoire et trier par nom
+    final patients = snapshot.docs
+        .map((doc) => Patient.fromFirestore(doc))
+        .where((p) => p.actif)
+        .toList();
+    
+    patients.sort((a, b) => a.nom.compareTo(b.nom));
+    return patients;
   }
 
   /// Récupérer un patient par son ID
@@ -103,11 +113,16 @@ class FirestorePatientService {
     final snapshot = await _firestore
         .collection(_collection)
         .where('centre_id', isEqualTo: centreId)
-        .where('actif', isEqualTo: false)
-        .orderBy('nom')
         .get();
 
-    return snapshot.docs.map((doc) => Patient.fromFirestore(doc)).toList();
+    // Filtrer les patients inactifs en mémoire et trier par nom
+    final patients = snapshot.docs
+        .map((doc) => Patient.fromFirestore(doc))
+        .where((p) => !p.actif)
+        .toList();
+    
+    patients.sort((a, b) => a.nom.compareTo(b.nom));
+    return patients;
   }
 
   /// Compter les patients actifs d'un centre
@@ -115,11 +130,13 @@ class FirestorePatientService {
     final snapshot = await _firestore
         .collection(_collection)
         .where('centre_id', isEqualTo: centreId)
-        .where('actif', isEqualTo: true)
-        .count()
         .get();
 
-    return snapshot.count ?? 0;
+    // Compter les patients actifs en mémoire
+    return snapshot.docs
+        .map((doc) => Patient.fromFirestore(doc))
+        .where((p) => p.actif)
+        .length;
   }
 
   /// Récupérer les patients récents (créés dans les X derniers jours)
@@ -132,12 +149,16 @@ class FirestorePatientService {
     final snapshot = await _firestore
         .collection(_collection)
         .where('centre_id', isEqualTo: centreId)
-        .where('actif', isEqualTo: true)
-        .where('date_creation', isGreaterThanOrEqualTo: Timestamp.fromDate(date))
-        .orderBy('date_creation', descending: true)
         .get();
 
-    return snapshot.docs.map((doc) => Patient.fromFirestore(doc)).toList();
+    // Filtrer et trier en mémoire
+    final patients = snapshot.docs
+        .map((doc) => Patient.fromFirestore(doc))
+        .where((p) => p.actif && p.dateCreation.isAfter(date))
+        .toList();
+    
+    patients.sort((a, b) => b.dateCreation.compareTo(a.dateCreation));
+    return patients;
   }
 
   /// Vérifier si un patient existe avec cet email dans le centre
