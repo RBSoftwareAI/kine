@@ -333,13 +333,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 32),
                   
-                  // Information de test
+                  // Comptes de test disponibles
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: Colors.blue.shade50,
+                      color: Colors.green.shade50,
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.blue.shade200),
+                      border: Border.all(color: Colors.green.shade200),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -347,15 +347,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         Row(
                           children: [
                             Icon(
-                              Icons.info_outline,
-                              color: Colors.blue.shade700,
+                              Icons.verified_user,
+                              color: Colors.green.shade700,
                               size: 20,
                             ),
                             const SizedBox(width: 8),
                             Text(
-                              'Pour tester l\'application',
+                              'Comptes de test disponibles',
                               style: TextStyle(
-                                color: Colors.blue.shade900,
+                                color: Colors.green.shade900,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14,
                               ),
@@ -363,39 +363,28 @@ class _LoginScreenState extends State<LoginScreen> {
                           ],
                         ),
                         const SizedBox(height: 12),
+                        _buildTestAccount(
+                          'marie.lefebvre@kine-paris.fr',
+                          'Kinésithérapeute - Cabinet Paris',
+                          '20 patients • 15 RDV',
+                        ),
+                        const SizedBox(height: 8),
+                        _buildTestAccount(
+                          'pierre.girard@osteo-lyon.fr',
+                          'Ostéopathe - Centre Lyon',
+                          '20 patients • 15 RDV',
+                        ),
+                        const Divider(height: 24),
                         Container(
-                          padding: const EdgeInsets.all(12),
+                          padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          child: Row(
                             children: [
-                              const Text(
-                                '🔐 Créez un nouveau compte',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                'Cliquez sur "Créer un compte" ci-dessus pour vous inscrire avec votre email et créer votre propre centre.',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey.shade700,
-                                ),
-                              ),
-                              const SizedBox(height: 12),
-                              const Text(
-                                '📊 Données de test disponibles',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13,
-                                ),
-                              ),
-                              const SizedBox(height: 4),
+                              Icon(Icons.key, size: 18, color: Colors.green.shade700),
+                              const SizedBox(width: 8),
                               Text(
                                 'L\'application contient déjà 20 patients et 30 rendez-vous de test répartis sur 2 centres. Créez votre compte pour en créer de nouveaux.',
                                 style: TextStyle(
@@ -406,6 +395,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             ],
                           ),
                         ),
+                        const Text(
+                          'Mot de passe : password123',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 13,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -414,6 +410,56 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  // Widget pour afficher un compte de test
+  Widget _buildTestAccount(String email, String role, String data) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.green.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.person, size: 16, color: Colors.green.shade700),
+              const SizedBox(width: 6),
+              Expanded(
+                child: Text(
+                  email,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13,
+                    color: Colors.green.shade900,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 4),
+          Text(
+            role,
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.grey.shade700,
+            ),
+          ),
+          const SizedBox(height: 2),
+          Text(
+            data,
+            style: TextStyle(
+              fontSize: 11,
+              color: Colors.grey.shade600,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+        ],
       ),
     );
   }
