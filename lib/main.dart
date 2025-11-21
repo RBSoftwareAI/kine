@@ -102,6 +102,60 @@ class AuthWrapper extends StatelessWidget {
           return const LoadingScreen();
         }
         
+        // Si une erreur s'est produite et que Firebase User existe, réessayer
+        if (authProvider.error != null && authProvider.firebaseUser != null) {
+          // Afficher l'erreur et proposer de réessayer
+          return Scaffold(
+            body: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(32),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.error_outline,
+                      size: 64,
+                      color: Colors.red.shade300,
+                    ),
+                    const SizedBox(height: 16),
+                    const Text(
+                      'Erreur de chargement',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      authProvider.error!,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey.shade600,
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        authProvider.loadUserData();
+                      },
+                      icon: const Icon(Icons.refresh),
+                      label: const Text('Réessayer'),
+                    ),
+                    const SizedBox(height: 12),
+                    TextButton(
+                      onPressed: () {
+                        authProvider.logout();
+                      },
+                      child: const Text('Se déconnecter'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
+        
         // Si l'utilisateur est authentifié, afficher le dashboard
         if (authProvider.isAuthenticated) {
           return const DashboardScreen();

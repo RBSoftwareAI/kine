@@ -353,7 +353,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             const SizedBox(width: 8),
                             Text(
-                              'Comptes de test disponibles',
+                              'Pour tester l\'application',
                               style: TextStyle(
                                 color: Colors.blue.shade900,
                                 fontWeight: FontWeight.bold,
@@ -363,16 +363,48 @@ class _LoginScreenState extends State<LoginScreen> {
                           ],
                         ),
                         const SizedBox(height: 12),
-                        _buildTestAccount(
-                          'Cabinet Paris',
-                          'marie.lefebvre@kine-paris.fr',
-                          'password123',
-                        ),
-                        const SizedBox(height: 8),
-                        _buildTestAccount(
-                          'Centre Lyon',
-                          'pierre.girard@osteo-lyon.fr',
-                          'password123',
+                        Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                '🔐 Créez un nouveau compte',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                'Cliquez sur "Créer un compte" ci-dessus pour vous inscrire avec votre email et créer votre propre centre.',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey.shade700,
+                                ),
+                              ),
+                              const SizedBox(height: 12),
+                              const Text(
+                                '📊 Données de test disponibles',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                'L\'application contient déjà 20 patients et 30 rendez-vous de test répartis sur 2 centres. Créez votre compte pour en créer de nouveaux.',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey.shade700,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -386,40 +418,4 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildTestAccount(String name, String email, String password) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            name,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 13,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            'Email: $email',
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.grey.shade700,
-            ),
-          ),
-          Text(
-            'Mot de passe: $password',
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.grey.shade700,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }
