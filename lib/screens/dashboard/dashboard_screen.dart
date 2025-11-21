@@ -199,7 +199,24 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 );
 
                 if (confirm == true && context.mounted) {
+                  // Afficher un indicateur de chargement
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (context) => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+
+                  // Déconnecter
                   await context.read<AuthProvider>().logout();
+
+                  // Fermer l'indicateur de chargement si encore monté
+                  if (context.mounted) {
+                    Navigator.of(context).pop();
+                  }
+
+                  // Le AuthWrapper devrait automatiquement rediriger vers LoginScreen
                 }
               },
             ),

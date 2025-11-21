@@ -139,22 +139,32 @@ class AuthProvider extends ChangeNotifier {
 
   /// Déconnexion
   Future<void> logout() async {
-    _isLoading = true;
-    notifyListeners();
-
     try {
+      if (kDebugMode) {
+        print('🔴 Début déconnexion...');
+      }
+      
+      // Déconnecter de Firebase
       await _authService.logout();
+      
+      // Réinitialiser l'état local immédiatement
       _firebaseUser = null;
       _appUser = null;
       _centre = null;
       _error = null;
+      _isLoading = false;
+      
+      if (kDebugMode) {
+        print('✅ Déconnexion réussie');
+      }
+      
+      // Notifier les listeners APRÈS avoir réinitialisé l'état
+      notifyListeners();
     } catch (e) {
       _error = 'Erreur lors de la déconnexion : $e';
       if (kDebugMode) {
-        print('Erreur logout: $e');
+        print('❌ Erreur logout: $e');
       }
-    } finally {
-      _isLoading = false;
       notifyListeners();
     }
   }
