@@ -32,6 +32,40 @@ class _DashboardScreenState extends State<DashboardScreen> {
         title: const Text('MediDesk'),
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         actions: [
+          // Bouton de déconnexion rapide
+          IconButton(
+            icon: const Icon(Icons.logout),
+            tooltip: 'Déconnexion rapide',
+            onPressed: () async {
+              final confirm = await showDialog<bool>(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text('Déconnexion'),
+                  content: const Text('Voulez-vous vraiment vous déconnecter ?'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(false),
+                      child: const Text('Annuler'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () => Navigator.of(context).pop(true),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                        foregroundColor: Colors.white,
+                      ),
+                      child: const Text('Déconnexion'),
+                    ),
+                  ],
+                ),
+              );
+
+              if (confirm == true && context.mounted) {
+                await context.read<AuthProvider>().logout();
+              }
+            },
+          ),
+          const SizedBox(width: 8),
+          // Avatar profil
           IconButton(
             icon: CircleAvatar(
               radius: 16,
