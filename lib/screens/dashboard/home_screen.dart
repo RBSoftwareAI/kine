@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../providers/auth_provider.dart';
@@ -58,12 +59,19 @@ class _HomeScreenState extends State<HomeScreen> {
       _appointmentsWeek = await _countAppointmentsWeek(centreId);
     } catch (e) {
       if (mounted) {
+        // Afficher un message d'erreur convivial
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Erreur chargement statistiques : $e'),
-            backgroundColor: Colors.red,
+          const SnackBar(
+            content: Text('Impossible de charger les statistiques. Réessayez plus tard.'),
+            backgroundColor: Colors.orange,
+            duration: Duration(seconds: 3),
           ),
         );
+        
+        // Log détaillé uniquement en debug
+        if (kDebugMode) {
+          print('❌ Erreur chargement stats: $e');
+        }
       }
     } finally {
       if (mounted) {
@@ -79,16 +87,23 @@ class _HomeScreenState extends State<HomeScreen> {
     final startOfDay = DateTime(now.year, now.month, now.day);
     final endOfDay = DateTime(now.year, now.month, now.day, 23, 59, 59);
 
+    // Requête simple sans index composite
     final snapshot = await FirebaseFirestore.instance
         .collection('appointments')
         .where('centre_id', isEqualTo: centreId)
-        .where('date_heure',
-            isGreaterThanOrEqualTo: Timestamp.fromDate(startOfDay))
-        .where('date_heure', isLessThanOrEqualTo: Timestamp.fromDate(endOfDay))
-        .count()
         .get();
 
-    return snapshot.count ?? 0;
+    // Filtrer en mémoire pour éviter l'index composite
+    final count = snapshot.docs.where((doc) {
+      final data = doc.data();
+      if (data['date_heure'] == null) return false;
+      
+      final dateHeure = (data['date_heure'] as Timestamp).toDate();
+      return dateHeure.isAfter(startOfDay.subtract(const Duration(seconds: 1))) &&
+             dateHeure.isBefore(endOfDay.add(const Duration(seconds: 1)));
+    }).length;
+
+    return count;
   }
 
   Future<int> _countAppointmentsWeek(String centreId) async {
@@ -99,16 +114,23 @@ class _HomeScreenState extends State<HomeScreen> {
         DateTime(startOfWeek.year, startOfWeek.month, startOfWeek.day);
     final endDate = startDate.add(const Duration(days: 7));
 
+    // Requête simple sans index composite
     final snapshot = await FirebaseFirestore.instance
         .collection('appointments')
         .where('centre_id', isEqualTo: centreId)
-        .where('date_heure',
-            isGreaterThanOrEqualTo: Timestamp.fromDate(startDate))
-        .where('date_heure', isLessThan: Timestamp.fromDate(endDate))
-        .count()
         .get();
 
-    return snapshot.count ?? 0;
+    // Filtrer en mémoire pour éviter l'index composite
+    final count = snapshot.docs.where((doc) {
+      final data = doc.data();
+      if (data['date_heure'] == null) return false;
+      
+      final dateHeure = (data['date_heure'] as Timestamp).toDate();
+      return dateHeure.isAfter(startDate.subtract(const Duration(seconds: 1))) &&
+             dateHeure.isBefore(endDate);
+    }).length;
+
+    return count;
   }
 
   @override
