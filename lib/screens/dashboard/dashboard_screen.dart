@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
 import 'home_screen.dart';
 import '../patients/patients_list_screen.dart';
+import '../appointments/calendar_screen.dart';
 
 /// Écran principal du dashboard avec navigation par onglets
 class DashboardScreen extends StatefulWidget {
@@ -18,7 +19,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   final List<Widget> _screens = [
     const HomeScreen(),
     const PatientsListScreen(),
-    const PlaceholderScreen(title: 'Calendrier'),
+    const CalendarScreen(),
     const PlaceholderScreen(title: 'Paramètres'),
   ];
 
