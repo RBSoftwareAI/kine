@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'firebase_options.dart';
 import 'providers/auth_provider.dart';
 import 'providers/patient_provider.dart';
@@ -35,6 +36,15 @@ class MediDeskApp extends StatelessWidget {
       child: MaterialApp(
         title: 'MediDesk Demo',
         debugShowCheckedModeBanner: false,
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('fr', 'FR'),
+        ],
+        locale: const Locale('fr', 'FR'),
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
             seedColor: const Color(0xFF2196F3), // Bleu MediDesk
