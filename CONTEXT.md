@@ -267,21 +267,51 @@ Les obligations légales s'appliquent **dès le premier utilisateur**.
 - Gestion statuts (5 états)
 - Affichage détaillé RDV
 
-### 🔄 Phase E : Backend Local (EN COURS)
-- Backend Flask + SQLite ← **PRIORITÉ ACTUELLE**
-- Architecture hybride DataService
-- Chiffrement données sensibles
-- Logs d'audit RGPD
-- Installation locale (script Windows)
+### ✅ Phase E : Backend Flask REST API (TERMINÉE - 22/11/2024)
+- **Backend Flask complet** : 40+ fichiers créés
+- **5 routes REST** : auth, patients, appointments, centres, audit
+- **5 modèles SQLAlchemy** : User, Centre, Patient, Appointment, AuditLog
+- **Authentification JWT** : login, register, refresh, logout, change password
+- **Sécurité** : bcrypt, verrouillage compte, validation données
+- **RGPD** : Logs d'audit automatiques, multi-tenant, données sensibles identifiées
+- **Configuration** : .env, multi-environnements (dev, test, prod)
+- **Documentation** : README.md complet, structure claire
+- **Tests** : Backend démarre et fonctionne (port 5000)
 
-### 🔜 Phase F : Fonctionnalités avancées (Q1 2025)
+### ✅ Option B : Préparation déploiement demo.medidesk.fr (TERMINÉE - 22/11/2024)
+- **Guide déploiement** : DEPLOYMENT_GUIDE.md (4 options)
+- **Documentation publique** : README_DEMO.md
+- **Configuration Firebase Hosting** : firebase.json, .firebaserc
+- **Optimisations SEO** : Meta tags, Open Graph, Twitter Cards
+- **PWA optimisé** : manifest.json amélioré
+- **Build production** : flutter build web --release (17.2s)
+- **Corrections compatibilité** : auth_provider, user model, home_screen
+- **Prêt pour déploiement** : `firebase deploy --only hosting`
+
+### 🔄 Phase F : Architecture Hybride (EN COURS - Prochaine session)
+- DataService abstrait (interface commune) ← **PRIORITÉ ACTUELLE**
+- Implémentation Firebase (démo publique)
+- Implémentation Flask (installation locale)
+- Switcher mode demo/local dans l'app
+- Chiffrement SQLite (SQLCipher)
+- Script installation Windows
+
+### 🔜 Phase G : Documentation juridique (Prochaine session)
+- Guide praticien (responsabilités RGPD)
+- CGU/CGV MediDesk
+- Modèle consentement patient
+- Procédure gestion droits patients
+- Registre des traitements pré-rempli
+- Notice d'information CNIL
+
+### 🔜 Phase H : Fonctionnalités avancées (Q1 2025)
 - Dossiers médicaux (consultations, prescriptions)
 - Facturation et comptabilité
 - Téléconsultation sécurisée P2P
 - IA médicale (aide diagnostic)
 - Notifications et rappels
 
-### 🔜 Phase G : Interopérabilité (Q2 2025)
+### 🔜 Phase I : Interopérabilité (Q2 2025)
 - Import agendas Doctolib/Maiia
 - Export vers plateformes tierces
 - API publique documentée
@@ -445,26 +475,31 @@ export DATABASE_URL=sqlite:///medidesk_local.db
 
 ## 🎯 PRIORITÉS ACTUELLES
 
-**HAUTE PRIORITÉ** :
-1. ✅ Terminer backend Flask REST API
-2. ✅ Implémenter DataService abstrait
-3. ✅ Créer chiffrement SQLite
-4. ✅ Ajouter logs d'audit RGPD
+**🔥 HAUTE PRIORITÉ (Prochaine session)** :
+1. ✅ ~~Backend Flask REST API complet~~ (TERMINÉ 22/11/2024)
+2. 🔄 Adapter services Flutter : Créer DataService abstrait (Firebase + Flask)
+3. 🔄 Documentation juridique RGPD complète (Option C - 6 documents)
+4. 🔄 Déployer demo.medidesk.fr (Firebase Hosting)
 
-**MOYENNE PRIORITÉ** :
-5. ⏳ Documentation juridique praticien
-6. ⏳ Script installation Windows
-7. ⏳ Tests unitaires backend
-8. ⏳ Guide utilisateur final
+**📋 MOYENNE PRIORITÉ** :
+5. ⏳ Tests backend Flask (pytest + intégration)
+6. ⏳ Chiffrement SQLite (SQLCipher pour production)
+7. ⏳ Script installation Windows (.exe)
+8. ⏳ Tests unitaires Flutter
+9. ⏳ Build APK Android
 
-**BASSE PRIORITÉ** :
-9. 🔜 Application mobile Android
-10. 🔜 IA médicale (aide diagnostic)
-11. 🔜 Interopérabilité Doctolib/Maiia
-12. 🔜 Téléconsultation P2P
+**🔮 BASSE PRIORITÉ** :
+10. 🔜 Guide utilisateur final
+11. 🔜 IA médicale (aide diagnostic)
+12. 🔜 Interopérabilité Doctolib/Maiia
+13. 🔜 Téléconsultation P2P
 
 ---
 
-**Dernière mise à jour** : Session développement Phase E  
-**Version** : 1.0.0  
-**Statut projet** : MVP Flutter complet (Firebase) / Backend local en développement
+**Dernière mise à jour** : 22/11/2024 - Session Options B+A  
+**Version** : 1.1.0  
+**Statut projet** : 
+- Frontend Flutter : ✅ MVP complet (Firebase) - Production-ready
+- Backend Flask : ✅ REST API complet (auth, patients, appointments, centres, audit)
+- Déploiement : 🔜 Prêt pour demo.medidesk.fr
+- Documentation : 📚 Complète (DEPLOYMENT_GUIDE, README_DEMO, SESSION_SUMMARY)
