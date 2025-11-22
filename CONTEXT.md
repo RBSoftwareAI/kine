@@ -1,785 +1,470 @@
-# 📘 CONTEXT COMPLET - MediDesk Demo
+# 📘 CONTEXT - MediDesk Documentation Complète
 
-**Projet :** MediDesk - Système de Gestion Multi-Centres pour Professionnels de Santé  
-**Date :** 19 Novembre 2025  
-**Version :** 1.0.0  
-**Package Android :** fr.medidesk.demo
+**Documentation technique et stratégique pour le développement de MediDesk**
 
 ---
 
-## 📋 TABLE DES MATIÈRES
+## 🎯 VISION STRATÉGIQUE
 
-1. [Vue d'Ensemble](#vue-densemble)
-2. [Architecture Firebase](#architecture-firebase)
-3. [Services Créés](#services-créés)
-4. [Modèles de Données](#modèles-de-données)
-5. [Base de Données](#base-de-données)
-6. [Sécurité Firestore](#sécurité-firestore)
-7. [Phases de Développement](#phases-de-développement)
-8. [Configuration](#configuration)
-9. [Déploiement](#déploiement)
+### Mission
+Révolutionner la gestion des cabinets de kinésithérapie et d'ostéopathie avec une solution **locale-first**, respectueuse de la vie privée et économiquement accessible.
 
----
+### Positionnement marché
+**"Le Linux du logiciel médical"** - Open, local, souverain
 
-## 🎯 VUE D'ENSEMBLE
+### Différenciation vs concurrence
 
-### **Objectif du Projet**
-
-MediDesk Demo est une application Flutter de gestion pour professionnels de santé avec :
-- **Multi-tenant** : Isolation complète des données par centre
-- **Gestion patients** : CRUD complet avec historique
-- **Réservation RDV** : Calendrier + disponibilités + réservations publiques
-- **Authentication** : Inscription avec création automatique de centre
-
-### **Technologies**
-
-- **Frontend :** Flutter 3.35.4 / Dart 3.9.2 (versions verrouillées)
-- **Backend :** Firebase (Auth, Firestore, Storage, Functions)
-- **State Management :** Provider 6.1.5+1
-- **Database :** Cloud Firestore (NoSQL)
-- **Calendrier :** table_calendar 3.1.2
-
-### **Plateformes Cibles**
-
-- ✅ Web (prioritaire pour démo)
-- ✅ Android (package: fr.medidesk.demo)
-- 📋 iOS (à configurer si nécessaire)
+| Critère | Doctolib | Maiia | MediDesk |
+|---------|----------|-------|----------|
+| **Données locales** | ❌ Cloud | ❌ Cloud | ✅ Local-first |
+| **Coût démarrage** | Élevé | Moyen | **0€** |
+| **Dossier patient complet** | ✅ | Limité | ✅ |
+| **IA médicale** | ❌ | ❌ | 🔜 Roadmap |
+| **Interopérabilité** | Fermé | Fermé | ✅ Ouvert |
+| **Propriété données** | Plateforme | Plateforme | **Praticien** |
+| **Conformité HDS** | ✅ Obligatoire | ✅ Obligatoire | ✅ Option (si SaaS) |
 
 ---
 
-## 🔥 ARCHITECTURE FIREBASE
+## 🏗️ ARCHITECTURE TECHNIQUE
 
-### **Configuration Firebase**
+### Architecture hybride (MODE DEMO + MODE LOCAL)
 
-**Projet Firebase :** kinecare-81f52
-
-**Fichiers de configuration :**
 ```
-lib/firebase_options.dart              ✅ Multi-plateforme (Web/Android/iOS)
-android/app/google-services.json       ✅ Configuration Android
-/opt/flutter/firebase-admin-sdk.json   ✅ Clé backend Python
+┌─────────────────────────────────────────────────────────┐
+│  FRONTEND FLUTTER (unique pour les 2 modes)             │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │  UI Screens (Auth, Dashboard, Patients, RDV)     │  │
+│  └───────────────────────────────────────────────────┘  │
+│                        ↓                                 │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │  DataService (interface abstraite)               │  │
+│  │  → Permet de basculer entre Firebase et Flask    │  │
+│  └───────────────────────────────────────────────────┘  │
+│           ↙                              ↘              │
+└─────────────────────────────────────────────────────────┘
+            ↙                                      ↘
+┌──────────────────────┐              ┌──────────────────────┐
+│  MODE DEMO           │              │  MODE LOCAL          │
+│  (demo.medidesk.fr)  │              │  (Cabinet Tourcoing) │
+├──────────────────────┤              ├──────────────────────┤
+│  Backend Firebase    │              │  Backend Flask       │
+│  - Firebase Auth     │              │  - JWT Auth          │
+│  - Firestore         │              │  - SQLite Database   │
+│  - Cloud Storage     │              │  - Chiffrement AES   │
+│                      │              │  - Logs audit RGPD   │
+│  ✅ Données fictives │              │  ✅ Données réelles  │
+│  ✅ Accès public     │              │  ✅ 100% local       │
+│  ✅ 0€ (free tier)   │              │  ✅ 0€ hébergement   │
+│  ✅ Formation        │              │  ✅ PC salle soins   │
+└──────────────────────┘              └──────────────────────┘
 ```
 
-### **Services Firebase Utilisés**
+### Stack technique
 
-| Service | Usage | Status |
-|---------|-------|--------|
-| **Authentication** | Email/Password | ✅ Activé |
-| **Firestore** | Base de données | ✅ Opérationnel |
-| **Storage** | Documents/Images | ✅ Configuré |
-| **Functions** | Notifications (futur) | 📋 À configurer |
+**Frontend (unique)** :
+- Flutter 3.35.4 (LOCKED - ne pas updater)
+- Dart 3.9.2 (LOCKED - ne pas updater)
+- Provider (state management)
+- Material Design 3
+- Localisation française complète
 
-### **URLs Importantes**
+**Backend MODE DEMO** :
+- Firebase Auth (authentification)
+- Firestore (base NoSQL)
+- Cloud Storage (documents)
+- Cloud Functions (logique serveur)
 
-- **Application Live :** https://5060-iwvw0ubiemorjzzgug549-2b54fc91.sandbox.novita.ai
-- **Firebase Console :** https://console.firebase.google.com/
-- **GitHub Repository :** https://github.com/RBSoftwareAI/kine
+**Backend MODE LOCAL** (EN DÉVELOPPEMENT) :
+- Flask 3.0.0 (API REST)
+- SQLAlchemy (ORM)
+- SQLite (base locale chiffrée)
+- JWT (authentification)
+- CORS (communication Flutter)
 
 ---
 
-## 🛠️ SERVICES CRÉÉS
+## 📊 MODÈLE DE DONNÉES
 
-### **1. FirebaseAuthService**
+### Schéma de base de données
 
-**Fichier :** `lib/services/firebase_auth_service.dart` (4891 caractères)
-
-**Responsabilités :**
-- Inscription avec création automatique du centre
-- Connexion / Déconnexion
-- Réinitialisation mot de passe
-- Récupération données utilisateur/centre
-- Gestion erreurs Firebase Auth
-
-**Méthodes principales :**
-
-```dart
-class FirebaseAuthService {
-  // Inscription avec création centre
-  Future<UserCredential> signup({
-    required String email,
-    required String password,
-    required String nom,
-    required String prenom,
-    required String specialite,
-    required String centreName,
-    required String centreAdresse,
-    String? centreTelephone,
-    String? centreEmail,
-  });
-  
-  // Connexion
-  Future<UserCredential> login(String email, String password);
-  
-  // Déconnexion
-  Future<void> logout();
-  
-  // Réinitialisation mot de passe
-  Future<void> resetPassword(String email);
-  
-  // Récupérer données utilisateur
-  Future<User> getUserData(String uid);
-  
-  // Récupérer centre utilisateur
-  Future<Centre> getUserCentre(String centreId);
-}
-```
-
-**Workflow d'inscription :**
-1. Créer compte Firebase Auth
-2. Créer centre dans Firestore
-3. Créer utilisateur dans Firestore avec `centre_id`
-4. Mettre à jour profil Firebase Auth
-
-### **2. AuthProvider**
-
-**Fichier :** `lib/providers/auth_provider.dart` (4568 caractères)
-
-**Responsabilités :**
-- Gestion de l'état d'authentification global
-- Écoute des changements d'auth Firebase
-- Chargement automatique des données user/centre
-- Gestion du loading et des erreurs
-
-**État géré :**
-
-```dart
-class AuthProvider extends ChangeNotifier {
-  firebase_auth.User? _firebaseUser;      // User Firebase Auth
-  User? _appUser;                         // User Firestore
-  Centre? _centre;                        // Centre Firestore
-  bool _isLoading = false;
-  String? _error;
-  
-  // Getters
-  bool get isAuthenticated;
-  User? get appUser;
-  Centre? get centre;
-  
-  // Méthodes
-  Future<bool> signup(...);
-  Future<bool> login(String email, String password);
-  Future<void> logout();
-  Future<void> loadUserData();
-}
-```
-
-**Utilisation dans l'app :**
-
-```dart
-// Dans main.dart
-runApp(
-  ChangeNotifierProvider(
-    create: (_) => AuthProvider(),
-    child: MediDeskApp(),
-  ),
+```sql
+-- Table CENTRES (multi-tenant)
+CREATE TABLE centres (
+    id TEXT PRIMARY KEY,
+    nom TEXT NOT NULL,
+    adresse TEXT,
+    telephone TEXT,
+    email TEXT,
+    horaires_debut TEXT DEFAULT '08:00',
+    horaires_fin TEXT DEFAULT '19:00',
+    jours_travail TEXT DEFAULT 'lundi,mardi,mercredi,jeudi,vendredi',
+    duree_consultation_defaut INTEGER DEFAULT 30,
+    cree_le DATETIME DEFAULT CURRENT_TIMESTAMP,
+    modifie_le DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-// Dans les widgets
-Consumer<AuthProvider>(
-  builder: (context, auth, _) {
-    if (auth.isLoading) return LoadingScreen();
-    if (!auth.isAuthenticated) return LoginScreen();
-    return DashboardScreen();
-  },
-)
+-- Table USERS (praticiens)
+CREATE TABLE users (
+    id TEXT PRIMARY KEY,
+    centre_id TEXT NOT NULL,
+    email TEXT UNIQUE NOT NULL,
+    password_hash TEXT NOT NULL,
+    nom TEXT NOT NULL,
+    prenom TEXT NOT NULL,
+    specialite TEXT,
+    telephone TEXT,
+    role TEXT DEFAULT 'praticien', -- admin, praticien, secretaire
+    actif BOOLEAN DEFAULT TRUE,
+    cree_le DATETIME DEFAULT CURRENT_TIMESTAMP,
+    derniere_connexion DATETIME,
+    FOREIGN KEY (centre_id) REFERENCES centres(id)
+);
+
+-- Table PATIENTS (données sensibles - chiffrement requis)
+CREATE TABLE patients (
+    id TEXT PRIMARY KEY,
+    centre_id TEXT NOT NULL,
+    nom TEXT NOT NULL,
+    prenom TEXT NOT NULL,
+    date_naissance DATE,
+    sexe TEXT,
+    telephone TEXT,
+    email TEXT,
+    adresse TEXT,
+    numero_securite_sociale TEXT, -- À CHIFFRER
+    medecin_traitant TEXT,
+    mutuelle TEXT,
+    numero_mutuelle TEXT,
+    notes TEXT, -- À CHIFFRER
+    antecedents TEXT, -- À CHIFFRER
+    allergies TEXT, -- À CHIFFRER
+    actif BOOLEAN DEFAULT TRUE,
+    cree_le DATETIME DEFAULT CURRENT_TIMESTAMP,
+    modifie_le DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (centre_id) REFERENCES centres(id)
+);
+
+-- Table APPOINTMENTS (rendez-vous)
+CREATE TABLE appointments (
+    id TEXT PRIMARY KEY,
+    centre_id TEXT NOT NULL,
+    praticien_id TEXT NOT NULL,
+    patient_id TEXT NOT NULL,
+    date_heure DATETIME NOT NULL,
+    duree INTEGER DEFAULT 30, -- minutes
+    type TEXT DEFAULT 'consultation',
+    motif TEXT,
+    statut TEXT DEFAULT 'planifie', -- planifie, confirme, en_cours, termine, annule
+    notes TEXT,
+    cree_le DATETIME DEFAULT CURRENT_TIMESTAMP,
+    modifie_le DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (centre_id) REFERENCES centres(id),
+    FOREIGN KEY (praticien_id) REFERENCES users(id),
+    FOREIGN KEY (patient_id) REFERENCES patients(id)
+);
+
+-- Table AUDIT_LOGS (traçabilité RGPD obligatoire)
+CREATE TABLE audit_logs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id TEXT,
+    user_email TEXT,
+    action TEXT NOT NULL, -- login, create_patient, update_patient, etc.
+    resource_type TEXT, -- patient, appointment, etc.
+    resource_id TEXT,
+    details TEXT,
+    ip_address TEXT,
+    user_agent TEXT,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- Index pour optimisation des requêtes
+CREATE INDEX idx_patients_centre_actif ON patients(centre_id, actif);
+CREATE INDEX idx_patients_nom_prenom ON patients(nom, prenom);
+CREATE INDEX idx_appointments_centre_date ON appointments(centre_id, date_heure);
+CREATE INDEX idx_appointments_praticien_date ON appointments(praticien_id, date_heure);
+CREATE INDEX idx_audit_user_timestamp ON audit_logs(user_id, timestamp);
 ```
 
 ---
 
-## 📊 MODÈLES DE DONNÉES
+## 🔒 CONFORMITÉ JURIDIQUE (RGPD + DONNÉES DE SANTÉ)
 
-### **1. Centre**
+### ⚠️ OBLIGATIONS LÉGALES CRITIQUES
 
-**Fichier :** `lib/models/centre.dart` (4167 caractères)
+**ATTENTION** : Même en local, MediDesk traite des **données de santé**.  
+Les obligations légales s'appliquent **dès le premier utilisateur**.
 
-**Champs principaux :**
-```dart
-class Centre {
-  final String id;
-  final String nom;
-  final String adresse;
-  final String? telephone;
-  final String? email;
-  final String proprietaireId;           // ID premier utilisateur
-  final int dureeConsultationDefaut;     // Minutes
-  final String? heureOuverture;          // Format: "08:00"
-  final String? heureFermeture;          // Format: "19:00"
-  final List<int>? joursOuverture;       // 1=Lundi, 7=Dimanche
-  final bool actif;
-  final DateTime dateCreation;
-}
+### Ce qui est OBLIGATOIRE (même sans HDS)
+
+✅ **Chiffrement** :
+- Données au repos (SQLite chiffré avec SQLCipher)
+- Données en transit (HTTPS/TLS obligatoire)
+- Mots de passe hashés (bcrypt/argon2)
+
+✅ **Traçabilité** :
+- Logs d'audit pour chaque accès/modification
+- Conservation logs 3 ans minimum
+- Export logs pour contrôle CNIL
+
+✅ **Consentement patient** :
+- Consentement explicite documenté
+- Droit d'accès, rectification, suppression
+- Export données patient (portabilité)
+
+✅ **Responsabilités** :
+- DPO (Délégué à la Protection des Données) - peut être externe
+- Analyse d'impact (AIPD) sur la vie privée
+- Registre des traitements
+
+### Parade juridique MediDesk
+
+```
+┌─────────────────────────────────────────────────┐
+│  MODÈLE "RESPONSABILITÉ PRATICIEN"              │
+├─────────────────────────────────────────────────┤
+│  Le praticien = Responsable de traitement      │
+│  MediDesk = Fournisseur d'outil conforme       │
+│                                                  │
+│  ✅ Praticien gère ses données localement       │
+│  ✅ MediDesk ne stocke ni n'héberge             │
+│  ✅ Conformité "Privacy by Design"              │
+│  ✅ Documentation juridique blindée fournie     │
+└─────────────────────────────────────────────────┘
 ```
 
-**Méthodes :**
-- `fromFirestore(DocumentSnapshot)` - Créer depuis Firestore
-- `toFirestore()` - Convertir pour Firestore
-- `copyWith(...)` - Copie immutable avec modifications
+### Documents juridiques à fournir
 
-### **2. User (Professionnel de Santé)**
+1. **Guide praticien** (responsabilités RGPD)
+2. **CGU/CGV MediDesk**
+3. **Modèle consentement patient**
+4. **Procédure gestion droits patients**
+5. **Registre des traitements pré-rempli**
+6. **Notice d'information CNIL**
 
-**Fichier :** `lib/models/user.dart` (3774 caractères)
+---
 
-**Champs principaux :**
-```dart
-class User {
-  final String id;                       // Firebase Auth UID
-  final String centreId;                 // ⚠️ CRITIQUE pour isolation
-  final String nom;
-  final String prenom;
-  final String email;
-  final String role;                     // 'admin', 'praticien', 'assistant'
-  final String? specialite;              // 'Kinésithérapeute', etc.
-  final String? numeroOrdre;
-  final bool actif;
-  final DateTime dateCreation;
-  final DateTime? derniereConnexion;
-  
-  String get nomComplet => '$prenom $nom';
-}
+## 🚀 ROADMAP DÉVELOPPEMENT
+
+### ✅ Phase B : Authentification (TERMINÉE)
+- Écran connexion/déconnexion moderne
+- Firebase Auth intégré
+- Comptes de test fonctionnels
+- Déconnexion rapide (bouton AppBar)
+
+### ✅ Phase C : Dashboard + Patients (TERMINÉE)
+- Dashboard avec statistiques
+- Liste patients (recherche, filtres)
+- Formulaire création/édition patient
+- Détails patient
+- Multi-tenancy (isolation par centre)
+
+### ✅ Phase D : Système de réservation (TERMINÉE)
+- Calendrier mensuel interactif (table_calendar)
+- Création RDV (DatePicker français)
+- Modification/Annulation RDV
+- Gestion statuts (5 états)
+- Affichage détaillé RDV
+
+### 🔄 Phase E : Backend Local (EN COURS)
+- Backend Flask + SQLite ← **PRIORITÉ ACTUELLE**
+- Architecture hybride DataService
+- Chiffrement données sensibles
+- Logs d'audit RGPD
+- Installation locale (script Windows)
+
+### 🔜 Phase F : Fonctionnalités avancées (Q1 2025)
+- Dossiers médicaux (consultations, prescriptions)
+- Facturation et comptabilité
+- Téléconsultation sécurisée P2P
+- IA médicale (aide diagnostic)
+- Notifications et rappels
+
+### 🔜 Phase G : Interopérabilité (Q2 2025)
+- Import agendas Doctolib/Maiia
+- Export vers plateformes tierces
+- API publique documentée
+- Format HL7 FHIR
+
+---
+
+## 📁 STRUCTURE DU PROJET
+
 ```
-
-**Rôles :**
-- `admin` : Propriétaire du centre, peut tout modifier
-- `praticien` : Peut gérer patients et RDV
-- `assistant` : Accès limité (futur)
-
-### **3. Appointment (Rendez-vous)**
-
-**Fichier :** `lib/models/appointment.dart` (4710 caractères)
-
-**Champs principaux :**
-```dart
-class Appointment {
-  final String id;
-  final String centreId;                 // ⚠️ Isolation multi-tenant
-  final String praticienId;              // ID de l'utilisateur
-  final String? patientId;               // Null si RDV public
-  final DateTime dateHeure;
-  final int duree;                       // Minutes
-  final String type;                     // 'consultation', 'suivi', etc.
-  final String statut;                   // 'planifié', 'confirmé', 'terminé', 'annulé'
-  
-  // Pour RDV publics (sans compte patient)
-  final String? patientNom;
-  final String? patientPrenom;
-  final String? patientTelephone;
-  final String? patientEmail;
-  
-  DateTime get heureFin;
-  bool get estPasse;
-  bool get estAujourdhui;
-}
-```
-
-**Statuts possibles :**
-- `planifié` : RDV créé, en attente confirmation
-- `confirmé` : RDV confirmé par patient/centre
-- `en_cours` : Consultation en cours
-- `terminé` : Consultation terminée
-- `annulé` : RDV annulé
-
-### **4. Patient**
-
-**Fichier :** `lib/models/patient.dart` (existant)
-
-**Champs principaux :**
-```dart
-class Patient {
-  final String id;
-  final String centreId;                 // ⚠️ Isolation multi-tenant
-  final String nom;
-  final String prenom;
-  final DateTime dateNaissance;
-  final String? telephone;
-  final String? email;
-  final String? adresse;
-  final bool actif;
-  final DateTime dateCreation;
-}
+/home/user/
+├── flutter_app/                     # Frontend Flutter
+│   ├── lib/
+│   │   ├── main.dart                # Point d'entrée
+│   │   ├── models/                  # Modèles de données
+│   │   │   ├── user_model.dart
+│   │   │   ├── centre_model.dart
+│   │   │   ├── patient_model.dart
+│   │   │   └── appointment_model.dart
+│   │   ├── services/                # Services backend
+│   │   │   ├── firebase_auth_service.dart
+│   │   │   ├── firestore_patient_service.dart
+│   │   │   ├── firestore_appointment_service.dart
+│   │   │   └── local_flask_service.dart (À CRÉER)
+│   │   ├── providers/               # State management
+│   │   │   ├── auth_provider.dart
+│   │   │   ├── patient_provider.dart
+│   │   │   └── appointment_provider.dart
+│   │   └── screens/                 # UI
+│   │       ├── auth/
+│   │       │   ├── login_screen.dart
+│   │       │   ├── signup_screen.dart
+│   │       │   └── loading_screen.dart
+│   │       ├── dashboard/
+│   │       │   ├── dashboard_screen.dart
+│   │       │   └── home_screen.dart
+│   │       ├── patients/
+│   │       │   ├── patients_list_screen.dart
+│   │       │   ├── patient_detail_screen.dart
+│   │       │   └── patient_form_screen.dart
+│   │       └── appointments/
+│   │           ├── calendar_screen.dart
+│   │           ├── appointment_form_screen.dart
+│   │           └── appointment_detail_screen.dart
+│   ├── android/                     # Config Android
+│   ├── web/                         # Config Web
+│   ├── pubspec.yaml                 # Dépendances
+│   ├── AI_QUICK_START.md            # Guide express IA
+│   └── CONTEXT.md                   # Ce fichier
+│
+└── medidesk_backend/                # Backend Flask (EN DÉVELOPPEMENT)
+    ├── app/
+    │   ├── __init__.py              # Factory Flask
+    │   ├── models.py                # Modèles SQLAlchemy
+    │   ├── routes/                  # API REST
+    │   │   ├── auth.py
+    │   │   ├── patients.py
+    │   │   ├── appointments.py
+    │   │   ├── centres.py
+    │   │   └── audit.py
+    │   └── utils/
+    │       ├── encryption.py        # Chiffrement SQLite
+    │       └── audit_logger.py      # Logs RGPD
+    ├── migrations/                  # Migrations DB
+    ├── tests/                       # Tests unitaires
+    ├── requirements.txt             # Dépendances Python
+    ├── config.py                    # Configuration
+    └── run.py                       # Lancement serveur
 ```
 
 ---
 
-## 🗄️ BASE DE DONNÉES
+## 🔧 DÉVELOPPEMENT
 
-### **Collections Firestore**
+### Commandes essentielles
 
-| Collection | Documents | Description |
-|------------|-----------|-------------|
-| **centres** | 2 | Centres de santé (Paris, Lyon) |
-| **users** | 6 | Professionnels (3 par centre) |
-| **patients** | 20 | Patients (10 par centre) |
-| **appointments** | 30 | Rendez-vous (15 par centre) |
-
-### **Centres de Test**
-
-**1. Cabinet Kiné Paris Centre**
-- ID : `FNjyP2TYD1QXksh8ijke`
-- Adresse : 15 Rue de Rivoli, 75001 Paris
-- Tel : 01 42 60 38 38
-- Email : contact@kine-paris-centre.fr
-
-**2. Centre Ostéo Lyon**
-- ID : `qMhGxTrAZfqRWTRB7LZT`
-- Adresse : 42 Cours Vitton, 69006 Lyon
-- Tel : 04 78 52 63 74
-- Email : contact@osteo-lyon.fr
-
-### **Script d'Initialisation**
-
-**Fichier :** `scripts/init_firestore_demo.py` (9181 caractères)
-
-**Utilisation :**
 ```bash
+# Flutter
 cd /home/user/flutter_app
-python3 scripts/init_firestore_demo.py
+flutter pub get              # Installer dépendances
+flutter analyze              # Analyser code
+flutter build web --release  # Build production
+
+# Backend Flask (quand prêt)
+cd /home/user/medidesk_backend
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+flask db init
+flask db migrate
+flask db upgrade
+flask run --port=5000
+
+# Git
+git status
+git add -A
+git commit -m "Message"
+git push origin base
 ```
 
-**Résultats :**
-- 2 centres créés
-- 6 utilisateurs créés (Dr. Marie Lefebvre, Dr. Pierre Girard, Dr. Sophie Rousseau × 2 centres)
-- 20 patients avec noms/prénoms réalistes
-- 30 rendez-vous sur les 30 prochains jours
+### Variables d'environnement
 
----
-
-## 🔒 SÉCURITÉ FIRESTORE
-
-### **Règles de Sécurité**
-
-**Fichier :** `firestore.rules` (3129 caractères)
-
-**⚠️ IMPORTANT :** Règles créées mais **pas encore publiées**  
-**Action requise :** Firebase Console → Firestore Database → Règles → Publier
-
-### **Fonctions Helper**
-
-```javascript
-// Vérifie si utilisateur est authentifié
-function isAuthenticated() {
-  return request.auth != null;
-}
-
-// Récupère le centre_id de l'utilisateur
-function getUserCentreId() {
-  return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.centre_id;
-}
-
-// Vérifie si appartient au même centre
-function belongsToSameCentre(centreId) {
-  return isAuthenticated() && getUserCentreId() == centreId;
-}
-
-// Vérifie si utilisateur est admin
-function isAdmin() {
-  return isAuthenticated() && 
-         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
-}
-```
-
-### **Règles par Collection**
-
-**Centres :**
-```javascript
-match /centres/{centreId} {
-  allow read: if belongsToSameCentre(centreId);
-  allow create: if isAuthenticated();  // Inscription
-  allow update: if belongsToSameCentre(centreId) && isAdmin();
-  allow delete: if false;  // Pas de suppression
-}
-```
-
-**Users :**
-```javascript
-match /users/{userId} {
-  allow read: if isAuthenticated() && belongsToSameCentre(resource.data.centre_id);
-  allow create: if isAuthenticated();  // Inscription
-  allow update: if request.auth.uid == userId || isAdmin();
-  allow delete: if false;
-}
-```
-
-**Patients :**
-```javascript
-match /patients/{patientId} {
-  allow read, write: if isAuthenticated() && belongsToSameCentre(resource.data.centre_id);
-  allow create: if isAuthenticated();
-}
-```
-
-**Appointments :**
-```javascript
-match /appointments/{appointmentId} {
-  allow read, write: if isAuthenticated() && belongsToSameCentre(resource.data.centre_id);
-  allow create: if true;  // ⚠️ Permet réservations publiques
-}
-```
-
-### **Isolation Multi-Tenant**
-
-**Principe :** Chaque requête doit filtrer par `centre_id`
-
-```dart
-// ✅ CORRECT - Filtrage automatique
-final patients = await FirebaseFirestore.instance
-    .collection('patients')
-    .where('centre_id', isEqualTo: currentUser.centreId)
-    .get();
-
-// ❌ INTERDIT - Accès à un autre centre
-final patients = await FirebaseFirestore.instance
-    .collection('patients')
-    .where('centre_id', isEqualTo: 'autre-centre-id')  // PERMISSION_DENIED
-    .get();
-```
-
----
-
-## 📋 PHASES DE DÉVELOPPEMENT
-
-### **Phase A : Backend & Database ✅ COMPLÉTÉE**
-
-**Durée :** 1-2h  
-**Status :** ✅ 100%
-
-**Accomplissements :**
-- ✅ Script Python backend créé
-- ✅ 58 documents Firestore créés
-- ✅ Règles de sécurité documentées
-
-### **Phase B : Authentication 📋 EN COURS**
-
-**Durée estimée :** 3-4h  
-**Status :** Services ✅ 100%, Écrans 📋 0%
-
-**Services créés :**
-- ✅ FirebaseAuthService
-- ✅ AuthProvider
-
-**À développer :**
-```
-📋 lib/screens/auth/signup_screen.dart
-   - Formulaire inscription
-   - Validation champs
-   - Création compte + centre
-   
-📋 lib/screens/auth/login_screen.dart
-   - Formulaire connexion
-   - Gestion erreurs
-   - Lien mot de passe oublié
-   
-📋 Mise à jour main.dart
-   - Intégration Provider
-   - Router basé sur auth
-   - Gestion states (loading, authenticated, etc.)
-```
-
-**Exemple SignupScreen :**
-```dart
-class SignupScreen extends StatefulWidget {
-  @override
-  _SignupScreenState createState() => _SignupScreenState();
-}
-
-class _SignupScreenState extends State<SignupScreen> {
-  final _formKey = GlobalKey<FormState>();
-  
-  // Controllers
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _nomController = TextEditingController();
-  final _prenomController = TextEditingController();
-  final _centreNameController = TextEditingController();
-  final _centreAdresseController = TextEditingController();
-  
-  String _selectedSpecialite = 'Kinésithérapeute';
-  
-  Future<void> _handleSignup() async {
-    if (!_formKey.currentState!.validate()) return;
-    
-    final authProvider = context.read<AuthProvider>();
-    final success = await authProvider.signup(
-      email: _emailController.text.trim(),
-      password: _passwordController.text,
-      nom: _nomController.text.trim(),
-      prenom: _prenomController.text.trim(),
-      specialite: _selectedSpecialite,
-      centreName: _centreNameController.text.trim(),
-      centreAdresse: _centreAdresseController.text.trim(),
-    );
-    
-    if (!success && mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(authProvider.error ?? 'Erreur')),
-      );
-    }
-  }
-  
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Inscription')),
-      body: Form(
-        key: _formKey,
-        child: ListView(
-          padding: EdgeInsets.all(16),
-          children: [
-            // Tous les champs de formulaire
-            TextFormField(
-              controller: _emailController,
-              decoration: InputDecoration(labelText: 'Email'),
-              validator: (v) => v!.isEmpty ? 'Requis' : null,
-            ),
-            // ... autres champs
-            ElevatedButton(
-              onPressed: _handleSignup,
-              child: Text('S\'inscrire'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-```
-
-### **Phase C : Dashboard & Patients 📋 À FAIRE**
-
-**Durée estimée :** 4-5h  
-**Status :** 📋 0%
-
-**À développer :**
-
-**1. FirestoreRepository** (`lib/services/firestore_repository.dart`)
-```dart
-class FirestoreRepository {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  
-  // Patients
-  Stream<List<Patient>> getPatients(String centreId) {
-    return _firestore
-        .collection('patients')
-        .where('centre_id', isEqualTo: centreId)
-        .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => Patient.fromFirestore(doc))
-            .toList());
-  }
-  
-  Future<void> addPatient(Patient patient) async {
-    await _firestore
-        .collection('patients')
-        .add(patient.toFirestore());
-  }
-  
-  Future<void> updatePatient(String patientId, Map<String, dynamic> data) async {
-    await _firestore
-        .collection('patients')
-        .doc(patientId)
-        .update(data);
-  }
-  
-  // Appointments
-  Stream<List<Appointment>> getAppointments(String centreId, DateTime date) {
-    // Filtrer par centre_id ET date
-  }
-  
-  // Statistiques
-  Future<Map<String, int>> getStatistics(String centreId) async {
-    // Nombre de patients, RDV du jour, etc.
-  }
-}
-```
-
-**2. DashboardScreen** (`lib/screens/dashboard/dashboard_screen.dart`)
-- Carte statistiques (nb patients, RDV aujourd'hui, RDV semaine)
-- Liste RDV du jour
-- Navigation : Patients, Calendrier, Paramètres
-
-**3. PatientsListScreen** (`lib/screens/patients/patients_list_screen.dart`)
-- Liste scrollable avec StreamBuilder
-- Barre de recherche
-- Bouton "Ajouter patient"
-
-**4. PatientFormScreen** (`lib/screens/patients/patient_form_screen.dart`)
-- Formulaire complet patient
-- Mode création / édition
-- Validation des champs
-
-### **Phase D : Système Réservation 📋 À FAIRE**
-
-**Durée estimée :** 6-8h  
-**Status :** 📋 0%
-
-**À développer :**
-
-**1. AppointmentService** (`lib/services/appointment_service.dart`)
-```dart
-class AppointmentService {
-  // Calcule créneaux disponibles
-  Future<List<TimeSlot>> getAvailableSlots({
-    required DateTime date,
-    required String praticienId,
-    required int dureeMinutes,
-  }) async {
-    // Récupérer horaires centre
-    // Récupérer RDV existants du praticien
-    // Calculer créneaux libres
-    // Retourner liste de TimeSlot
-  }
-  
-  // Vérifie disponibilité
-  Future<bool> isSlotAvailable(DateTime dateHeure, String praticienId) async {
-    // Vérifier si créneau libre
-  }
-  
-  // Crée rendez-vous
-  Future<void> createAppointment(Appointment appointment) async {
-    await FirebaseFirestore.instance
-        .collection('appointments')
-        .add(appointment.toFirestore());
-  }
-}
-```
-
-**2. CalendarScreen** (`lib/screens/appointments/calendar_screen.dart`)
-- Utiliser `table_calendar: 3.1.2`
-- Afficher indicateurs RDV par jour
-- Sélection date → liste RDV
-
-**3. AppointmentFormScreen** (`lib/screens/appointments/appointment_form_screen.dart`)
-- Sélection praticien, patient
-- Choix date/heure/durée
-- Motif consultation
-
-**4. PublicBookingScreen** (`lib/screens/appointments/public_booking_screen.dart`)
-- Accessible sans authentification
-- Formulaire patient simple
-- Choix créneaux disponibles
-
----
-
-## ⚙️ CONFIGURATION
-
-### **Environnement**
-
-```yaml
-# pubspec.yaml
-name: medidesk
-version: 1.0.0+1
-
-environment:
-  sdk: ^3.9.2
-
-dependencies:
-  flutter:
-    sdk: flutter
-  
-  # Firebase (versions verrouillées)
-  firebase_core: 3.6.0
-  cloud_firestore: 5.4.3
-  firebase_auth: 5.3.1
-  firebase_storage: 12.3.2
-  cloud_functions: 5.1.3
-  
-  # State management & utilities
-  provider: 6.1.5+1
-  shared_preferences: 2.5.3
-  intl: ^0.19.0
-  http: 1.5.0
-  
-  # Calendrier
-  table_calendar: 3.1.2
-  
-  # UI
-  cupertino_icons: ^1.0.8
-```
-
-### **Android**
-
-**Package :** `fr.medidesk.demo`
-
-**Fichiers configurés :**
-- `android/app/build.gradle.kts` - applicationId
-- `android/app/src/main/AndroidManifest.xml` - package + permissions
-- `android/app/src/main/kotlin/fr/medidesk/demo/MainActivity.kt`
-- `android/app/google-services.json`
-
-### **Commandes Utiles**
-
+**Flutter** :
 ```bash
-# Installation dépendances
-flutter pub get
+export FLUTTER_MODE=demo    # ou 'local'
+export API_BASE_URL=http://localhost:5000  # pour mode local
+```
 
-# Analyse code
-flutter analyze
-
-# Build Web
-flutter build web --release
-
-# Serveur local
-cd build/web && python3 -m http.server 5060 --bind 0.0.0.0 &
-
-# Réinitialiser base de données
-python3 scripts/init_firestore_demo.py
+**Flask** :
+```bash
+export FLASK_APP=run.py
+export FLASK_ENV=development
+export SECRET_KEY=your-secret-key
+export JWT_SECRET_KEY=your-jwt-secret
+export DATABASE_URL=sqlite:///medidesk_local.db
 ```
 
 ---
 
-## 🚀 DÉPLOIEMENT
+## 🐛 PROBLÈMES CONNUS ET SOLUTIONS
 
-### **Netlify (Recommandé)**
+### ✅ RÉSOLUS
 
-**Configuration :**
-```yaml
-# netlify.toml
-[build]
-  command = "flutter build web --release"
-  publish = "build/web"
+| Problème | Solution | Commit |
+|----------|----------|--------|
+| Liste patients vide | Simplification requêtes Firestore | `601c3c5` |
+| Comptes test absents | Script `create_test_accounts.py` | `7ecb521` |
+| Déconnexion ne fonctionne pas | Réinitialisation état provider | `81171bd` |
+| Stats dashboard erreur | Filtrage dates en mémoire | `6b97485` |
+| Bouton logout invisible | Bouton rapide AppBar | `8b9e37f` |
+| Interface login obsolète | Design moderne Card | `2e8d16a` |
+| DatePicker fond gris | table_calendar 3.2.0 + localisation | `27f014c` |
 
-[build.environment]
-  FLUTTER_VERSION = "3.35.4"
-```
+### ⚠️ EN COURS
 
-**DNS Gandi :**
-```
-Type: CNAME
-Nom: demo
-Valeur: [netlify-app].netlify.app
-TTL: 300
-```
-
-**URL finale :** https://demo.medidesk.fr
-
-### **Étapes Déploiement**
-
-1. Connecter GitHub à Netlify
-2. Configurer build command
-3. Déployer
-4. Configurer DNS chez Gandi
-5. Activer SSL automatique
+- Backend Flask REST API (Phase E)
+- Architecture hybride DataService
+- Chiffrement SQLite
+- Logs d'audit RGPD
 
 ---
 
-## 📊 STATISTIQUES
+## 📞 CONTACTS & RESSOURCES
 
-```
-Date dernière session :       19 Novembre 2025
-Durée session :               ~3h30
-Fichiers créés :              25+
-Lignes de code :              2500+
-Documentation :               40000+ caractères
+### Équipe
+- **Responsable** : Développement MediDesk
+- **Target** : Cabinets kinésithérapie/ostéopathie France
 
-Infrastructure :              100% ✅
-Backend Database :            100% ✅
-Services Authentication :     100% ✅
-Écrans UI :                   0% 📋
+### Resources
+- **GitHub** : https://github.com/RBSoftwareAI/kine
+- **Firebase Console** : https://console.firebase.google.com/
+- **Preview URL** : https://5060-ix0ake2l8sv44i0ezuq5t-2e77fc33.sandbox.novita.ai
 
-Temps estimé restant :        12-18h
-```
+### Support IA
+- Lire **AI_QUICK_START.md** en premier
+- Consulter **CONTEXT.md** pour détails
+- Vérifier `git log` pour historique
+- Tester avec `flutter analyze`
 
 ---
 
-**✅ Documentation complète et à jour !**
+## 🎯 PRIORITÉS ACTUELLES
 
-**Pour démarrer rapidement, lire d'abord AI_QUICK_START.md**
+**HAUTE PRIORITÉ** :
+1. ✅ Terminer backend Flask REST API
+2. ✅ Implémenter DataService abstrait
+3. ✅ Créer chiffrement SQLite
+4. ✅ Ajouter logs d'audit RGPD
+
+**MOYENNE PRIORITÉ** :
+5. ⏳ Documentation juridique praticien
+6. ⏳ Script installation Windows
+7. ⏳ Tests unitaires backend
+8. ⏳ Guide utilisateur final
+
+**BASSE PRIORITÉ** :
+9. 🔜 Application mobile Android
+10. 🔜 IA médicale (aide diagnostic)
+11. 🔜 Interopérabilité Doctolib/Maiia
+12. 🔜 Téléconsultation P2P
+
+---
+
+**Dernière mise à jour** : Session développement Phase E  
+**Version** : 1.0.0  
+**Statut projet** : MVP Flutter complet (Firebase) / Backend local en développement

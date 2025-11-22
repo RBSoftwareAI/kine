@@ -1,312 +1,187 @@
-# ⚡ AI QUICK START - MediDesk Demo
+# 🚀 AI QUICK START - MediDesk
 
-**Date de dernière session :** 19 Novembre 2025  
-**Status :** Infrastructure complète, Services auth créés, Écrans UI à développer
-
----
-
-## 📊 STATUS ACTUEL (EN 30 SECONDES)
-
-```
-✅ Infrastructure Firebase             100%
-✅ Base de données (58 documents)      100%
-✅ Services Authentication             100%
-✅ Modèles de données                  100%
-✅ Règles de sécurité                  100%
-✅ Documentation                       100%
-
-📋 Écrans UI                           0% (à développer)
-```
+**Guide express pour démarrer rapidement une session de développement avec l'IA**
 
 ---
 
-## 🎯 OBJECTIF DU PROJET
+## 📋 Informations essentielles
 
-**MediDesk Demo** : Système de gestion multi-centres pour professionnels de santé
-- Gestion patients
-- Système de réservation rendez-vous
-- Isolation complète par centre (multi-tenant)
-- Réservations publiques en ligne
+### 🎯 Projet : **MediDesk**
+Logiciel de gestion de cabinet médical (kinésithérapie, ostéopathie)
 
----
+### 🏗️ Architecture technique
+- **Frontend** : Flutter 3.35.4 + Dart 3.9.2 (Web + Android)
+- **Backend MODE DEMO** : Firebase (Firestore, Auth, Storage)
+- **Backend MODE LOCAL** : Flask + SQLite (EN DÉVELOPPEMENT)
+- **État** : Provider Pattern
+- **Base de données locale** : SQLite chiffré
+- **Base de données demo** : Firestore
 
-## 🔥 CE QUI EST PRÊT
-
-### **1. Firebase Opérationnel**
-- Project ID : `kinecare-81f52`
-- Package Android : `fr.medidesk.demo`
-- URL démo : https://5060-iwvw0ubiemorjzzgug549-2b54fc91.sandbox.novita.ai
-
-### **2. Base de Données Firestore**
-```
-2 centres :
-  - Cabinet Kiné Paris Centre (FNjyP2TYD1QXksh8ijke)
-  - Centre Ostéo Lyon (qMhGxTrAZfqRWTRB7LZT)
-  
-6 utilisateurs (3 par centre)
-20 patients (10 par centre)
-30 rendez-vous (15 par centre)
-```
-
-### **3. Services Authentication**
-- ✅ `lib/services/firebase_auth_service.dart` (4891 caractères)
-  - Inscription avec création centre automatique
-  - Connexion / Déconnexion
-  - Réinitialisation mot de passe
-  
-- ✅ `lib/providers/auth_provider.dart` (4568 caractères)
-  - Gestion état avec Provider
-  - Chargement données user/centre
-
-### **4. Modèles de Données**
-- ✅ `lib/models/centre.dart` - Centre de santé
-- ✅ `lib/models/user.dart` - Professionnel de santé
-- ✅ `lib/models/appointment.dart` - Rendez-vous
-- ✅ Patient, PainPoint, SessionNote (existants)
-
-### **5. Sécurité Firestore**
-- ✅ `firestore.rules` créé
-- ⚠️ **À publier manuellement** : Firebase Console → Firestore → Règles
+### 📂 Repository
+- **URL** : https://github.com/RBSoftwareAI/kine
+- **Branche principale** : `base`
+- **Dossier Flutter** : `/home/user/flutter_app/`
+- **Dossier Backend Flask** : `/home/user/medidesk_backend/`
 
 ---
 
-## 📋 CE QUI RESTE À FAIRE
+## ⚡ Démarrage rapide
 
-### **Phase B : Écrans Authentication (3-4h)**
-```
-📋 lib/screens/auth/signup_screen.dart
-📋 lib/screens/auth/login_screen.dart
-📋 Mise à jour main.dart avec router auth
-```
+### 1️⃣ **État actuel du projet**
 
-### **Phase C : Dashboard & Patients (4-5h)**
-```
-📋 lib/services/firestore_repository.dart
-📋 lib/screens/dashboard/dashboard_screen.dart
-📋 lib/screens/patients/patients_list_screen.dart
-📋 lib/screens/patients/patient_form_screen.dart
-```
+✅ **COMPLÉTÉ (100%)** :
+- Phase B : Authentification (Login, Logout, Comptes test)
+- Phase C : Dashboard + Gestion des patients
+- Phase D : Système de réservation (Calendrier, RDV)
 
-### **Phase D : Système Réservation (6-8h)**
-```
-📋 lib/services/appointment_service.dart
-📋 lib/screens/appointments/calendar_screen.dart
-📋 lib/screens/appointments/appointment_form_screen.dart
-📋 lib/screens/appointments/public_booking_screen.dart
-```
+🔄 **EN DÉVELOPPEMENT** :
+- Backend Flask + SQLite pour installation locale
+- Architecture hybride (Firebase démo + Flask local)
+- Documentation juridique RGPD
 
----
+### 2️⃣ **Commandes essentielles**
 
-## 🚀 COMMANDES RAPIDES
-
-### **Redémarrer Application**
 ```bash
+# Naviguer vers le projet Flutter
 cd /home/user/flutter_app
-lsof -ti:5060 | xargs -r kill -9
-cd build/web && python3 -m http.server 5060 --bind 0.0.0.0 &
-```
 
-### **Rebuild Complète**
-```bash
-cd /home/user/flutter_app
-flutter build web --release
-cd build/web && python3 -m http.server 5060 --bind 0.0.0.0 &
-```
-
-### **Réinitialiser Base de Données**
-```bash
-cd /home/user/flutter_app
-python3 scripts/init_firestore_demo.py
-```
-
-### **Analyser Code**
-```bash
-cd /home/user/flutter_app
+# Analyser le code (détection erreurs)
 flutter analyze
+
+# Rebuild application web
+flutter build web --release
+
+# Démarrer serveur de preview (port 5060)
+cd build/web && python3 -m http.server 5060 --bind 0.0.0.0 &
+
+# Voir les logs
+tail -f /home/user/server.log
+
+# Git status
+git status
+
+# Commit rapide
+git add -A && git commit -m "Description"
+
+# Push vers GitHub
+git push origin base
 ```
 
----
+### 3️⃣ **Comptes de test (Firebase)**
 
-## 🔗 LIENS IMPORTANTS
+| Email | Mot de passe | Centre | Rôle |
+|-------|--------------|--------|------|
+| `marie.lefebvre@kine-paris.fr` | `password123` | Kiné Paris Centre | Kinésithérapeute |
+| `pierre.girard@osteo-lyon.fr` | `password123` | Ostéo Lyon | Ostéopathe |
 
-**Application Live :**
-https://5060-iwvw0ubiemorjzzgug549-2b54fc91.sandbox.novita.ai
-
-**Firebase Console :**
-https://console.firebase.google.com/
-
-**GitHub Repository :**
-https://github.com/RBSoftwareAI/kine
+**Données test** : 20 patients + 15 RDV par centre
 
 ---
 
-## 📁 STRUCTURE PROJET
+## 🎯 Structure du code
 
 ```
 flutter_app/
 ├── lib/
-│   ├── main.dart                           ✅ Créé
-│   ├── firebase_options.dart               ✅ Créé
-│   ├── models/
-│   │   ├── centre.dart                     ✅ Créé
-│   │   ├── user.dart                       ✅ Créé
-│   │   ├── appointment.dart                ✅ Créé
-│   │   └── patient.dart                    ✅ Existant
-│   ├── services/
-│   │   └── firebase_auth_service.dart      ✅ Créé
-│   ├── providers/
-│   │   └── auth_provider.dart              ✅ Créé
-│   └── screens/
-│       ├── auth/                           📋 À créer
-│       ├── dashboard/                      📋 À créer
-│       ├── patients/                       📋 À créer
-│       └── appointments/                   📋 À créer
-├── android/
-│   └── app/
-│       ├── google-services.json            ✅ Créé
-│       └── build.gradle.kts                ✅ Configuré
-├── scripts/
-│   └── init_firestore_demo.py              ✅ Créé
-├── firestore.rules                         ✅ Créé
-└── Documentation/
-    ├── AI_QUICK_START.md                   ✅ Ce fichier
-    └── CONTEXT.md                          ✅ Voir fichier complet
+│   ├── main.dart                    # Point d'entrée
+│   ├── models/                      # Modèles de données
+│   │   ├── user_model.dart
+│   │   ├── patient_model.dart
+│   │   └── appointment_model.dart
+│   ├── services/                    # Logique métier
+│   │   ├── firebase_auth_service.dart
+│   │   ├── firestore_patient_service.dart
+│   │   └── firestore_appointment_service.dart
+│   ├── providers/                   # State management
+│   │   ├── auth_provider.dart
+│   │   ├── patient_provider.dart
+│   │   └── appointment_provider.dart
+│   └── screens/                     # UI
+│       ├── auth/                    # Authentification
+│       ├── dashboard/               # Dashboard principal
+│       ├── patients/                # Gestion patients
+│       └── appointments/            # Gestion RDV
+├── android/                         # Configuration Android
+└── web/                             # Configuration Web
+
+medidesk_backend/                    # Backend Flask (EN DÉVELOPPEMENT)
+├── app/
+│   ├── __init__.py                  # Factory Flask
+│   ├── models.py                    # Modèles SQLAlchemy
+│   └── routes/                      # API REST endpoints
+└── requirements.txt                 # Dépendances Python
 ```
 
 ---
 
-## ⚠️ POINTS D'ATTENTION
+## 🔧 Problèmes fréquents et solutions
 
-### **1. Règles Firestore Non Publiées**
-Les règles de sécurité sont créées mais **pas encore publiées** :
-- Fichier : `/home/user/flutter_app/firestore.rules`
-- **Action requise :** Firebase Console → Firestore Database → Règles → Publier
+### ❌ Erreur : "Port 5060 déjà utilisé"
+```bash
+lsof -ti:5060 | xargs -r kill -9
+```
 
-### **2. Package Android**
-- Package configuré : `fr.medidesk.demo`
-- Aligné avec domaine : `demo.medidesk.fr`
-- ✅ Tous les fichiers Android mis à jour
+### ❌ Erreur : "firebase_localizations not found"
+```bash
+cd /home/user/flutter_app
+flutter pub get
+```
 
-### **3. Versions Verrouillées**
-- Flutter 3.35.4 (NE PAS mettre à jour)
-- Dart 3.9.2 (NE PAS mettre à jour)
-- Firebase packages : Versions testées et stables
+### ❌ Erreur : "Date picker fond gris"
+✅ **RÉSOLU** : Mise à jour `table_calendar: ^3.2.0` + localisation française
+
+### ❌ Erreur : "Liste patients ne charge pas"
+✅ **RÉSOLU** : Simplification requêtes Firestore (filtrage en mémoire)
 
 ---
 
-## 💡 CONSEILS POUR DÉVELOPPEMENT
+## 📊 URLs importantes
 
-### **Architecture Authentication**
-Le service `FirebaseAuthService` est prêt. Pour créer les écrans :
-
-1. **SignupScreen** - Utilise ces champs :
-   - Email, mot de passe, nom, prénom
-   - Spécialité (dropdown)
-   - Nom du centre, adresse du centre
-
-2. **LoginScreen** - Simple :
-   - Email, mot de passe
-   - Lien "Mot de passe oublié"
-   - Lien "Créer un compte"
-
-3. **Router dans main.dart** :
-```dart
-import 'package:provider/provider.dart';
-import 'providers/auth_provider.dart';
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  
-  runApp(
-    ChangeNotifierProvider(
-      create: (_) => AuthProvider(),
-      child: const MediDeskApp(),
-    ),
-  );
-}
-
-// Dans build():
-home: Consumer<AuthProvider>(
-  builder: (context, auth, _) {
-    if (auth.isLoading) return LoadingScreen();
-    if (!auth.isAuthenticated) return LoginScreen();
-    return DashboardScreen();
-  },
-)
-```
-
-### **Isolation Multi-Tenant**
-Dans **TOUS** les appels Firestore, filtrer par `centre_id` :
-```dart
-final patients = await FirebaseFirestore.instance
-    .collection('patients')
-    .where('centre_id', isEqualTo: currentUser.centreId)
-    .get();
-```
-
-### **Gestion Erreurs Firebase**
-```dart
-try {
-  await authService.login(email, password);
-} on FirebaseAuthException catch (e) {
-  if (e.code == 'user-not-found') {
-    showError('Utilisateur introuvable');
-  } else if (e.code == 'wrong-password') {
-    showError('Mot de passe incorrect');
-  }
-}
-```
+| Service | URL | Statut |
+|---------|-----|--------|
+| **Preview Web** | https://5060-ix0ake2l8sv44i0ezuq5t-2e77fc33.sandbox.novita.ai | ✅ Actif |
+| **GitHub** | https://github.com/RBSoftwareAI/kine | ✅ Synchronisé |
+| **Firebase Console** | https://console.firebase.google.com/ | ✅ Configuré |
 
 ---
 
-## 📊 STATISTIQUES SESSION PRÉCÉDENTE
+## 🎯 Prochaines étapes recommandées
 
-```
-Date :                  19 Novembre 2025
-Durée :                 ~3h30
-Fichiers créés :        25+
-Lignes de code :        2500+
-Documentation :         40000+ caractères
-```
+1. **Backend Flask local** : Créer API REST complète
+2. **Architecture hybride** : DataService abstrait avec 2 implémentations
+3. **Chiffrement SQLite** : Sécuriser données locales
+4. **Logs d'audit** : Traçabilité RGPD
+5. **Documentation juridique** : Guide praticien, CGU, RGPD
 
 ---
 
-## 🎯 DEMANDES FRÉQUENTES
+## 💡 Conseils pour l'IA
 
-**"Développe les écrans d'authentification"**
-→ Créer SignupScreen et LoginScreen avec formulaires complets
+### ✅ Bonnes pratiques
+- Toujours lire `CONTEXT.md` après ce fichier
+- Vérifier l'état actuel avec `git status`
+- Tester avec `flutter analyze` avant build
+- Commit fréquents avec messages descriptifs
+- Utiliser les commandes variables (`${FLUTTER_BUILD_CORS}`)
 
-**"Crée le dashboard"**
-→ Créer DashboardScreen avec statistiques et navigation
-
-**"Système de gestion patients"**
-→ Créer FirestoreRepository + Liste patients + Formulaire
-
-**"Système de réservation"**
-→ Créer AppointmentService + Calendrier + Formulaires RDV
-
-**"Déploie sur Netlify"**
-→ Build production + Configuration Netlify + DNS
+### ❌ Pièges à éviter
+- Ne JAMAIS modifier les versions Flutter/Dart (LOCKED)
+- Ne JAMAIS utiliser `print()` en production (utiliser `debugPrint`)
+- Ne JAMAIS créer de nouveaux backends sans abstraction
+- Toujours vérifier la compatibilité Web des packages
 
 ---
 
-## 📚 DOCUMENTATION COMPLÈTE
+## 📞 Support
 
-Pour plus de détails, voir **CONTEXT.md** qui contient :
-- Architecture complète du projet
-- Détails de chaque service créé
-- Exemples de code pour chaque phase
-- Workflow d'inscription détaillé
-- Règles de sécurité Firestore
-- Guide de déploiement
+Pour questions ou problèmes :
+1. Consulter `CONTEXT.md` (documentation complète)
+2. Vérifier les logs : `tail -f /home/user/server.log`
+3. Analyser le code : `flutter analyze`
+4. Commits récents : `git log --oneline -10`
 
 ---
 
-**✅ Prêt à continuer le développement !**
-
-**Status :** Backend 100%, Frontend 0% (architecture prête)  
-**Prochain objectif :** Écrans d'authentification  
-**Temps estimé :** 12-18h pour application complète
+**Dernière mise à jour** : Session développement Phase D (Réservations)  
+**Version** : 1.0.0  
+**Statut** : Production-ready (Firebase) / En développement (Flask local)
