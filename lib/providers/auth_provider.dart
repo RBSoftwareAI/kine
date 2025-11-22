@@ -18,9 +18,11 @@ class AuthProvider extends ChangeNotifier {
   // Getters
   firebase_auth.User? get firebaseUser => _firebaseUser;
   User? get appUser => _appUser;
+  User? get currentUser => _appUser; // Alias pour compatibilité
   Centre? get centre => _centre;
   bool get isLoading => _isLoading;
   String? get error => _error;
+  String? get errorMessage => _error; // Alias pour compatibilité
   bool get isAuthenticated => _firebaseUser != null && _appUser != null;
 
   AuthProvider() {
@@ -137,6 +139,11 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
+  /// Alias pour compatibilité
+  Future<bool> signIn(String email, String password) async {
+    return await login(email, password);
+  }
+
   /// Déconnexion
   Future<void> logout() async {
     try {
@@ -167,6 +174,11 @@ class AuthProvider extends ChangeNotifier {
       }
       notifyListeners();
     }
+  }
+
+  /// Alias pour compatibilité
+  Future<void> signOut() async {
+    await logout();
   }
 
   /// Réinitialiser le mot de passe

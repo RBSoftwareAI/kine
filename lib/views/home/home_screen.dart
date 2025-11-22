@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
-import '../../models/user_model.dart';
 import '../../utils/app_theme.dart';
 import '../pain/pain_tracking_screen.dart';
 import '../professional/patients_dashboard_screen.dart';
@@ -95,7 +94,7 @@ class HomeScreen extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                   child: Text(
-                                    user.role.displayName,
+                                    user.role,
                                     style: const TextStyle(
                                       fontSize: 12,
                                       color: AppTheme.primaryOrange,

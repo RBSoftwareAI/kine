@@ -1,13 +1,17 @@
 {
-    "name": "medidesk",
-    "short_name": "medidesk",
+    "name": "MediDesk - Logiciel Médical",
+    "short_name": "MediDesk",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#FF6B35",
+    "theme_color": "#FF6B35",
+    "description": "Logiciel de gestion de cabinet médical pour kinésithérapeutes et ostéopathes. Gestion patients, rendez-vous et dossiers médicaux.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
+    "categories": ["medical", "healthcare", "productivity", "business"],
+    "lang": "fr",
+    "dir": "ltr",
+    "scope": "/",
     "icons": [
         {
             "src": "icons/Icon-192.png",
@@ -30,6 +34,14 @@
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "maskable"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "screenshots/dashboard.png",
+            "sizes": "1280x720",
+            "type": "image/png",
+            "platform": "wide"
         }
     ]
 }

@@ -37,6 +37,18 @@ class User {
 
   /// Nom complet de l'utilisateur
   String get nomComplet => '$prenom $nom';
+  
+  // Alias pour compatibilité avec d'autres écrans
+  String get fullName => '$prenom $nom';
+  String get firstName => prenom;
+  String get lastName => nom;
+  String get displayName => '$prenom $nom';
+  
+  // Getters de rôle pour compatibilité
+  bool get isAdmin => role == 'admin';
+  bool get isSadmin => role == 'sadmin';
+  bool get isPatient => role == 'patient';
+  bool get isProfessional => role == 'praticien' || role == 'kine' || role == 'coach';
 
   /// Créer un User depuis un document Firestore
   factory User.fromFirestore(DocumentSnapshot doc) {
