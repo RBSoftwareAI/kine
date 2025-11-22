@@ -4,6 +4,18 @@
 
 ---
 
+## 📚 Documentation de Session (NOUVEAU)
+
+**Pour démarrage rapide** :
+- 📄 **`README_SESSION.md`** - Résumé exécutif ultra-rapide (5min lecture)
+- 📋 **`PROMPT_PROCHAINE_SESSION.md`** - État complet + prochaines étapes détaillées
+
+**Pour contexte complet** :
+- 📖 **`AI_QUICK_START.md`** (ce fichier) - Commandes essentielles + code structure
+- 🎯 **`CONTEXT.md`** - Vision stratégique + architecture + RGPD
+
+---
+
 ## 📋 Informations essentielles
 
 ### 🎯 Projet : **MediDesk**
