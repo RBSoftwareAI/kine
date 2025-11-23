@@ -19,7 +19,8 @@ class AuditService {
     // Simulation délai réseau
     await Future.delayed(const Duration(milliseconds: 100));
 
-    final log = AuditLog(
+    // Créer le log d'audit
+    AuditLog(
       id: 'log_${DateTime.now().millisecondsSinceEpoch}',
       patientId: patientId,
       userId: userId,

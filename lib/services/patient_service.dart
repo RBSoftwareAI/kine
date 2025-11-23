@@ -1,5 +1,4 @@
 import '../models/patient_summary.dart';
-import '../models/user_model.dart';
 import '../models/pain_point.dart';
 import '../models/session_note.dart';
 

@@ -101,8 +101,7 @@ class _PatientsDashboardScreenState extends State<PatientsDashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = context.watch<AuthProvider>();
-    final user = authProvider.currentUser;
+    context.watch<AuthProvider>();
 
     return Scaffold(
       appBar: AppBar(

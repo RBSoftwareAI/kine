@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1026510332084:android:df4d962b0e50e641d1b7e1",
+        "mobilesdk_app_id": "1:1026510332084:android:d581d34f10824b17d1b7e1",
         "android_client_info": {
-          "package_name": "com.workoutwarrior.kinecare"
+          "package_name": "fr.medidesk.demo"
         }
       },
       "oauth_client": [],

@@ -23,15 +23,9 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -50,20 +44,38 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAgExPyK8BeKSyDSkMqBAlGcGHQWGOXh3g',
-    appId: '1:1026510332084:web:df4d962b0e50e641d1b7e1',
+    apiKey: 'AIzaSyDe4TIqSeMsEoLI75wQs84GiQWDGtyvo9k',
+    appId: '1:1026510332084:web:307b40e551336f81d1b7e1',
     messagingSenderId: '1026510332084',
     projectId: 'kinecare-81f52',
     authDomain: 'kinecare-81f52.firebaseapp.com',
     storageBucket: 'kinecare-81f52.firebasestorage.app',
+    measurementId: 'G-HGCNLHLWWQ',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAgExPyK8BeKSyDSkMqBAlGcGHQWGOXh3g',
-    appId: '1:1026510332084:android:df4d962b0e50e641d1b7e1',
+    appId: '1:1026510332084:android:d581d34f10824b17d1b7e1',
     messagingSenderId: '1026510332084',
     projectId: 'kinecare-81f52',
-    authDomain: 'kinecare-81f52.firebaseapp.com',
     storageBucket: 'kinecare-81f52.firebasestorage.app',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyDe4TIqSeMsEoLI75wQs84GiQWDGtyvo9k',
+    appId: '1:1026510332084:ios:d581d34f10824b17d1b7e1',
+    messagingSenderId: '1026510332084',
+    projectId: 'kinecare-81f52',
+    storageBucket: 'kinecare-81f52.firebasestorage.app',
+    iosBundleId: 'fr.medidesk.demo',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyDe4TIqSeMsEoLI75wQs84GiQWDGtyvo9k',
+    appId: '1:1026510332084:ios:d581d34f10824b17d1b7e1',
+    messagingSenderId: '1026510332084',
+    projectId: 'kinecare-81f52',
+    storageBucket: 'kinecare-81f52.firebasestorage.app',
+    iosBundleId: 'fr.medidesk.demo',
   );
 }

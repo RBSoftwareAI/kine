@@ -1,0 +1,80 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ============================================
+    // HELPER FUNCTIONS
+    // ============================================
+    
+    // Vérifie si l'utilisateur est authentifié
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Récupère l'ID du centre de l'utilisateur connecté
+    function getUserCentreId() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.centre_id;
+    }
+    
+    // Vérifie si l'utilisateur appartient au même centre
+    function belongsToSameCentre(centreId) {
+      return isAuthenticated() && getUserCentreId() == centreId;
+    }
+    
+    // Vérifie si l'utilisateur est admin de son centre
+    function isAdmin() {
+      return isAuthenticated() && 
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // ============================================
+    // RÈGLES PAR COLLECTION
+    // ============================================
+    
+    // CENTRES - Lecture si appartient au centre, création libre, modification si admin
+    match /centres/{centreId} {
+      allow read: if belongsToSameCentre(centreId);
+      allow create: if isAuthenticated(); // Permet création lors inscription
+      allow update: if belongsToSameCentre(centreId) && isAdmin();
+      allow delete: if false; // Pas de suppression de centre
+    }
+    
+    // USERS - Lecture si même centre, création lors inscription, modification propre profil
+    match /users/{userId} {
+      allow read: if isAuthenticated() && belongsToSameCentre(resource.data.centre_id);
+      allow create: if isAuthenticated(); // Permet création lors inscription
+      allow update: if request.auth.uid == userId || 
+                      (belongsToSameCentre(resource.data.centre_id) && isAdmin());
+      allow delete: if false; // Pas de suppression d'utilisateur
+    }
+    
+    // PATIENTS - Isolation complète par centre
+    match /patients/{patientId} {
+      allow read, write: if isAuthenticated() && belongsToSameCentre(resource.data.centre_id);
+      allow create: if isAuthenticated(); // centre_id sera ajouté automatiquement
+    }
+    
+    // APPOINTMENTS - Isolation complète par centre
+    match /appointments/{appointmentId} {
+      allow read, write: if isAuthenticated() && belongsToSameCentre(resource.data.centre_id);
+      allow create: if true; // Permet réservations publiques (sans auth)
+    }
+    
+    // PAIN_POINTS - Isolation complète par centre (si existant)
+    match /pain_points/{painPointId} {
+      allow read, write: if isAuthenticated() && belongsToSameCentre(resource.data.centre_id);
+      allow create: if isAuthenticated();
+    }
+    
+    // SESSIONS - Isolation complète par centre (si existant)
+    match /sessions/{sessionId} {
+      allow read, write: if isAuthenticated() && belongsToSameCentre(resource.data.centre_id);
+      allow create: if isAuthenticated();
+    }
+    
+    // Bloquer tout autre accès
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

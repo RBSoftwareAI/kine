@@ -1,146 +1,157 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
-import '../models/user_model.dart';
+import '../models/centre.dart';
+import '../models/user.dart' as app_user;
 
-/// Service d'authentification Firebase
+/// Service d'authentification Firebase avec création automatique de centre
 class FirebaseAuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  /// Connexion avec email et mot de passe
-  Future<UserModel?> signIn(String email, String password) async {
+  /// Stream de l'état d'authentification
+  Stream<User?> get authStateChanges => _auth.authStateChanges();
+
+  /// Utilisateur actuellement connecté
+  User? get currentUser => _auth.currentUser;
+
+  /// Inscription avec création automatique du centre
+  Future<UserCredential> signup({
+    required String email,
+    required String password,
+    required String nom,
+    required String prenom,
+    required String specialite,
+    required String centreName,
+    required String centreAdresse,
+    String? centreTelephone,
+    String? centreEmail,
+  }) async {
     try {
-      final credential = await _auth.signInWithEmailAndPassword(
+      // 1. Créer le compte Firebase Auth
+      final userCredential = await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      if (credential.user == null) return null;
+      final uid = userCredential.user!.uid;
 
-      // Récupérer les données utilisateur depuis Firestore
-      final userDoc = await _firestore
-          .collection('users')
-          .doc(credential.user!.uid)
-          .get();
+      // 2. Créer le centre dans Firestore
+      final centreRef = _firestore.collection('centres').doc();
+      final centre = Centre(
+        id: centreRef.id,
+        nom: centreName,
+        adresse: centreAdresse,
+        telephone: centreTelephone,
+        email: centreEmail ?? email,
+        dateCreation: DateTime.now(),
+        proprietaireId: uid,
+        actif: true,
+        dureeConsultationDefaut: 30,
+        heureOuverture: '08:00',
+        heureFermeture: '19:00',
+        joursOuverture: [1, 2, 3, 4, 5], // Lundi-Vendredi
+      );
 
-      if (!userDoc.exists) {
-        throw Exception('Profil utilisateur introuvable');
-      }
+      await centreRef.set(centre.toFirestore());
 
-      return UserModel.fromFirestore(userDoc.data()!, userDoc.id);
+      // 3. Créer l'utilisateur dans Firestore
+      final user = app_user.User(
+        id: uid,
+        centreId: centreRef.id,
+        nom: nom,
+        prenom: prenom,
+        email: email,
+        role: 'admin', // Premier utilisateur = admin
+        specialite: specialite,
+        dateCreation: DateTime.now(),
+        actif: true,
+      );
+
+      await _firestore.collection('users').doc(uid).set(user.toFirestore());
+
+      // 4. Mettre à jour le profil Firebase Auth
+      await userCredential.user!.updateDisplayName('$prenom $nom');
+
+      return userCredential;
     } on FirebaseAuthException catch (e) {
-      switch (e.code) {
-        case 'user-not-found':
-          throw Exception('Aucun compte trouvé avec cet email');
-        case 'wrong-password':
-          throw Exception('Mot de passe incorrect');
-        case 'invalid-email':
-          throw Exception('Email invalide');
-        case 'user-disabled':
-          throw Exception('Ce compte a été désactivé');
-        default:
-          throw Exception('Erreur de connexion: ${e.message}');
-      }
+      // Gérer les erreurs d'authentification
+      throw _handleAuthException(e);
     } catch (e) {
-      if (kDebugMode) {
-        debugPrint('Error signing in: $e');
-      }
-      throw Exception('Erreur de connexion: $e');
+      throw Exception('Erreur lors de l\'inscription : $e');
     }
   }
 
-  /// Inscription avec email et mot de passe
-  Future<UserModel?> signUp(
-    String email,
-    String password,
-    String firstName,
-    String lastName,
-    UserRole role,
-  ) async {
+  /// Connexion
+  Future<UserCredential> login(String email, String password) async {
     try {
-      // Créer le compte Firebase Auth
-      final credential = await _auth.createUserWithEmailAndPassword(
+      final userCredential = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      if (credential.user == null) return null;
+      // Mettre à jour la dernière connexion
+      final uid = userCredential.user!.uid;
+      await _firestore.collection('users').doc(uid).update({
+        'derniere_connexion': FieldValue.serverTimestamp(),
+      });
 
-      // Créer le profil utilisateur dans Firestore
-      final newUser = UserModel(
-        id: credential.user!.uid,
-        email: email,
-        firstName: firstName,
-        lastName: lastName,
-        role: role,
-        createdAt: DateTime.now(),
-        lastLoginAt: DateTime.now(),
-      );
-
-      await _firestore
-          .collection('users')
-          .doc(credential.user!.uid)
-          .set(newUser.toFirestore());
-
-      return newUser;
+      return userCredential;
     } on FirebaseAuthException catch (e) {
-      switch (e.code) {
-        case 'email-already-in-use':
-          throw Exception('Un compte existe déjà avec cet email');
-        case 'invalid-email':
-          throw Exception('Email invalide');
-        case 'weak-password':
-          throw Exception('Mot de passe trop faible (min. 6 caractères)');
-        default:
-          throw Exception('Erreur d\'inscription: ${e.message}');
-      }
-    } catch (e) {
-      if (kDebugMode) {
-        debugPrint('Error signing up: $e');
-      }
-      throw Exception('Erreur d\'inscription: $e');
+      throw _handleAuthException(e);
     }
   }
 
   /// Déconnexion
-  Future<void> signOut() async {
+  Future<void> logout() async {
     await _auth.signOut();
   }
 
-  /// Récupérer l'utilisateur actuel
-  Future<UserModel?> getCurrentUser() async {
-    final currentUser = _auth.currentUser;
-    if (currentUser == null) return null;
-
+  /// Réinitialisation du mot de passe
+  Future<void> resetPassword(String email) async {
     try {
-      final userDoc = await _firestore
-          .collection('users')
-          .doc(currentUser.uid)
-          .get();
-
-      if (!userDoc.exists) return null;
-
-      // Mettre à jour la date de dernière connexion
-      await _firestore
-          .collection('users')
-          .doc(currentUser.uid)
-          .update({'lastLoginAt': FieldValue.serverTimestamp()});
-
-      return UserModel.fromFirestore(userDoc.data()!, userDoc.id);
-    } catch (e) {
-      if (kDebugMode) {
-        debugPrint('Error getting current user: $e');
-      }
-      return null;
+      await _auth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      throw _handleAuthException(e);
     }
   }
 
-  /// Vérifier si l'utilisateur est connecté
-  Future<bool> isAuthenticated() async {
-    return _auth.currentUser != null;
+  /// Récupérer les données utilisateur depuis Firestore
+  Future<app_user.User> getUserData(String uid) async {
+    final doc = await _firestore.collection('users').doc(uid).get();
+    if (!doc.exists) {
+      throw Exception('Utilisateur introuvable dans Firestore');
+    }
+    return app_user.User.fromFirestore(doc);
   }
 
-  /// Stream d'état d'authentification
-  Stream<User?> get authStateChanges => _auth.authStateChanges();
+  /// Récupérer le centre de l'utilisateur
+  Future<Centre> getUserCentre(String centreId) async {
+    final doc = await _firestore.collection('centres').doc(centreId).get();
+    if (!doc.exists) {
+      throw Exception('Centre introuvable');
+    }
+    return Centre.fromFirestore(doc);
+  }
+
+  /// Gestion des exceptions Firebase Auth
+  String _handleAuthException(FirebaseAuthException e) {
+    switch (e.code) {
+      case 'weak-password':
+        return 'Le mot de passe est trop faible (minimum 6 caractères)';
+      case 'email-already-in-use':
+        return 'Un compte existe déjà avec cet email';
+      case 'user-not-found':
+        return 'Aucun utilisateur trouvé avec cet email';
+      case 'wrong-password':
+        return 'Mot de passe incorrect';
+      case 'invalid-email':
+        return 'Format d\'email invalide';
+      case 'user-disabled':
+        return 'Ce compte a été désactivé';
+      case 'too-many-requests':
+        return 'Trop de tentatives. Réessayez plus tard';
+      default:
+        return 'Erreur d\'authentification : ${e.message}';
+    }
+  }
 }

@@ -3,13 +3,14 @@
 library;
 
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'data_repository.dart';
 import '../models/user_model.dart';
 import '../models/pain_point.dart';
-import '../models/pain_session.dart';
+import '../models/session_note.dart';
 import '../models/audit_log.dart';
 
 /// Implémentation du repository pour le serveur local (Flask)
@@ -82,11 +83,15 @@ class LocalRepository implements DataRepository {
         // Retourner l'utilisateur
         return UserModel.fromFirestore(data['user'], data['user']['id']);
       } else {
-        print('❌ Login failed: ${response.statusCode} ${response.body}');
+        if (kDebugMode) {
+          debugPrint('❌ Login failed: ${response.statusCode} ${response.body}');
+        }
         return null;
       }
     } catch (e) {
-      print('❌ Login error: $e');
+      if (kDebugMode) {
+        debugPrint('❌ Login error: $e');
+      }
       return null;
     }
   }
@@ -112,11 +117,15 @@ class LocalRepository implements DataRepository {
         final data = json.decode(response.body);
         return UserModel.fromFirestore(data, data['id']);
       } else {
-        print('❌ Get current user failed: ${response.statusCode}');
+        if (kDebugMode) {
+          debugPrint('❌ Get current user failed: ${response.statusCode}');
+        }
         return null;
       }
     } catch (e) {
-      print('❌ Get current user error: $e');
+      if (kDebugMode) {
+        debugPrint('❌ Get current user error: $e');
+      }
       return null;
     }
   }
@@ -145,11 +154,15 @@ class LocalRepository implements DataRepository {
         final List<dynamic> data = json.decode(response.body);
         return data.map((json) => UserModel.fromFirestore(json, json['id'])).toList();
       } else {
-        print('❌ Get users failed: ${response.statusCode}');
+        if (kDebugMode) {
+          debugPrint('❌ Get users failed: ${response.statusCode}');
+        }
         return [];
       }
     } catch (e) {
-      print('❌ Get users error: $e');
+      if (kDebugMode) {
+        debugPrint('❌ Get users error: $e');
+      }
       return [];
     }
   }
@@ -168,11 +181,15 @@ class LocalRepository implements DataRepository {
         final data = json.decode(response.body);
         return UserModel.fromFirestore(data, data['id']);
       } else {
-        print('❌ Get user by ID failed: ${response.statusCode}');
+        if (kDebugMode) {
+          debugPrint('❌ Get user by ID failed: ${response.statusCode}');
+        }
         return null;
       }
     } catch (e) {
-      print('❌ Get user by ID error: $e');
+      if (kDebugMode) {
+        debugPrint('❌ Get user by ID error: $e');
+      }
       return null;
     }
   }
@@ -191,8 +208,7 @@ class LocalRepository implements DataRepository {
           'first_name': user.firstName,
           'last_name': user.lastName,
           'role': user.role.toString().split('.').last,
-          'phone': user.phone,
-          'birth_date': user.birthDate?.toIso8601String(),
+          'phone': user.phoneNumber,
         }),
       );
       
@@ -203,7 +219,9 @@ class LocalRepository implements DataRepository {
         throw Exception('Create user failed: ${response.body}');
       }
     } catch (e) {
-      print('❌ Create user error: $e');
+      if (kDebugMode) {
+        debugPrint('❌ Create user error: $e');
+      }
       rethrow;
     }
   }
@@ -232,11 +250,15 @@ class LocalRepository implements DataRepository {
         final List<dynamic> data = json.decode(response.body);
         return data.map((json) => PainPoint.fromFirestore(json, json['id'])).toList();
       } else {
-        print('❌ Get pain points failed: ${response.statusCode}');
+        if (kDebugMode) {
+          debugPrint('❌ Get pain points failed: ${response.statusCode}');
+        }
         return [];
       }
     } catch (e) {
-      print('❌ Get pain points error: $e');
+      if (kDebugMode) {
+        debugPrint('❌ Get pain points error: $e');
+      }
       return [];
     }
   }
@@ -259,7 +281,9 @@ class LocalRepository implements DataRepository {
         throw Exception('Create pain point failed: ${response.body}');
       }
     } catch (e) {
-      print('❌ Create pain point error: $e');
+      if (kDebugMode) {
+        debugPrint('❌ Create pain point error: $e');
+      }
       rethrow;
     }
   }
@@ -279,7 +303,7 @@ class LocalRepository implements DataRepository {
   // ============================================
   
   @override
-  Future<List<PainSession>> getSessions(String patientId) async {
+  Future<List<SessionNote>> getSessions(String patientId) async {
     try {
       await _loadToken();
       
@@ -290,19 +314,23 @@ class LocalRepository implements DataRepository {
       
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
-        return data.map((json) => PainSession.fromFirestore(json, json['id'])).toList();
+        return data.map((json) => SessionNote.fromFirestore(json, json['id'])).toList();
       } else {
-        print('❌ Get sessions failed: ${response.statusCode}');
+        if (kDebugMode) {
+          debugPrint('❌ Get sessions failed: ${response.statusCode}');
+        }
         return [];
       }
     } catch (e) {
-      print('❌ Get sessions error: $e');
+      if (kDebugMode) {
+        debugPrint('❌ Get sessions error: $e');
+      }
       return [];
     }
   }
   
   @override
-  Future<PainSession> createSession(PainSession session) async {
+  Future<SessionNote> createSession(SessionNote session) async {
     try {
       await _loadToken();
       
@@ -314,18 +342,20 @@ class LocalRepository implements DataRepository {
       
       if (response.statusCode == 201) {
         final data = json.decode(response.body);
-        return PainSession.fromFirestore(data, data['id']);
+        return SessionNote.fromFirestore(data, data['id']);
       } else {
         throw Exception('Create session failed: ${response.body}');
       }
     } catch (e) {
-      print('❌ Create session error: $e');
+      if (kDebugMode) {
+        debugPrint('❌ Create session error: $e');
+      }
       rethrow;
     }
   }
   
   @override
-  Future<void> updateSession(PainSession session) async {
+  Future<void> updateSession(SessionNote session) async {
     throw UnimplementedError('Update session not yet implemented');
   }
   
@@ -354,11 +384,15 @@ class LocalRepository implements DataRepository {
         final List<dynamic> data = json.decode(response.body);
         return data.map((json) => AuditLog.fromFirestore(json, json['id'])).toList();
       } else {
-        print('❌ Get audit logs failed: ${response.statusCode}');
+        if (kDebugMode) {
+          debugPrint('❌ Get audit logs failed: ${response.statusCode}');
+        }
         return [];
       }
     } catch (e) {
-      print('❌ Get audit logs error: $e');
+      if (kDebugMode) {
+        debugPrint('❌ Get audit logs error: $e');
+      }
       return [];
     }
   }
@@ -386,11 +420,15 @@ class LocalRepository implements DataRepository {
       if (response.statusCode == 200) {
         return json.decode(response.body);
       } else {
-        print('❌ Get realtime stats failed: ${response.statusCode}');
+        if (kDebugMode) {
+          debugPrint('❌ Get realtime stats failed: ${response.statusCode}');
+        }
         return {};
       }
     } catch (e) {
-      print('❌ Get realtime stats error: $e');
+      if (kDebugMode) {
+        debugPrint('❌ Get realtime stats error: $e');
+      }
       return {};
     }
   }
@@ -410,11 +448,15 @@ class LocalRepository implements DataRepository {
         final List<dynamic> data = json.decode(response.body);
         return data.cast<Map<String, dynamic>>();
       } else {
-        print('❌ Get pathology stats failed: ${response.statusCode}');
+        if (kDebugMode) {
+          debugPrint('❌ Get pathology stats failed: ${response.statusCode}');
+        }
         return [];
       }
     } catch (e) {
-      print('❌ Get pathology stats error: $e');
+      if (kDebugMode) {
+        debugPrint('❌ Get pathology stats error: $e');
+      }
       return [];
     }
   }
@@ -430,10 +472,14 @@ class LocalRepository implements DataRepository {
       );
       
       if (response.statusCode != 200) {
-        print('❌ Calculate pathology stats failed: ${response.statusCode}');
+        if (kDebugMode) {
+          debugPrint('❌ Calculate pathology stats failed: ${response.statusCode}');
+        }
       }
     } catch (e) {
-      print('❌ Calculate pathology stats error: $e');
+      if (kDebugMode) {
+        debugPrint('❌ Calculate pathology stats error: $e');
+      }
     }
   }
 }

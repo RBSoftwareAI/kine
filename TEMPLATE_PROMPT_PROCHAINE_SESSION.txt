@@ -1,0 +1,28 @@
+===================================================================
+📋 TEMPLATE PROMPT POUR PROCHAINE SESSION - MediDesk
+===================================================================
+
+Bonjour ! Je continue le développement du projet **MediDesk**.
+
+📂 **Repository** : https://github.com/RBSoftwareAI/kine
+🌿 **Branche** : base
+
+📚 **Documentation à lire EN PRIORITÉ** (dans cet ordre) :
+1. README_SESSION.md          - Résumé exécutif ultra-rapide (5min)
+2. PROMPT_PROCHAINE_SESSION.md - État complet + prochaines étapes (15min)
+3. AI_QUICK_START.md          - Commandes essentielles + code structure
+4. CONTEXT.md                 - Vision stratégique + architecture + RGPD
+
+🎯 **Prochaines tâches** :
+- Phase F : Architecture Hybride (DataService abstrait Flask + Firebase)
+- Option C : Documentation Juridique RGPD (6 documents)
+- Phase G : Déploiement final demo.medidesk.fr
+
+⚠️ **Contraintes techniques** :
+- Flutter 3.35.4 + Dart 3.9.2 (NE PAS upgrader)
+- Backend Flask déjà TERMINÉ et fonctionnel (port 5000)
+- Build production Flutter déjà prêt (17.2s)
+
+Peux-tu commencer par lire les fichiers de documentation dans l'ordre indiqué, puis me confirmer que tu as bien compris l'état actuel du projet ?
+
+===================================================================

@@ -1,0 +1,97 @@
+# Configuration Netlify pour MediDesk Frontend Flutter Web
+
+[build]
+  # Répertoire de build
+  publish = "build/web"
+  
+  # Commande de build (si Netlify doit builder)
+  command = "flutter build web --release"
+
+[build.environment]
+  # Version Flutter (si build sur Netlify)
+  FLUTTER_VERSION = "3.35.4"
+
+# Règles de redirection pour Single Page Application (SPA)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false
+
+# Headers de sécurité
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # CORS permissif pour le développement
+    Access-Control-Allow-Origin = "*"
+    
+    # Sécurité de base
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    
+    # Permissions Policy (remplace Feature-Policy)
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+# Headers spécifiques pour les assets
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Headers pour les fichiers JS/CSS
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Type = "application/javascript; charset=utf-8"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Type = "text/css; charset=utf-8"
+
+# Headers pour les fonts
+[[headers]]
+  for = "/assets/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Access-Control-Allow-Origin = "*"
+
+# Headers pour manifest.json (PWA)
+[[headers]]
+  for = "/manifest.json"
+  [headers.values]
+    Content-Type = "application/manifest+json; charset=utf-8"
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Headers pour index.html (pas de cache)
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.medidesk.fr;"
+
+# Configuration pour les formulaires (optionnel)
+[functions]
+  directory = "functions"
+
+# Configuration des plugins (optionnel)
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"
+  
+  # Configuration du plugin Lighthouse
+  [plugins.inputs]
+    output_path = "reports/lighthouse.html"
+
+# Environnement de développement
+[context.deploy-preview]
+  [context.deploy-preview.environment]
+    API_URL = "https://medidesk-backend.onrender.com"
+
+# Environnement de production
+[context.production]
+  [context.production.environment]
+    API_URL = "https://api.medidesk.fr"

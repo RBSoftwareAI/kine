@@ -99,9 +99,6 @@ class _PermissionsManagementScreenState extends State<PermissionsManagementScree
     return Scaffold(
       appBar: AppBar(
         title: const Text('Gestion des Permissions'),
-        subtitle: Text(currentUser.isSadmin 
-          ? 'Super Admin - Tous pouvoirs' 
-          : 'Manager - Gestion cabinet'),
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
