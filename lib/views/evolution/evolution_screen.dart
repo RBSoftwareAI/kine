@@ -204,7 +204,7 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.black87,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: AppTheme.primaryOrange.withValues(alpha: 0.3)),
       ),
@@ -221,12 +221,12 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
                     value: period,
                     child: Text(
                       period.label,
-                      style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.black87),
                     ),
                   );
                 }).toList(),
                 onChanged: _onPeriodChanged,
-                dropdownColor: Colors.grey[100],
+                dropdownColor: Colors.grey[50],
                 icon: const Icon(Icons.arrow_drop_down, color: AppTheme.primaryOrange),
               ),
             ),
@@ -282,7 +282,7 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.black87,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: color.withValues(alpha: 0.3)),
         boxShadow: [
@@ -332,7 +332,7 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.black87,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: AppTheme.primaryOrange.withValues(alpha: 0.3)),
       ),
@@ -348,7 +348,7 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: Colors.black87,
                 ),
               ),
             ],

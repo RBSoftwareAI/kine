@@ -151,7 +151,7 @@ class IntensityChart extends StatelessWidget {
       lineTouchData: LineTouchData(
         enabled: true,
         touchTooltipData: LineTouchTooltipData(
-          getTooltipColor: (touchedSpot) => Colors.grey[100]!,
+          getTooltipColor: (touchedSpot) => Colors.grey[50]!,
           tooltipRoundedRadius: 8,
           tooltipPadding: const EdgeInsets.all(8),
           getTooltipItems: (touchedSpots) {
@@ -174,7 +174,7 @@ class IntensityChart extends StatelessWidget {
               return LineTooltipItem(
                 label,
                 const TextStyle(
-                  color: Colors.white,
+                  color: Colors.black87,
                   fontWeight: FontWeight.bold,
                   fontSize: 12,
                 ),

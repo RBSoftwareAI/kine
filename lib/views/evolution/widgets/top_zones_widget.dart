@@ -16,7 +16,7 @@ class TopZonesWidget extends StatelessWidget {
       return Container(
         padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.black87,
           borderRadius: BorderRadius.circular(12),
         ),
         child: const Center(
@@ -31,7 +31,7 @@ class TopZonesWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.black87,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: AppTheme.primaryOrange.withValues(alpha: 0.3)),
       ),
@@ -47,7 +47,7 @@ class TopZonesWidget extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: Colors.black87,
                 ),
               ),
             ],
@@ -110,7 +110,7 @@ class TopZonesWidget extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: Colors.black87,
                   ),
                 ),
                 const SizedBox(height: 4),
@@ -157,7 +157,7 @@ class TopZonesWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(4),
                   child: LinearProgressIndicator(
                     value: zone.averageIntensity / 10,
-                    backgroundColor: Colors.grey[200],
+                    backgroundColor: Colors.grey[100],
                     valueColor: AlwaysStoppedAnimation<Color>(intensityColor),
                     minHeight: 6,
                   ),
