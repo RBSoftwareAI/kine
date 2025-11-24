@@ -1,292 +1,292 @@
-# 🏥 MediDesk - Logiciel de Gestion de Cabinet Médical
+# 🏥 MediDesk - Application de Gestion Médicale
 
-**Solution locale-first pour kinésithérapeutes et ostéopathes**
+**Application Flutter de gestion médicale pour kinésithérapeutes et patients**
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
-![Flutter](https://img.shields.io/badge/Flutter-3.35.4-02569B?logo=flutter)
-![Dart](https://img.shields.io/badge/Dart-3.9.2-0175C2?logo=dart)
-![License](https://img.shields.io/badge/license-Proprietary-red)
-
----
-
-## 🎯 Vision
-
-Révolutionner la gestion des cabinets médicaux avec une solution **locale-first**, respectueuse de la vie privée et économiquement accessible.
-
-### Positionnement : "Le Linux du logiciel médical"
-- 🏠 **Local-first** : Vos données restent CHEZ VOUS
-- 💰 **0€/mois** : Installation locale sans coûts cloud
-- 🔒 **Privacy by Design** : Conformité RGPD intégrée
-- 🌐 **Open & Interoperable** : Compatible Doctolib, Maiia (roadmap)
+[![Firebase](https://img.shields.io/badge/Firebase-Hosting-orange)](https://kinecare-81f52.web.app)
+[![Flutter](https://img.shields.io/badge/Flutter-3.35.4-blue)](https://flutter.dev)
+[![Dart](https://img.shields.io/badge/Dart-3.9.2-blue)](https://dart.dev)
 
 ---
 
-## ✨ Fonctionnalités
+## 🚀 Application en Ligne
 
-### ✅ Disponibles maintenant
+**URL Production** : [https://kinecare-81f52.web.app](https://kinecare-81f52.web.app)
 
-**Authentification sécurisée**
-- Connexion/déconnexion avec Firebase Auth
-- Gestion multi-praticiens
-- Isolation par centre (multi-tenant)
+### 🔐 Comptes de Test
 
-**Gestion des patients**
-- Dossiers patients complets
-- Recherche et filtres avancés
-- Historique des consultations
-- Notes médicales confidentielles
-
-**Système de réservation**
-- Calendrier mensuel interactif
-- Prise de RDV intuitive
-- Gestion des statuts (Planifié, Confirmé, En cours, Terminé, Annulé)
-- Modification et annulation de RDV
-
-**Dashboard intelligent**
-- Statistiques en temps réel
-- Patients actifs
-- RDV du jour et de la semaine
-- Actions rapides
-
-### 🔜 Roadmap
-
-**Q1 2025**
-- 🔧 Backend Flask local (installation PC)
-- 🔐 Chiffrement SQLite des données sensibles
-- 📊 Logs d'audit RGPD
-- 📄 Dossiers médicaux (consultations, prescriptions)
-- 💰 Facturation et comptabilité
-
-**Q2 2025**
-- 🤖 IA médicale (aide au diagnostic)
-- 📱 Application mobile Android/iOS
-- 🔗 Interopérabilité Doctolib/Maiia
-- 💬 Téléconsultation sécurisée P2P
+| Rôle | Email | Mot de passe |
+|------|-------|--------------|
+| **Patient** | `test.patient@medidesk.fr` | `password123` |
+| **Kinésithérapeute** | `test.kine@medidesk.fr` | `password123` |
+| **Secrétaire** | `test.secretaire@medidesk.fr` | `password123` |
 
 ---
 
-## 🏗️ Architecture
+## 📱 Fonctionnalités
 
-### Mode hybride : DEMO + LOCAL
+### Pour les Patients
+- ✅ Cartographie des douleurs corporelles
+- ✅ Suivi de l'évolution des douleurs
+- ✅ Graphiques et statistiques personnalisés
+- ✅ Historique des séances de traitement
+- ✅ Interface intuitive et responsive
 
-```
-┌─────────────────────────────┐     ┌─────────────────────────────┐
-│   MODE DEMO                 │     │   MODE LOCAL                │
-│   (demo.medidesk.fr)        │     │   (Cabinet)                 │
-├─────────────────────────────┤     ├─────────────────────────────┤
-│ Backend: Firebase           │     │ Backend: Flask + SQLite     │
-│ Données: Fictives           │     │ Données: Réelles chiffrées  │
-│ Usage: Formation, démo      │     │ Usage: Production           │
-│ Coût: 0€ (free tier)        │     │ Coût: 0€ (local)            │
-└─────────────────────────────┘     └─────────────────────────────┘
-              ↓                                   ↓
-        ┌─────────────────────────────────────────────┐
-        │     Frontend Flutter unique                 │
-        │     (Web + Android + iOS)                   │
-        └─────────────────────────────────────────────┘
-```
+### Pour les Kinésithérapeutes
+- ✅ Gestion des patients
+- ✅ Consultation des dossiers médicaux
+- ✅ Analyse des évolutions
+- ✅ Accès aux données de cartographie
 
-### Stack technique
-
-**Frontend**
-- Flutter 3.35.4 + Dart 3.9.2
-- Material Design 3
-- Provider (state management)
-- Localisation française complète
-
-**Backend MODE DEMO**
-- Firebase Auth
-- Firestore (NoSQL)
-- Cloud Storage
-
-**Backend MODE LOCAL** (en développement)
-- Flask 3.0.0 (API REST)
-- SQLite chiffré (SQLCipher)
-- JWT authentication
-- Logs d'audit RGPD
+### Pour les Secrétaires
+- ✅ Gestion administrative
+- ✅ Planning et rendez-vous
+- ✅ Interface simplifiée
 
 ---
 
-## 🚀 Démarrage rapide
+## 🛠️ Technologies
+
+- **Framework** : Flutter 3.35.4
+- **Langage** : Dart 3.9.2
+- **Backend** : Firebase (Firestore, Authentication, Hosting)
+- **State Management** : Provider
+- **Charts** : FL Chart
+- **UI** : Material Design 3
+
+---
+
+## 📦 Installation & Développement
 
 ### Prérequis
-- Flutter 3.35.4 (LOCKED)
-- Dart 3.9.2 (LOCKED)
-- Python 3.10+ (pour backend local)
-
-### Installation
-
 ```bash
-# Cloner le repository
-git clone https://github.com/RBSoftwareAI/kine.git
-cd kine
+# Flutter 3.35.4 requis
+flutter --version
 
-# Installer dépendances Flutter
+# Java 17 requis pour Android
+java -version
+```
+
+### Installation des dépendances
+```bash
 flutter pub get
+```
 
-# Lancer en mode développement (Firebase demo)
-flutter run -d web-server --web-port=5060
+### Lancement en mode développement
+```bash
+# Web (port 5060)
+flutter run -d chrome --web-port=5060
 
-# Ou build pour production
+# Android
+flutter run -d android
+```
+
+### Build Production
+```bash
+# Build Web
 flutter build web --release
-cd build/web && python3 -m http.server 5060
+
+# Build APK Android
+flutter build apk --release
+
+# Build App Bundle Android
+flutter build appbundle --release
 ```
-
-### Comptes de test (Firebase demo)
-
-| Email | Mot de passe | Centre | Rôle |
-|-------|--------------|--------|------|
-| `marie.lefebvre@kine-paris.fr` | `password123` | Kiné Paris Centre | Kinésithérapeute |
-| `pierre.girard@osteo-lyon.fr` | `password123` | Ostéo Lyon | Ostéopathe |
-
-**Données test** : 20 patients + 15 RDV par centre
 
 ---
 
-## 📊 Conformité juridique
+## 🔥 Firebase Configuration
 
-### ⚠️ Données de santé - Obligations légales
+### Configuration Requise
+1. **Firebase Admin SDK** : `/opt/flutter/firebase-admin-sdk.json`
+2. **Google Services** : `android/app/google-services.json`
+3. **Firebase Options** : `lib/firebase_options.dart`
 
-MediDesk traite des **données de santé**. Les obligations légales s'appliquent **dès le premier utilisateur**.
+### Déploiement Firebase
+```bash
+# Déploiement Hosting
+firebase deploy --only hosting
 
-### ✅ Conformité intégrée
-
-**Chiffrement**
-- Données au repos (SQLite chiffré)
-- Données en transit (HTTPS/TLS)
-- Mots de passe hashés (bcrypt)
-
-**Traçabilité**
-- Logs d'audit RGPD
-- Conservation 3 ans minimum
-- Export pour contrôle CNIL
-
-**Droits patients**
-- Consentement explicite
-- Droit d'accès, rectification, suppression
-- Portabilité des données
-
-### Modèle juridique
-
+# Déploiement Firestore Rules
+firebase deploy --only firestore:rules
 ```
-┌─────────────────────────────────────────────────┐
-│  Praticien = Responsable de traitement         │
-│  MediDesk = Fournisseur d'outil conforme       │
-│                                                  │
-│  ✅ Praticien gère ses données localement       │
-│  ✅ MediDesk ne stocke ni n'héberge             │
-│  ✅ Documentation juridique fournie             │
-└─────────────────────────────────────────────────┘
-```
-
-**Documentation juridique** (roadmap) :
-- Guide praticien (responsabilités RGPD)
-- Modèle consentement patient
-- Registre des traitements pré-rempli
-- CGU/CGV
 
 ---
 
-## 🔧 Développement
+## 🔒 Système de Permissions
 
-### Structure du projet
+L'application utilise un système de permissions granulaires par rôle :
+
+| Rôle | Accès |
+|------|-------|
+| **Patient** | Mes données, Mes douleurs, Mes courbes |
+| **Kinésithérapeute** | Tous patients, Toutes données médicales |
+| **Secrétaire** | Gestion administrative, Planning |
+| **Admin** | Accès complet, Gestion utilisateurs |
+
+---
+
+## 📊 Architecture
 
 ```
 lib/
-├── main.dart                    # Point d'entrée
-├── models/                      # Modèles de données
-├── services/                    # Services backend (Firebase/Flask)
-├── providers/                   # State management (Provider)
-└── screens/                     # UI (Auth, Dashboard, Patients, RDV)
-
-medidesk_backend/                # Backend Flask (en développement)
-├── app/
-│   ├── models.py                # SQLAlchemy models
-│   ├── routes/                  # API REST endpoints
-│   └── utils/                   # Chiffrement, audit logs
-└── requirements.txt
+├── main.dart                 # Point d'entrée
+├── firebase_options.dart     # Config Firebase multi-plateforme
+├── models/                   # Modèles de données
+│   ├── user_model.dart
+│   ├── pain_mapping_model.dart
+│   └── pain_history.dart
+├── providers/                # State Management
+│   ├── auth_provider.dart
+│   ├── patient_provider.dart
+│   └── appointment_provider.dart
+├── services/                 # Services Backend
+│   ├── firebase_data_service.dart
+│   ├── permission_service.dart
+│   └── evolution_service.dart
+├── views/                    # Écrans UI
+│   ├── evolution/
+│   ├── patient/
+│   └── settings/
+└── utils/                    # Utilitaires
+    └── app_theme.dart
 ```
 
-### Commandes utiles
+---
 
+## 📄 Documentation
+
+### Guides Disponibles
+- [📘 DEPLOIEMENT_COMPLET_REUSSI.md](./DEPLOIEMENT_COMPLET_REUSSI.md) - Guide de déploiement complet
+- [📗 GUIDE_DNS_ETAPE3.md](./GUIDE_DNS_ETAPE3.md) - Configuration DNS personnalisé
+- [📙 CORRECTION_ABSOLUMENT_FINALE.md](./CORRECTION_ABSOLUMENT_FINALE.md) - Corrections thème blanc
+- [📕 RESUME_FINAL_24NOV.md](./RESUME_FINAL_24NOV.md) - Résumé des développements
+
+### Dernières Mises à Jour
+- **24/11/2024** : Correction finale thème blanc - 100% cohérent
+- **24/11/2024** : Système de permissions par rôle déployé
+- **24/11/2024** : Règles Firestore sécurisées activées
+- **24/11/2024** : Écran de connexion avec 6 comptes test
+
+---
+
+## 🎨 Thème & Design
+
+L'application utilise un thème clair cohérent :
+- **Couleur principale** : Orange (`#FF6B35`)
+- **Couleur secondaire** : Bleu (`#2196F3`)
+- **Arrière-plan** : Blanc/Gris très clair
+- **Texte** : Noir (`#000000`)
+- **Design System** : Material Design 3
+
+---
+
+## 🧪 Tests
+
+### Comptes de Test
+Tous les comptes utilisent le mot de passe : `password123`
+
+```dart
+// Test Patient
+Email: test.patient@medidesk.fr
+
+// Test Kinésithérapeute
+Email: test.kine@medidesk.fr
+
+// Test Secrétaire
+Email: test.secretaire@medidesk.fr
+```
+
+### Tests de Validation
+1. Connexion avec différents rôles
+2. Vérification des permissions
+3. Cartographie des douleurs (Patient)
+4. Graphiques d'évolution (Patient)
+5. Gestion des patients (Kinésithérapeute)
+
+---
+
+## 🚀 Déploiement
+
+### Firebase Hosting (Production)
 ```bash
-# Analyser le code
-flutter analyze
-
-# Lancer les tests
-flutter test
-
-# Build production
+# Build + Deploy
 flutter build web --release
-flutter build apk --release  # Android
-
-# Backend Flask (quand prêt)
-cd medidesk_backend
-pip install -r requirements.txt
-flask run --port=5000
+firebase deploy --only hosting
 ```
 
-### Documentation IA
-
-Pour développement assisté par IA :
-1. Lire `AI_QUICK_START.md` (guide express)
-2. Consulter `CONTEXT.md` (documentation complète)
-3. Utiliser `NEXT_SESSION_PROMPT.md` pour nouvelles sessions
+### Domaine Personnalisé
+Configuration DNS pour `demo.medidesk.fr` :
+Voir [GUIDE_DNS_ETAPE3.md](./GUIDE_DNS_ETAPE3.md)
 
 ---
 
-## 🤝 Contribution
+## 🐛 Résolution de Problèmes
 
-**Projet propriétaire** - Contributions sur invitation uniquement.
+### Problème : Écran de chargement infini
+**Solution** : Correction AuthProvider avec timeout 500ms
+```dart
+// Voir lib/providers/auth_provider.dart
+await _initializeAuthState();
+```
 
-Pour suggérer des fonctionnalités ou reporter des bugs :
-- Ouvrir une issue sur GitHub
-- Contacter l'équipe MediDesk
+### Problème : Permissions refusées Firestore
+**Solution** : Déployer les règles Firestore
+```bash
+firebase deploy --only firestore:rules
+```
 
----
-
-## 📄 License
-
-**Propriétaire** - Tous droits réservés © 2024 MediDesk
-
----
-
-## 📞 Contact
-
-- **GitHub** : https://github.com/RBSoftwareAI/kine
-- **Email** : [À définir]
-- **Site web** : [En développement]
+### Problème : Thème incohérent
+**Solution** : Toutes les corrections sont dans le commit `66dd077`
 
 ---
 
-## 🎯 Différenciation vs Concurrence
+## 📝 Changelog
 
-| Critère | Doctolib | Maiia | **MediDesk** |
-|---------|----------|-------|--------------|
-| Données locales | ❌ | ❌ | ✅ |
-| Coût démarrage | Élevé | Moyen | **0€** |
-| Dossier complet | ✅ | Limité | ✅ |
-| IA médicale | ❌ | ❌ | 🔜 |
-| Interopérabilité | Fermé | Fermé | ✅ Ouvert |
-| Propriété données | Plateforme | Plateforme | **Praticien** |
-| HDS obligatoire | ✅ | ✅ | ✅ Option |
+### v1.3 - 24/11/2024
+- ✅ Correction finale thème blanc (100% cohérent)
+- ✅ Section "Zones touchées" : fond blanc
+- ✅ Section "Séances de traitement" : fond blanc
+- ✅ Upload GitHub automatique configuré
+
+### v1.2 - 24/11/2024
+- ✅ Système de permissions par rôle
+- ✅ Règles Firestore sécurisées
+- ✅ Écran de connexion redesigné
+- ✅ 6 comptes de test créés
+
+### v1.1 - 23/11/2024
+- ✅ Correctif AuthProvider (chargement < 3s)
+- ✅ Nettoyage doublons Firebase (9 utilisateurs finaux)
+- ✅ Déploiement Firebase Hosting
+
+### v1.0 - 22/11/2024
+- ✅ Version initiale
+- ✅ Cartographie des douleurs
+- ✅ Graphiques d'évolution
+- ✅ Interface Patient/Kinésithérapeute
 
 ---
 
-## 🏆 Objectifs
+## 👥 Contributeurs
 
-**Mission** : Redonner aux praticiens le contrôle de leurs outils et de leurs données.
-
-**Vision 2025** :
-- 100 cabinets pilotes (Q1)
-- Backend local stable (Q2)
-- IA médicale intégrée (Q3)
-- Interopérabilité complète (Q4)
-
-**Slogan** : *"Vos données médicales restent CHEZ VOUS. Nous ne les hébergeons jamais."*
+- **Développement** : Équipe GenSpark AI
+- **Design** : Material Design 3
+- **Backend** : Firebase
 
 ---
 
-**Dernière mise à jour** : Décembre 2024  
-**Version** : 1.0.0 (MVP Flutter Firebase)  
-**Statut** : Production-ready (demo) / Backend local en développement
+## 📧 Support
+
+Pour toute question ou problème :
+- **Email** : support@medidesk.fr
+- **GitHub Issues** : [github.com/RBSoftwareAI/kine/issues](https://github.com/RBSoftwareAI/kine/issues)
+
+---
+
+## 📄 Licence
+
+© 2024 MediDesk - Tous droits réservés
+
+---
+
+**🏥 MediDesk - Simplifier la gestion médicale pour les professionnels de santé**
