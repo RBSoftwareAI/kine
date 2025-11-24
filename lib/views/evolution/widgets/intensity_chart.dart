@@ -174,7 +174,7 @@ class IntensityChart extends StatelessWidget {
               return LineTooltipItem(
                 label,
                 const TextStyle(
-                  color: Colors.black87,
+                  color: Colors.black,
                   fontWeight: FontWeight.bold,
                   fontSize: 12,
                 ),
