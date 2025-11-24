@@ -19,7 +19,7 @@ class SessionComparisonCard extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: Colors.black,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: isPositive

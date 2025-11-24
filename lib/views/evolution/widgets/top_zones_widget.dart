@@ -16,7 +16,7 @@ class TopZonesWidget extends StatelessWidget {
       return Container(
         padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
-          color: Colors.black,
+          color: Colors.white,
           borderRadius: BorderRadius.circular(12),
         ),
         child: const Center(
@@ -31,7 +31,7 @@ class TopZonesWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.black,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: AppTheme.primaryOrange.withValues(alpha: 0.3)),
       ),
