@@ -16,7 +16,7 @@ class TopZonesWidget extends StatelessWidget {
       return Container(
         padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
-          color: Colors.grey[900],
+          color: Colors.white,
           borderRadius: BorderRadius.circular(12),
         ),
         child: const Center(
@@ -31,7 +31,7 @@ class TopZonesWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.grey[900],
+        color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: AppTheme.primaryOrange.withValues(alpha: 0.3)),
       ),
@@ -72,7 +72,7 @@ class TopZonesWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.grey[850],
+        color: Colors.grey[50],
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: intensityColor.withValues(alpha: 0.3)),
       ),
@@ -118,7 +118,7 @@ class TopZonesWidget extends StatelessWidget {
                   '${zone.occurrences} occurrence${zone.occurrences > 1 ? 's' : ''}',
                   style: TextStyle(
                     fontSize: 12,
-                    color: Colors.grey[400],
+                    color: Colors.grey[600],
                   ),
                 ),
               ],
@@ -157,7 +157,7 @@ class TopZonesWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(4),
                   child: LinearProgressIndicator(
                     value: zone.averageIntensity / 10,
-                    backgroundColor: Colors.grey[700],
+                    backgroundColor: Colors.grey[200],
                     valueColor: AlwaysStoppedAnimation<Color>(intensityColor),
                     minHeight: 6,
                   ),

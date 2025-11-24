@@ -57,7 +57,7 @@ class TrendIndicator extends StatelessWidget {
                       'Tendance : ',
                       style: TextStyle(
                         fontSize: 14,
-                        color: Colors.grey[400],
+                        color: Colors.grey[600],
                       ),
                     ),
                     Text(
@@ -75,7 +75,7 @@ class TrendIndicator extends StatelessWidget {
                   trendData.description,
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.grey[300],
+                    color: Colors.grey[700],
                   ),
                 ),
               ],

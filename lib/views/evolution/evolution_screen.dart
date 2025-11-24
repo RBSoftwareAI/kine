@@ -108,7 +108,7 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.darkBackground,
+      
       appBar: AppBar(
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -204,7 +204,7 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.grey[900],
+        color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: AppTheme.primaryOrange.withValues(alpha: 0.3)),
       ),
@@ -226,7 +226,7 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
                   );
                 }).toList(),
                 onChanged: _onPeriodChanged,
-                dropdownColor: Colors.grey[800],
+                dropdownColor: Colors.grey[100],
                 icon: const Icon(Icons.arrow_drop_down, color: AppTheme.primaryOrange),
               ),
             ),
@@ -282,9 +282,16 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.grey[900],
+        color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: color.withValues(alpha: 0.3)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withValues(alpha: 0.1),
+            blurRadius: 4,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Column(
         children: [
@@ -313,7 +320,7 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
           const SizedBox(height: 4),
           Text(
             label,
-            style: TextStyle(fontSize: 12, color: Colors.grey[400]),
+            style: TextStyle(fontSize: 12, color: Colors.grey[600]),
             textAlign: TextAlign.center,
           ),
         ],
@@ -325,7 +332,7 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.grey[900],
+        color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: AppTheme.primaryOrange.withValues(alpha: 0.3)),
       ),
@@ -363,7 +370,6 @@ class _EvolutionScreenState extends State<EvolutionScreen> {
           style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: Colors.white,
           ),
         ),
       ],

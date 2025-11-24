@@ -19,7 +19,7 @@ class SessionComparisonCard extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: Colors.grey[900],
+        color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: isPositive
@@ -33,7 +33,7 @@ class SessionComparisonCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.grey[850],
+              color: Colors.grey[50],
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(12),
                 topRight: Radius.circular(12),
@@ -157,7 +157,7 @@ class SessionComparisonCard extends StatelessWidget {
           label,
           style: TextStyle(
             fontSize: 12,
-            color: Colors.grey[400],
+            color: Colors.grey[600],
           ),
         ),
         const SizedBox(height: 4),
@@ -224,7 +224,7 @@ class SessionComparisonCard extends StatelessWidget {
                 flex: (before - after).round(),
                 child: Container(
                   height: 8,
-                  color: Colors.grey[800],
+                  color: Colors.grey[100],
                 ),
               ),
           ],
@@ -252,7 +252,7 @@ class SessionComparisonCard extends StatelessWidget {
                 flex: (10 - after).round(),
                 child: Container(
                   height: 8,
-                  color: Colors.grey[800],
+                  color: Colors.grey[100],
                 ),
               ),
           ],

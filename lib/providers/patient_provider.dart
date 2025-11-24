@@ -1,10 +1,12 @@
 import 'package:flutter/foundation.dart';
 import '../models/patient.dart';
-import '../services/firestore_patient_service.dart';
+import '../services/data_service.dart';
+import '../services/firebase_data_service.dart';
 
 /// Provider pour la gestion d'état des patients
+/// Utilise Firebase directement (mode DEMO simplifié)
 class PatientProvider extends ChangeNotifier {
-  final FirestorePatientService _patientService = FirestorePatientService();
+  final DataService _dataService = FirebaseDataService();
 
   // État
   List<Patient> _patients = [];
@@ -31,7 +33,7 @@ class PatientProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      _patients = await _patientService.getPatients(centreId);
+      _patients = await _dataService.getPatients(centreId);
       _applySearchFilter();
       _error = null;
     } catch (e) {
@@ -47,7 +49,7 @@ class PatientProvider extends ChangeNotifier {
 
   /// Écouter les changements en temps réel
   Stream<List<Patient>> streamPatients(String centreId) {
-    return _patientService.getPatientsStream(centreId);
+    return _dataService.getPatientsStream(centreId);
   }
 
   /// Rechercher des patients
@@ -64,7 +66,7 @@ class PatientProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final results = await _patientService.searchPatients(centreId, query);
+      final results = await _dataService.searchPatients(centreId, query);
       _filteredPatients = results;
       _error = null;
     } catch (e) {
@@ -106,7 +108,7 @@ class PatientProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      _selectedPatient = await _patientService.getPatient(patientId);
+      _selectedPatient = await _dataService.getPatient(patientId);
       _error = null;
     } catch (e) {
       _error = 'Erreur lors du chargement du patient : $e';
@@ -132,7 +134,7 @@ class PatientProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final patientId = await _patientService.addPatient(patient);
+      final patientId = await _dataService.addPatient(patient);
       
       // Recharger la liste des patients
       await loadPatients(patient.centreId);
@@ -158,7 +160,7 @@ class PatientProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      await _patientService.updatePatient(patientId, patient);
+      await _dataService.updatePatient(patientId, patient);
       
       // Recharger la liste des patients
       await loadPatients(patient.centreId);
@@ -189,7 +191,7 @@ class PatientProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      await _patientService.deactivatePatient(patientId);
+      await _dataService.deactivatePatient(patientId);
       
       // Recharger la liste des patients
       await loadPatients(centreId);
@@ -211,7 +213,7 @@ class PatientProvider extends ChangeNotifier {
   /// Compter les patients actifs
   Future<int> countActivePatients(String centreId) async {
     try {
-      return await _patientService.countActivePatients(centreId);
+      return await _dataService.countActivePatients(centreId);
     } catch (e) {
       if (kDebugMode) {
         print('Erreur countActivePatients: $e');
@@ -223,7 +225,7 @@ class PatientProvider extends ChangeNotifier {
   /// Récupérer les patients récents
   Future<List<Patient>> getRecentPatients(String centreId, {int days = 30}) async {
     try {
-      return await _patientService.getRecentPatients(centreId, days: days);
+      return await _dataService.getRecentPatients(centreId, days: days);
     } catch (e) {
       if (kDebugMode) {
         print('Erreur getRecentPatients: $e');

@@ -1,54 +1,71 @@
 import 'package:flutter/foundation.dart';
-import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-import '../services/firebase_auth_service.dart';
+import '../services/data_service.dart';
+import '../services/firebase_data_service.dart';
 import '../models/user.dart';
 import '../models/centre.dart';
 
 /// Provider pour la gestion de l'état d'authentification
+/// Utilise Firebase directement (mode DEMO simplifié)
 class AuthProvider extends ChangeNotifier {
-  final FirebaseAuthService _authService = FirebaseAuthService();
+  final DataService _dataService = FirebaseDataService();
 
   // État
-  firebase_auth.User? _firebaseUser;
+  String? _userId;
   User? _appUser;
   Centre? _centre;
   bool _isLoading = false;
   String? _error;
 
   // Getters
-  firebase_auth.User? get firebaseUser => _firebaseUser;
+  String? get userId => _userId;
   User? get appUser => _appUser;
   User? get currentUser => _appUser; // Alias pour compatibilité
   Centre? get centre => _centre;
   bool get isLoading => _isLoading;
   String? get error => _error;
   String? get errorMessage => _error; // Alias pour compatibilité
-  bool get isAuthenticated => _firebaseUser != null && _appUser != null;
+  bool get isAuthenticated => _userId != null && _appUser != null;
 
   AuthProvider() {
     // Écouter les changements d'état d'authentification
-    _authService.authStateChanges.listen(_onAuthStateChanged);
+    _dataService.authStateChanges.listen(_onAuthStateChanged);
+    
+    // CRITICAL FIX: Initialiser l'état immédiatement pour éviter le blocage
+    _initializeAuthState();
+  }
+
+  /// Initialiser l'état d'authentification au démarrage
+  Future<void> _initializeAuthState() async {
+    _isLoading = true;
+    notifyListeners();
+    
+    // Attendre un court délai pour que le stream auth se stabilise
+    await Future.delayed(const Duration(milliseconds: 500));
+    
+    _isLoading = false;
+    notifyListeners();
   }
 
   /// Gérer les changements d'état d'authentification
-  Future<void> _onAuthStateChanged(firebase_auth.User? firebaseUser) async {
-    _firebaseUser = firebaseUser;
+  Future<void> _onAuthStateChanged(AuthState authState) async {
+    _userId = authState.userId;
 
-    if (firebaseUser != null) {
+    if (authState.isAuthenticated && authState.userId != null) {
       // Utilisateur connecté - charger les données
       await loadUserData();
     } else {
       // Utilisateur déconnecté - réinitialiser
       _appUser = null;
       _centre = null;
+      _isLoading = false; // CRITICAL: Arrêter le chargement si déconnecté
     }
 
     notifyListeners();
   }
 
-  /// Charger les données utilisateur et centre depuis Firestore
+  /// Charger les données utilisateur et centre depuis le service
   Future<void> loadUserData() async {
-    if (_firebaseUser == null) return;
+    if (_userId == null) return;
 
     _isLoading = true;
     _error = null;
@@ -56,16 +73,16 @@ class AuthProvider extends ChangeNotifier {
 
     try {
       // Charger les données utilisateur
-      _appUser = await _authService.getUserData(_firebaseUser!.uid);
+      _appUser = await _dataService.getUserData(_userId!);
 
       // Charger les données du centre
-      _centre = await _authService.getUserCentre(_appUser!.centreId);
+      _centre = await _dataService.getUserCentre(_appUser!.centreId);
 
       _error = null;
     } catch (e) {
       _error = 'Erreur lors du chargement des données : $e';
       if (kDebugMode) {
-        print('Erreur loadUserData: $e');
+        debugPrint('Erreur loadUserData: $e');
       }
     } finally {
       _isLoading = false;
@@ -90,7 +107,7 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      await _authService.signup(
+      final result = await _dataService.signup(
         email: email,
         password: password,
         nom: nom,
@@ -102,12 +119,17 @@ class AuthProvider extends ChangeNotifier {
         centreEmail: centreEmail,
       );
 
+      if (!result.success) {
+        _error = result.error;
+        return false;
+      }
+
       // Les données seront chargées automatiquement via authStateChanges
       return true;
     } catch (e) {
       _error = e.toString();
       if (kDebugMode) {
-        print('Erreur signup: $e');
+        debugPrint('Erreur signup: $e');
       }
       return false;
     } finally {
@@ -123,14 +145,19 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      await _authService.login(email, password);
+      final result = await _dataService.login(email, password);
+
+      if (!result.success) {
+        _error = result.error;
+        return false;
+      }
 
       // Les données seront chargées automatiquement via authStateChanges
       return true;
     } catch (e) {
       _error = e.toString();
       if (kDebugMode) {
-        print('Erreur login: $e');
+        debugPrint('Erreur login: $e');
       }
       return false;
     } finally {
@@ -148,29 +175,29 @@ class AuthProvider extends ChangeNotifier {
   Future<void> logout() async {
     try {
       if (kDebugMode) {
-        print('🔴 Début déconnexion...');
+        debugPrint('🔴 Début déconnexion...');
       }
-      
-      // Déconnecter de Firebase
-      await _authService.logout();
-      
+
+      // Déconnecter du service
+      await _dataService.logout();
+
       // Réinitialiser l'état local immédiatement
-      _firebaseUser = null;
+      _userId = null;
       _appUser = null;
       _centre = null;
       _error = null;
       _isLoading = false;
-      
+
       if (kDebugMode) {
-        print('✅ Déconnexion réussie');
+        debugPrint('✅ Déconnexion réussie');
       }
-      
+
       // Notifier les listeners APRÈS avoir réinitialisé l'état
       notifyListeners();
     } catch (e) {
       _error = 'Erreur lors de la déconnexion : $e';
       if (kDebugMode) {
-        print('❌ Erreur logout: $e');
+        debugPrint('❌ Erreur logout: $e');
       }
       notifyListeners();
     }
@@ -188,12 +215,12 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      await _authService.resetPassword(email);
+      await _dataService.resetPassword(email);
       return true;
     } catch (e) {
       _error = e.toString();
       if (kDebugMode) {
-        print('Erreur resetPassword: $e');
+        debugPrint('Erreur resetPassword: $e');
       }
       return false;
     } finally {
@@ -207,4 +234,13 @@ class AuthProvider extends ChangeNotifier {
     _error = null;
     notifyListeners();
   }
+
+  /// Mode actuel (toujours DEMO en mode simplifié)
+  String get currentModeName => 'DEMO (Firebase)';
+
+  /// Vérifier si on est en mode DEMO (toujours vrai)
+  bool get isDemoMode => true;
+
+  /// Vérifier si on est en mode LOCAL (toujours faux)
+  bool get isLocalMode => false;
 }

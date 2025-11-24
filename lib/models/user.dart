@@ -98,6 +98,52 @@ class User {
     };
   }
 
+  /// Créer un User depuis un JSON (Flask API)
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['id'] ?? '',
+      centreId: json['centre_id'] ?? '',
+      nom: json['nom'] ?? '',
+      prenom: json['prenom'] ?? '',
+      email: json['email'] ?? '',
+      telephone: json['telephone'],
+      photo: json['photo'],
+      role: json['role'] ?? 'praticien',
+      specialite: json['specialite'],
+      numeroOrdre: json['numero_ordre'],
+      dateCreation: json['cree_le'] != null 
+          ? DateTime.parse(json['cree_le'])
+          : DateTime.now(),
+      dateModification: json['modifie_le'] != null
+          ? DateTime.parse(json['modifie_le'])
+          : null,
+      derniereConnexion: json['derniere_connexion'] != null
+          ? DateTime.parse(json['derniere_connexion'])
+          : null,
+      actif: json['actif'] ?? true,
+    );
+  }
+
+  /// Convertir le User en JSON (Flask API)
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'centre_id': centreId,
+      'nom': nom,
+      'prenom': prenom,
+      'email': email,
+      'telephone': telephone,
+      'photo': photo,
+      'role': role,
+      'specialite': specialite,
+      'numero_ordre': numeroOrdre,
+      'cree_le': dateCreation.toIso8601String(),
+      'modifie_le': dateModification?.toIso8601String(),
+      'derniere_connexion': derniereConnexion?.toIso8601String(),
+      'actif': actif,
+    };
+  }
+
   /// Copier le User avec modifications
   User copyWith({
     String? id,

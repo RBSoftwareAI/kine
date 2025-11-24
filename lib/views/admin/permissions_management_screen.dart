@@ -110,11 +110,50 @@ class _PermissionsManagementScreenState extends State<PermissionsManagementScree
         child: _buildBody(),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => _showCreateUserDialog(currentUser),
+        onPressed: () => _showCreateUserDialog(_userToUserModel(currentUser)),
         icon: const Icon(Icons.person_add),
         label: const Text('Nouveau professionnel'),
         backgroundColor: AppTheme.primaryOrange,
       ),
+    );
+  }
+
+  /// Convertir User en UserModel pour compatibilité avec ce screen
+  UserModel _userToUserModel(dynamic user) {
+    if (user is UserModel) return user;
+    
+    // Mapper le role String vers UserRole enum
+    UserRole userRole;
+    switch (user.role?.toLowerCase()) {
+      case 'sadmin':
+        userRole = UserRole.sadmin;
+        break;
+      case 'manager':
+      case 'admin':
+        userRole = UserRole.manager;
+        break;
+      case 'kine':
+      case 'kinésithérapeute':
+        userRole = UserRole.kine;
+        break;
+      case 'coach':
+        userRole = UserRole.coach;
+        break;
+      default:
+        userRole = UserRole.patient;
+    }
+    
+    return UserModel(
+      id: user.id,
+      email: user.email,
+      firstName: user.prenom ?? user.firstName ?? '',
+      lastName: user.nom ?? user.lastName ?? '',
+      role: userRole,
+      phoneNumber: user.telephone ?? user.phoneNumber,
+      createdAt: user.dateCreation ?? user.createdAt ?? DateTime.now(),
+      lastLoginAt: user.derniereConnexion ?? user.lastLoginAt,
+      isActive: user.actif ?? user.isActive ?? true,
+      canManagePermissions: false, // Par défaut
     );
   }
 
@@ -163,7 +202,7 @@ class _PermissionsManagementScreenState extends State<PermissionsManagementScree
                   itemBuilder: (context, index) {
                     return UserPermissionsCard(
                       user: _filteredUsers[index],
-                      currentUser: context.read<AuthProvider>().currentUser!,
+                      currentUser: _userToUserModel(context.read<AuthProvider>().currentUser!),
                       onToggleStatus: (user, status) => _toggleUserStatus(user, status),
                       onDelegate: _showDelegationDialog,
                       onRevoke: _revokeDelegation,

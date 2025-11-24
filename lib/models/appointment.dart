@@ -80,6 +80,56 @@ class Appointment {
     );
   }
 
+  /// Créer un Appointment depuis un JSON (Flask API)
+  factory Appointment.fromJson(Map<String, dynamic> json) {
+    return Appointment(
+      id: json['id'] ?? '',
+      centreId: json['centre_id'] ?? '',
+      praticienId: json['praticien_id'] ?? '',
+      patientId: json['patient_id'],
+      dateHeure: json['date_heure'] != null
+          ? DateTime.parse(json['date_heure'])
+          : DateTime.now(),
+      duree: json['duree'] ?? 30,
+      type: json['type'] ?? 'consultation',
+      motif: json['motif'],
+      statut: json['statut'] ?? 'planifié',
+      notes: json['notes'],
+      dateCreation: json['cree_le'] != null
+          ? DateTime.parse(json['cree_le'])
+          : DateTime.now(),
+      dateModification: json['modifie_le'] != null
+          ? DateTime.parse(json['modifie_le'])
+          : null,
+      patientNom: json['patient_nom'],
+      patientPrenom: json['patient_prenom'],
+      patientTelephone: json['patient_telephone'],
+      patientEmail: json['patient_email'],
+    );
+  }
+
+  /// Convertir l'Appointment en JSON (Flask API)
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'centre_id': centreId,
+      'praticien_id': praticienId,
+      'patient_id': patientId,
+      'date_heure': dateHeure.toIso8601String(),
+      'duree': duree,
+      'type': type,
+      'motif': motif,
+      'statut': statut,
+      'notes': notes,
+      'cree_le': dateCreation.toIso8601String(),
+      'modifie_le': dateModification?.toIso8601String(),
+      'patient_nom': patientNom,
+      'patient_prenom': patientPrenom,
+      'patient_telephone': patientTelephone,
+      'patient_email': patientEmail,
+    };
+  }
+
   /// Convertir l'Appointment en Map pour Firestore
   Map<String, dynamic> toFirestore() {
     return {

@@ -100,6 +100,58 @@ class Patient {
     );
   }
 
+  /// Créer un Patient depuis un JSON (Flask API)
+  factory Patient.fromJson(Map<String, dynamic> json) {
+    return Patient(
+      id: json['id'] ?? '',
+      centreId: json['centre_id'] ?? '',
+      nom: json['nom'] ?? '',
+      prenom: json['prenom'] ?? '',
+      dateNaissance: json['date_naissance'] != null
+          ? DateTime.parse(json['date_naissance'])
+          : DateTime.now(),
+      telephone: json['telephone'],
+      email: json['email'],
+      adresse: json['adresse'],
+      codePostal: json['code_postal'],
+      ville: json['ville'],
+      profession: json['profession'],
+      numeroSecuriteSociale: json['numero_securite_sociale'],
+      medecinTraitant: json['medecin_traitant'],
+      notes: json['notes'],
+      actif: json['actif'] ?? true,
+      dateCreation: json['cree_le'] != null
+          ? DateTime.parse(json['cree_le'])
+          : DateTime.now(),
+      dateModification: json['modifie_le'] != null
+          ? DateTime.parse(json['modifie_le'])
+          : null,
+    );
+  }
+
+  /// Convertir le Patient en JSON (Flask API)
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'centre_id': centreId,
+      'nom': nom,
+      'prenom': prenom,
+      'date_naissance': dateNaissance.toIso8601String(),
+      'telephone': telephone,
+      'email': email,
+      'adresse': adresse,
+      'code_postal': codePostal,
+      'ville': ville,
+      'profession': profession,
+      'numero_securite_sociale': numeroSecuriteSociale,
+      'medecin_traitant': medecinTraitant,
+      'notes': notes,
+      'actif': actif,
+      'cree_le': dateCreation.toIso8601String(),
+      'modifie_le': dateModification?.toIso8601String(),
+    };
+  }
+
   /// Convertir en Map pour Firestore
   Map<String, dynamic> toFirestore() {
     return {

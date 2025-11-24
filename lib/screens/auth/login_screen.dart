@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
 import 'signup_screen.dart';
@@ -48,506 +49,358 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         );
       }
-      // Si success, l'utilisateur sera automatiquement redirigé vers le dashboard
     }
   }
 
-  Future<void> _handleForgotPassword() async {
-    final email = _emailController.text.trim();
-    
-    if (email.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Veuillez entrer votre email'),
-          backgroundColor: Colors.orange,
-          behavior: SnackBarBehavior.floating,
-        ),
-      );
-      return;
-    }
+  void _fillCredentials(String email, String password) {
+    setState(() {
+      _emailController.text = email;
+      _passwordController.text = password;
+    });
+  }
 
-    // Afficher dialogue de confirmation
-    final confirm = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Réinitialiser le mot de passe'),
-        content: Text(
-          'Un email de réinitialisation sera envoyé à:\n\n$email\n\nContinuer ?',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('Annuler'),
-          ),
-          ElevatedButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: const Text('Envoyer'),
-          ),
-        ],
+  void _copyToClipboard(String text, String label) {
+    Clipboard.setData(ClipboardData(text: text));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('$label copié !'),
+        backgroundColor: Colors.green,
+        duration: const Duration(seconds: 2),
+        behavior: SnackBarBehavior.floating,
       ),
     );
-
-    if (confirm == true && mounted) {
-      final authProvider = context.read<AuthProvider>();
-      final success = await authProvider.resetPassword(email);
-      
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              success
-                  ? 'Email de réinitialisation envoyé !'
-                  : authProvider.error ?? 'Erreur lors de l\'envoi',
-            ),
-            backgroundColor: success ? Colors.green : Colors.red,
-            behavior: SnackBarBehavior.floating,
-          ),
-        );
-      }
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     final authProvider = context.watch<AuthProvider>();
+    final isWideScreen = MediaQuery.of(context).size.width > 900;
     
     return Scaffold(
       body: SafeArea(
-        child: Stack(
-          children: [
-            // Contenu principal
-            Center(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 500),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        // Logo et titre
-                        Icon(
-                          Icons.medical_services_rounded,
-                          size: 80,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        const SizedBox(height: 24),
-                        
-                        Text(
-                          'MediDesk',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  
-                  Text(
-                    'Gestion de cabinet médical',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey.shade600,
-                    ),
-                  ),
-                  const SizedBox(height: 48),
-                  
-                  // Titre de la section
-                  const Text(
-                    'Connexion',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Accédez à votre espace professionnel',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey.shade600,
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-                  
-                  // Email
-                  TextFormField(
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                      labelText: 'Email',
-                      hintText: 'exemple@cabinet.fr',
-                      prefixIcon: const Icon(Icons.email_outlined),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.next,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Email requis';
-                      }
-                      if (!value.contains('@')) {
-                        return 'Email invalide';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  
-                  // Mot de passe
-                  TextFormField(
-                    controller: _passwordController,
-                    decoration: InputDecoration(
-                      labelText: 'Mot de passe',
-                      prefixIcon: const Icon(Icons.lock_outlined),
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          _obscurePassword ? Icons.visibility_off : Icons.visibility,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _obscurePassword = !_obscurePassword;
-                          });
-                        },
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    obscureText: _obscurePassword,
-                    textInputAction: TextInputAction.done,
-                    onFieldSubmitted: (_) => _handleLogin(),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Mot de passe requis';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 8),
-                  
-                  // Se souvenir de moi et mot de passe oublié
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Checkbox(
-                            value: _rememberMe,
-                            onChanged: (value) {
-                              setState(() {
-                                _rememberMe = value ?? false;
-                              });
-                            },
-                          ),
-                          const Text('Se souvenir de moi'),
-                        ],
-                      ),
-                      TextButton(
-                        onPressed: authProvider.isLoading ? null : _handleForgotPassword,
-                        child: const Text('Mot de passe oublié ?'),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 24),
-                  
-                  // Bouton de connexion
-                  SizedBox(
-                    height: 56,
-                    child: ElevatedButton(
-                      onPressed: authProvider.isLoading ? null : _handleLogin,
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      child: authProvider.isLoading
-                          ? const SizedBox(
-                              height: 24,
-                              width: 24,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2,
-                                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                              ),
-                            )
-                          : const Text(
-                              'Se connecter',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  
-                  // Séparateur
-                  Row(
-                    children: [
-                      Expanded(child: Divider(color: Colors.grey.shade300)),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Text(
-                          'OU',
-                          style: TextStyle(
-                            color: Colors.grey.shade600,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Expanded(child: Divider(color: Colors.grey.shade300)),
-                    ],
-                  ),
-                  const SizedBox(height: 24),
-                  
-                  // Bouton créer un compte
-                  SizedBox(
-                    height: 56,
-                    child: OutlinedButton(
-                      onPressed: authProvider.isLoading
-                          ? null
-                          : () {
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                  builder: (_) => const SignupScreen(),
-                                ),
-                              );
-                            },
-                      style: OutlinedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        side: BorderSide(
-                          color: Theme.of(context).colorScheme.primary,
-                          width: 2,
-                        ),
-                      ),
-                      child: const Text(
-                        'Créer un compte',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-                  
-                  // Comptes de test disponibles
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.green.shade50,
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.green.shade200),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.verified_user,
-                              color: Colors.green.shade700,
-                              size: 20,
-                            ),
-                            const SizedBox(width: 8),
-                            Text(
-                              'Comptes de test disponibles',
-                              style: TextStyle(
-                                color: Colors.green.shade900,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 12),
-                        _buildTestAccount(
-                          'marie.lefebvre@kine-paris.fr',
-                          'Kinésithérapeute - Cabinet Paris',
-                          '20 patients • 15 RDV',
-                        ),
-                        const SizedBox(height: 8),
-                        _buildTestAccount(
-                          'pierre.girard@osteo-lyon.fr',
-                          'Ostéopathe - Centre Lyon',
-                          '20 patients • 15 RDV',
-                        ),
-                        const Divider(height: 24),
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Row(
-                            children: [
-                              Icon(Icons.key, size: 18, color: Colors.green.shade700),
-                              const SizedBox(width: 8),
-                              Text(
-                                'L\'application contient déjà 20 patients et 30 rendez-vous de test répartis sur 2 centres. Créez votre compte pour en créer de nouveaux.',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey.shade700,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const Text(
-                          'Mot de passe : password123',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 13,
-                          ),
-                        ),
-                      ],
-                    ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            
-            // Bouton de déconnexion d'urgence (en cas de problème)
-            if (authProvider.firebaseUser != null)
-              Positioned(
-                top: 8,
-                right: 8,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.red.shade50,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.red.shade200),
-                  ),
-                  child: Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      onTap: () async {
-                        final confirm = await showDialog<bool>(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: const Text('Déconnexion d\'urgence'),
-                            content: const Text(
-                              'Vous êtes déjà connecté. Voulez-vous vous déconnecter pour accéder à l\'écran de connexion ?',
-                            ),
-                            actions: [
-                              TextButton(
-                                onPressed: () => Navigator.pop(context, false),
-                                child: const Text('Annuler'),
-                              ),
-                              ElevatedButton(
-                                onPressed: () => Navigator.pop(context, true),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.red,
-                                  foregroundColor: Colors.white,
-                                ),
-                                child: const Text('Déconnecter'),
-                              ),
-                            ],
-                          ),
-                        );
-
-                        if (confirm == true && mounted) {
-                          await authProvider.logout();
-                          if (mounted) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Déconnexion réussie'),
-                                backgroundColor: Colors.green,
-                                duration: Duration(seconds: 2),
-                              ),
-                            );
-                          }
-                        }
-                      },
-                      borderRadius: BorderRadius.circular(8),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 8,
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              Icons.logout,
-                              size: 18,
-                              color: Colors.red.shade700,
-                            ),
-                            const SizedBox(width: 6),
-                            Text(
-                              'Déconnexion',
-                              style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.red.shade700,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-          ],
-        ),
+        child: isWideScreen ? _buildWideLayout() : _buildNarrowLayout(),
       ),
     );
   }
 
-  // Widget pour afficher un compte de test
-  Widget _buildTestAccount(String email, String role, String data) {
+  // Layout pour écrans larges (desktop/tablette)
+  Widget _buildWideLayout() {
+    return Row(
+      children: [
+        // Panneau de gauche : Comptes test
+        Expanded(
+          flex: 1,
+          child: Container(
+            color: Colors.blue.shade50,
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(32),
+              child: _buildTestAccountsPanel(),
+            ),
+          ),
+        ),
+        
+        // Panneau de droite : Formulaire de connexion
+        Expanded(
+          flex: 1,
+          child: Container(
+            color: Colors.white,
+            child: Center(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(32),
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 500),
+                  child: _buildLoginForm(),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  // Layout pour écrans étroits (smartphone)
+  Widget _buildNarrowLayout() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+      child: Column(
+        children: [
+          _buildLoginForm(),
+          const SizedBox(height: 32),
+          _buildTestAccountsPanel(),
+        ],
+      ),
+    );
+  }
+
+  // Formulaire de connexion
+  Widget _buildLoginForm() {
+    final authProvider = context.watch<AuthProvider>();
+    
+    return Form(
+      key: _formKey,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // Logo et titre
+          Icon(
+            Icons.medical_services_rounded,
+            size: 80,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+          const SizedBox(height: 24),
+          
+          Text(
+            'MediDesk',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+          ),
+          const SizedBox(height: 8),
+          
+          Text(
+            'Gestion de cabinet médical',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.grey.shade600,
+            ),
+          ),
+          const SizedBox(height: 48),
+          
+          // Email
+          TextFormField(
+            controller: _emailController,
+            decoration: InputDecoration(
+              labelText: 'Email',
+              hintText: 'exemple@cabinet.fr',
+              prefixIcon: const Icon(Icons.email_outlined),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+            keyboardType: TextInputType.emailAddress,
+            textInputAction: TextInputAction.next,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Email requis';
+              }
+              if (!value.contains('@')) {
+                return 'Email invalide';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 16),
+          
+          // Mot de passe
+          TextFormField(
+            controller: _passwordController,
+            decoration: InputDecoration(
+              labelText: 'Mot de passe',
+              prefixIcon: const Icon(Icons.lock_outlined),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _obscurePassword = !_obscurePassword;
+                  });
+                },
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+            obscureText: _obscurePassword,
+            textInputAction: TextInputAction.done,
+            onFieldSubmitted: (_) => _handleLogin(),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Mot de passe requis';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 24),
+          
+          // Bouton de connexion
+          SizedBox(
+            height: 56,
+            child: ElevatedButton(
+              onPressed: authProvider.isLoading ? null : _handleLogin,
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              child: authProvider.isLoading
+                  ? const SizedBox(
+                      height: 24,
+                      width: 24,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      ),
+                    )
+                  : const Text(
+                      'Se connecter',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Panneau des comptes test
+  Widget _buildTestAccountsPanel() {
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.green.shade200),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.1),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(Icons.person, size: 16, color: Colors.green.shade700),
-              const SizedBox(width: 6),
-              Expanded(
+              Icon(
+                Icons.verified_user,
+                color: Colors.blue.shade700,
+                size: 24,
+              ),
+              const SizedBox(width: 12),
+              const Expanded(
                 child: Text(
-                  email,
+                  'Comptes de test disponibles',
                   style: TextStyle(
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                    color: Colors.green.shade900,
                   ),
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 8),
           Text(
-            role,
+            'Cliquez sur un compte pour remplir automatiquement',
             style: TextStyle(
-              fontSize: 12,
-              color: Colors.grey.shade700,
+              fontSize: 14,
+              color: Colors.grey.shade600,
             ),
           ),
-          const SizedBox(height: 2),
-          Text(
-            data,
-            style: TextStyle(
-              fontSize: 11,
-              color: Colors.grey.shade600,
-              fontStyle: FontStyle.italic,
+          const SizedBox(height: 24),
+          
+          // Comptes test
+          _buildTestAccountCard(
+            icon: Icons.person,
+            role: 'Patient',
+            name: 'Patient Test',
+            email: 'test.patient@medidesk.fr',
+            password: 'password123',
+            description: 'Accès limité : suivi des douleurs personnelles',
+            color: Colors.blue,
+          ),
+          const SizedBox(height: 12),
+          
+          _buildTestAccountCard(
+            icon: Icons.medical_services,
+            role: 'Praticien (Kiné)',
+            name: 'Marie Lefebvre',
+            email: 'marie.lefebvre@kine-paris.fr',
+            password: 'password123',
+            description: 'Suivi patients, notes de séance, courbes',
+            color: Colors.green,
+          ),
+          const SizedBox(height: 12),
+          
+          _buildTestAccountCard(
+            icon: Icons.healing,
+            role: 'Praticien (Ostéo)',
+            name: 'Pierre Durand',
+            email: 'pierre.durand@osteo-lyon.fr',
+            password: 'password123',
+            description: 'Suivi patients, notes de séance, courbes',
+            color: Colors.teal,
+          ),
+          const SizedBox(height: 12),
+          
+          _buildTestAccountCard(
+            icon: Icons.supervisor_account,
+            role: 'Manager',
+            name: 'Jean Martin',
+            email: 'manager@medidesk.fr',
+            password: 'password123',
+            description: 'Gestion des permissions + accès professionnel',
+            color: Colors.orange,
+          ),
+          const SizedBox(height: 12),
+          
+          _buildTestAccountCard(
+            icon: Icons.settings,
+            role: 'Administrateur',
+            name: 'Admin Système',
+            email: 'admin@medidesk.fr',
+            password: 'password123',
+            description: 'Accès complet au système',
+            color: Colors.red,
+          ),
+          const SizedBox(height: 12),
+          
+          _buildTestAccountCard(
+            icon: Icons.admin_panel_settings,
+            role: 'Secrétaire',
+            name: 'Sophie Dupont',
+            email: 'secretariat@medidesk.fr',
+            password: 'password123',
+            description: 'Gestion patients et rendez-vous',
+            color: Colors.purple,
+          ),
+          
+          const SizedBox(height: 24),
+          const Divider(),
+          const SizedBox(height: 16),
+          
+          // Info sur le mot de passe commun
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.amber.shade50,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: Colors.amber.shade200),
+            ),
+            child: Row(
+              children: [
+                Icon(Icons.key, color: Colors.amber.shade900),
+                const SizedBox(width: 12),
+                const Expanded(
+                  child: Text(
+                    'Tous les comptes utilisent le mot de passe : password123',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -555,4 +408,141 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  // Carte de compte test
+  Widget _buildTestAccountCard({
+    required IconData icon,
+    required String role,
+    required String name,
+    required String email,
+    required String password,
+    required String description,
+    required MaterialColor color,
+  }) {
+    return InkWell(
+      onTap: () => _fillCredentials(email, password),
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          border: Border.all(color: color[200]!),
+          borderRadius: BorderRadius.circular(12),
+          color: color[50]!,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: color[100]!,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Icon(icon, color: color[700]!, size: 20),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        role,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: color[700]!,
+                        ),
+                      ),
+                      Text(
+                        name,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Text(
+              description,
+              style: TextStyle(
+                fontSize: 13,
+                color: Colors.grey.shade700,
+              ),
+            ),
+            const SizedBox(height: 12),
+            
+            // Email avec bouton copier
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      email,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontFamily: 'monospace',
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                IconButton(
+                  icon: const Icon(Icons.copy, size: 18),
+                  onPressed: () => _copyToClipboard(email, 'Email'),
+                  tooltip: 'Copier l\'email',
+                  style: IconButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    padding: const EdgeInsets.all(8),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            
+            // Mot de passe avec bouton copier
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      password,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontFamily: 'monospace',
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                IconButton(
+                  icon: const Icon(Icons.copy, size: 18),
+                  onPressed: () => _copyToClipboard(password, 'Mot de passe'),
+                  tooltip: 'Copier le mot de passe',
+                  style: IconButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    padding: const EdgeInsets.all(8),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -14,10 +15,19 @@ void main() async {
   // Assurez-vous que les bindings Flutter sont initialisés
   WidgetsFlutterBinding.ensureInitialized();
   
-  // Initialisation Firebase avec configuration multi-plateforme
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // Initialisation Firebase UNIQUEMENT (mode DEMO simplifié)
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    if (kDebugMode) {
+      debugPrint('✅ Firebase initialisé avec succès');
+    }
+  } catch (e) {
+    if (kDebugMode) {
+      debugPrint('❌ Erreur Firebase: $e');
+    }
+  }
   
   runApp(const MediDeskApp());
 }
@@ -114,8 +124,8 @@ class AuthWrapper extends StatelessWidget {
           return const LoadingScreen();
         }
         
-        // Si une erreur s'est produite et que Firebase User existe, réessayer
-        if (authProvider.error != null && authProvider.firebaseUser != null) {
+        // Si une erreur s'est produite et que l'utilisateur existe, réessayer
+        if (authProvider.error != null && authProvider.userId != null) {
           // Afficher l'erreur et proposer de réessayer
           return Scaffold(
             body: Center(

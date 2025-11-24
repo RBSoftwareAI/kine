@@ -67,6 +67,76 @@ class Centre {
     );
   }
 
+  /// Créer un Centre depuis un JSON (Flask API)
+  factory Centre.fromJson(Map<String, dynamic> json) {
+    return Centre(
+      id: json['id'] ?? '',
+      nom: json['nom'] ?? '',
+      adresse: json['adresse'] ?? '',
+      telephone: json['telephone'],
+      email: json['email'],
+      siteWeb: json['site_web'],
+      logo: json['logo'],
+      dateCreation: json['cree_le'] != null
+          ? DateTime.parse(json['cree_le'])
+          : DateTime.now(),
+      dateModification: json['modifie_le'] != null
+          ? DateTime.parse(json['modifie_le'])
+          : null,
+      actif: json['actif'] ?? true,
+      dureeConsultationDefaut: json['duree_consultation_defaut'] ?? 30,
+      heureOuverture: json['horaires_debut'] ?? '08:00',
+      heureFermeture: json['horaires_fin'] ?? '18:00',
+      joursOuverture: json['jours_travail'] != null
+          ? (json['jours_travail'] as String).split(',').map((j) {
+              final Map<String, int> jours = {
+                'lundi': 1,
+                'mardi': 2,
+                'mercredi': 3,
+                'jeudi': 4,
+                'vendredi': 5,
+                'samedi': 6,
+                'dimanche': 7,
+              };
+              return jours[j.trim().toLowerCase()] ?? 1;
+            }).toList()
+          : [1, 2, 3, 4, 5],
+      proprietaireId: json['proprietaire_id'] ?? '',
+    );
+  }
+
+  /// Convertir le Centre en JSON (Flask API)
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'nom': nom,
+      'adresse': adresse,
+      'telephone': telephone,
+      'email': email,
+      'site_web': siteWeb,
+      'logo': logo,
+      'cree_le': dateCreation.toIso8601String(),
+      'modifie_le': dateModification?.toIso8601String(),
+      'actif': actif,
+      'duree_consultation_defaut': dureeConsultationDefaut,
+      'horaires_debut': heureOuverture,
+      'horaires_fin': heureFermeture,
+      'jours_travail': joursOuverture?.map((j) {
+        final Map<int, String> jours = {
+          1: 'lundi',
+          2: 'mardi',
+          3: 'mercredi',
+          4: 'jeudi',
+          5: 'vendredi',
+          6: 'samedi',
+          7: 'dimanche',
+        };
+        return jours[j] ?? 'lundi';
+      }).join(','),
+      'proprietaire_id': proprietaireId,
+    };
+  }
+
   /// Convertir le Centre en Map pour Firestore
   Map<String, dynamic> toFirestore() {
     return {

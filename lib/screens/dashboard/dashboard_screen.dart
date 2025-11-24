@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
-import 'home_screen.dart';
+import '../../views/home/home_screen.dart'; // ✅ Nouveau HomeScreen avec gestion des rôles
 import '../patients/patients_list_screen.dart';
 import '../appointments/calendar_screen.dart';
+import '../settings/app_mode_settings_screen.dart';
 
 /// Écran principal du dashboard avec navigation par onglets
 class DashboardScreen extends StatefulWidget {
@@ -16,12 +17,67 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   int _currentIndex = 0;
 
-  final List<Widget> _screens = [
-    const HomeScreen(),
-    const PatientsListScreen(),
-    const CalendarScreen(),
-    const PlaceholderScreen(title: 'Paramètres'),
-  ];
+  // Obtenir les écrans en fonction du rôle
+  List<Widget> _getScreensForRole(String? role) {
+    if (role == 'patient') {
+      // Patient : seulement Accueil et Paramètres
+      return [
+        const HomeScreen(),
+        const AppModeSettingsScreen(),
+      ];
+    } else {
+      // Professionnels : tous les écrans
+      return [
+        const HomeScreen(),
+        const PatientsListScreen(),
+        const CalendarScreen(),
+        const AppModeSettingsScreen(),
+      ];
+    }
+  }
+
+  // Obtenir les destinations de navigation en fonction du rôle
+  List<NavigationDestination> _getDestinationsForRole(String? role) {
+    if (role == 'patient') {
+      // Patient : seulement Accueil et Paramètres
+      return const [
+        NavigationDestination(
+          icon: Icon(Icons.home_outlined),
+          selectedIcon: Icon(Icons.home),
+          label: 'Accueil',
+        ),
+        NavigationDestination(
+          icon: Icon(Icons.settings_outlined),
+          selectedIcon: Icon(Icons.settings),
+          label: 'Paramètres',
+        ),
+      ];
+    } else {
+      // Professionnels : tous les onglets
+      return const [
+        NavigationDestination(
+          icon: Icon(Icons.home_outlined),
+          selectedIcon: Icon(Icons.home),
+          label: 'Accueil',
+        ),
+        NavigationDestination(
+          icon: Icon(Icons.people_outline),
+          selectedIcon: Icon(Icons.people),
+          label: 'Patients',
+        ),
+        NavigationDestination(
+          icon: Icon(Icons.calendar_today_outlined),
+          selectedIcon: Icon(Icons.calendar_today),
+          label: 'Calendrier',
+        ),
+        NavigationDestination(
+          icon: Icon(Icons.settings_outlined),
+          selectedIcon: Icon(Icons.settings),
+          label: 'Paramètres',
+        ),
+      ];
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +86,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('MediDesk'),
+        title: Text('MediDesk - ${_getRoleLabel(user?.role)}'),
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         actions: [
           // Bouton de déconnexion rapide
@@ -88,7 +144,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           const SizedBox(width: 8),
         ],
       ),
-      body: _screens[_currentIndex],
+      body: _getScreensForRole(user?.role)[_currentIndex],
       bottomNavigationBar: NavigationBar(
         selectedIndex: _currentIndex,
         onDestinationSelected: (index) {
@@ -96,30 +152,30 @@ class _DashboardScreenState extends State<DashboardScreen> {
             _currentIndex = index;
           });
         },
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.home_outlined),
-            selectedIcon: Icon(Icons.home),
-            label: 'Accueil',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.people_outline),
-            selectedIcon: Icon(Icons.people),
-            label: 'Patients',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.calendar_today_outlined),
-            selectedIcon: Icon(Icons.calendar_today),
-            label: 'Calendrier',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.settings_outlined),
-            selectedIcon: Icon(Icons.settings),
-            label: 'Paramètres',
-          ),
-        ],
+        destinations: _getDestinationsForRole(user?.role),
       ),
     );
+  }
+
+  // Obtenir le label du rôle pour l'affichage
+  String _getRoleLabel(String? role) {
+    switch (role) {
+      case 'patient':
+        return 'Patient';
+      case 'assistant':
+      case 'secretaire':
+        return 'Secrétaire';
+      case 'praticien':
+      case 'kine':
+        return 'Praticien';
+      case 'manager':
+        return 'Manager';
+      case 'admin':
+      case 'sadmin':
+        return 'Admin';
+      default:
+        return '';
+    }
   }
 
   void _showProfileMenu(BuildContext context) {

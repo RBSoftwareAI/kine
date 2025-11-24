@@ -1,11 +1,12 @@
 import 'package:flutter/foundation.dart';
 import '../models/appointment.dart';
-import '../services/firestore_appointment_service.dart';
+import '../services/data_service.dart';
+import '../services/firebase_data_service.dart';
 
 /// Provider pour gérer l'état des rendez-vous
+/// Utilise Firebase directement (mode DEMO simplifié)
 class AppointmentProvider extends ChangeNotifier {
-  final FirestoreAppointmentService _appointmentService =
-      FirestoreAppointmentService();
+  final DataService _dataService = FirebaseDataService();
 
   // État
   List<Appointment> _appointments = [];
@@ -52,7 +53,7 @@ class AppointmentProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      _appointments = await _appointmentService.getAppointments(centreId);
+      _appointments = await _dataService.getAppointments(centreId);
       _error = null;
     } catch (e) {
       _error = 'Erreur lors du chargement des rendez-vous : $e';
@@ -71,7 +72,7 @@ class AppointmentProvider extends ChangeNotifier {
     DateTime date,
   ) async {
     try {
-      return await _appointmentService.getAppointmentsByDate(centreId, date);
+      return await _dataService.getAppointmentsByDate(centreId, date);
     } catch (e) {
       if (kDebugMode) {
         print('❌ Erreur getAppointmentsByDate: $e');
@@ -86,7 +87,7 @@ class AppointmentProvider extends ChangeNotifier {
     String patientId,
   ) async {
     try {
-      return await _appointmentService.getPatientAppointments(
+      return await _dataService.getPatientAppointments(
         centreId,
         patientId,
       );
@@ -104,7 +105,7 @@ class AppointmentProvider extends ChangeNotifier {
     String praticienId,
   ) async {
     try {
-      return await _appointmentService.getPraticienAppointments(
+      return await _dataService.getPraticienAppointments(
         centreId,
         praticienId,
       );
@@ -123,7 +124,7 @@ class AppointmentProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final id = await _appointmentService.addAppointment(appointment);
+      final id = await _dataService.addAppointment(appointment);
       
       // Recharger la liste
       await loadAppointments(appointment.centreId);
@@ -151,7 +152,7 @@ class AppointmentProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      await _appointmentService.updateAppointment(appointmentId, appointment);
+      await _dataService.updateAppointment(appointmentId, appointment);
       
       // Recharger la liste
       await loadAppointments(appointment.centreId);
@@ -176,7 +177,7 @@ class AppointmentProvider extends ChangeNotifier {
     String statut,
   ) async {
     try {
-      await _appointmentService.updateAppointmentStatus(appointmentId, statut);
+      await _dataService.updateAppointmentStatus(appointmentId, statut);
       
       // Recharger la liste
       await loadAppointments(centreId);
@@ -213,7 +214,7 @@ class AppointmentProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      await _appointmentService.deleteAppointment(appointmentId);
+      await _dataService.deleteAppointment(appointmentId);
       
       // Recharger la liste
       await loadAppointments(centreId);
@@ -240,7 +241,7 @@ class AppointmentProvider extends ChangeNotifier {
     String? excludeAppointmentId,
   }) async {
     try {
-      return await _appointmentService.isSlotAvailable(
+      return await _dataService.isSlotAvailable(
         centreId,
         praticienId,
         dateHeure,
@@ -262,7 +263,7 @@ class AppointmentProvider extends ChangeNotifier {
     DateTime endDate,
   ) async {
     try {
-      return await _appointmentService.getAppointmentsByDateRange(
+      return await _dataService.getAppointmentsByDateRange(
         centreId,
         startDate,
         endDate,
