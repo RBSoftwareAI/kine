@@ -14,11 +14,16 @@
 
 ### 🔐 Comptes de Test
 
-| Rôle | Email | Mot de passe |
-|------|-------|--------------|
-| **Patient** | `test.patient@medidesk.fr` | `password123` |
-| **Kinésithérapeute** | `test.kine@medidesk.fr` | `password123` |
-| **Secrétaire** | `test.secretaire@medidesk.fr` | `password123` |
+**Tous les comptes utilisent le mot de passe : `password123`**
+
+| Rôle | Email |
+|------|-------|
+| **Patient** | `test.patient@medidesk.fr` |
+| **Kinésithérapeute** | `test.kine@medidesk.fr` |
+| **Secrétaire** | `test.secretaire@medidesk.fr` |
+| **Réceptionniste** | `test.receptionniste@medidesk.fr` |
+| **Assistant** | `test.assistant@medidesk.fr` |
+| **Comptable** | `test.comptable@medidesk.fr` |
 
 ---
 
@@ -425,7 +430,7 @@ flutter doctor
 
 ## 👥 Contributeurs
 
-- **Développement** : Équipe GenSpark AI
+- **Développement** : Équipe RBSoftwareAI
 - **Design UI/UX** : Material Design 3 (Google)
 - **Produit** : MediDesk
 
