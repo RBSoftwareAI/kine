@@ -16,14 +16,14 @@
 
 **Tous les comptes utilisent le mot de passe : `password123`**
 
-| Rôle | Email |
-|------|-------|
-| **Patient** | `test.patient@medidesk.fr` |
-| **Kinésithérapeute** | `test.kine@medidesk.fr` |
-| **Secrétaire** | `test.secretaire@medidesk.fr` |
-| **Réceptionniste** | `test.receptionniste@medidesk.fr` |
-| **Assistant** | `test.assistant@medidesk.fr` |
-| **Comptable** | `test.comptable@medidesk.fr` |
+| Nom | Rôle | Email |
+|-----|------|-------|
+| **Patient Test** | Patient | `test.patient@medidesk.fr` |
+| **Pierre Durand** | Kinésithérapeute | `pierre.durand@medidesk.fr` |
+| **Sophie Dupont** | Secrétaire | `so.phie@medadesk.fr` |
+| **Marie Lefèvre** | Réceptionniste | `marie.lefevre@medidesk.fr` |
+| **Jean Martin** | Comptable | `jean@medadesk.fr` |
+| **Admin Système** | Administrateur | `admin.2wat@wp.fr` |
 
 ---
 
