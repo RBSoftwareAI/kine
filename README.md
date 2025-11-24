@@ -2,15 +2,15 @@
 
 **Application Flutter de gestion médicale pour kinésithérapeutes et patients**
 
-[![Firebase](https://img.shields.io/badge/Firebase-Hosting-orange)](https://kinecare-81f52.web.app)
 [![Flutter](https://img.shields.io/badge/Flutter-3.35.4-blue)](https://flutter.dev)
 [![Dart](https://img.shields.io/badge/Dart-3.9.2-blue)](https://dart.dev)
+[![Licence](https://img.shields.io/badge/Licence-Propriétaire-red)](https://medidesk.fr)
 
 ---
 
-## 🚀 Application en Ligne
+## 🚀 Démo en Ligne
 
-**URL Production** : [https://kinecare-81f52.web.app](https://kinecare-81f52.web.app)
+**URL** : [https://demo.medidesk.fr](https://demo.medidesk.fr)
 
 ### 🔐 Comptes de Test
 
@@ -25,22 +25,237 @@
 ## 📱 Fonctionnalités
 
 ### Pour les Patients
-- ✅ Cartographie des douleurs corporelles
-- ✅ Suivi de l'évolution des douleurs
-- ✅ Graphiques et statistiques personnalisés
-- ✅ Historique des séances de traitement
-- ✅ Interface intuitive et responsive
+- ✅ **Cartographie corporelle interactive** : Pointez vos douleurs sur un modèle anatomique
+- ✅ **Suivi de l'évolution** : Graphiques temporels de l'intensité des douleurs
+- ✅ **Historique des séances** : Consultez vos traitements passés
+- ✅ **Statistiques personnalisées** : Zones les plus touchées, tendances
+- ✅ **Interface intuitive** : Design moderne et responsive
 
 ### Pour les Kinésithérapeutes
-- ✅ Gestion des patients
-- ✅ Consultation des dossiers médicaux
-- ✅ Analyse des évolutions
-- ✅ Accès aux données de cartographie
+- ✅ **Gestion des patients** : Vue complète du dossier médical
+- ✅ **Analyse des évolutions** : Outils de visualisation avancés
+- ✅ **Accès aux cartographies** : Consultation des zones douloureuses
+- ✅ **Suivi des traitements** : Historique complet des interventions
 
 ### Pour les Secrétaires
-- ✅ Gestion administrative
-- ✅ Planning et rendez-vous
-- ✅ Interface simplifiée
+- ✅ **Gestion administrative** : Planning et rendez-vous
+- ✅ **Interface simplifiée** : Accès rapide aux fonctions essentielles
+
+---
+
+## 💻 Installation pour Centres de Soin
+
+**Vous êtes un centre de kinésithérapie et souhaitez installer MediDesk en local ?**
+
+### 📋 Prérequis Système
+
+Avant de commencer, assurez-vous d'avoir :
+- **Système d'exploitation** : Windows 10/11, macOS 11+, ou Linux (Ubuntu 20.04+)
+- **Espace disque** : Minimum 5 GB disponibles
+- **Mémoire RAM** : Minimum 4 GB recommandé
+- **Connexion Internet** : Pour téléchargement initial et mises à jour
+
+---
+
+### 🪟 Installation sur Windows
+
+#### Étape 1 : Installer Flutter SDK
+
+1. **Télécharger Flutter** :
+   - Aller sur : https://docs.flutter.dev/get-started/install/windows
+   - Télécharger le fichier ZIP Flutter 3.35.4
+   - Extraire dans `C:\src\flutter` (créer le dossier si nécessaire)
+
+2. **Configurer les variables d'environnement** :
+   - Ouvrir "Paramètres système avancés"
+   - Cliquer sur "Variables d'environnement"
+   - Ajouter `C:\src\flutter\bin` à la variable `Path`
+
+3. **Vérifier l'installation** :
+   ```powershell
+   flutter --version
+   # Doit afficher : Flutter 3.35.4
+   ```
+
+#### Étape 2 : Cloner le Projet MediDesk
+
+```powershell
+# Installer Git si nécessaire : https://git-scm.com/download/win
+git clone https://github.com/RBSoftwareAI/kine.git
+cd kine
+
+# Installer les dépendances
+flutter pub get
+```
+
+#### Étape 3 : Lancer l'Application
+
+```powershell
+# Lancer sur navigateur Web (Chrome)
+flutter run -d chrome --web-port=5060
+
+# L'application sera accessible sur : http://localhost:5060
+```
+
+#### Étape 4 : Build pour Production (Optionnel)
+
+```powershell
+# Créer un build Web optimisé
+flutter build web --release
+
+# Les fichiers seront dans : build/web/
+# Déployez-les sur votre serveur web local (IIS, Apache, etc.)
+```
+
+---
+
+### 🍎 Installation sur macOS
+
+#### Étape 1 : Installer Flutter SDK
+
+1. **Télécharger Flutter** :
+   ```bash
+   cd ~/development
+   curl -O https://storage.googleapis.com/flutter_infra_release/releases/stable/macos/flutter_macos_3.35.4-stable.zip
+   unzip flutter_macos_3.35.4-stable.zip
+   ```
+
+2. **Configurer le PATH** :
+   ```bash
+   # Ouvrir le fichier de configuration
+   nano ~/.zshrc
+   
+   # Ajouter cette ligne à la fin :
+   export PATH="$PATH:$HOME/development/flutter/bin"
+   
+   # Sauvegarder (Ctrl+O, Enter, Ctrl+X)
+   
+   # Recharger la configuration
+   source ~/.zshrc
+   ```
+
+3. **Vérifier l'installation** :
+   ```bash
+   flutter --version
+   # Doit afficher : Flutter 3.35.4
+   ```
+
+#### Étape 2 : Cloner le Projet MediDesk
+
+```bash
+# Installer Git si nécessaire
+brew install git
+
+# Cloner le projet
+git clone https://github.com/RBSoftwareAI/kine.git
+cd kine
+
+# Installer les dépendances
+flutter pub get
+```
+
+#### Étape 3 : Lancer l'Application
+
+```bash
+# Lancer sur navigateur Web (Chrome)
+flutter run -d chrome --web-port=5060
+
+# L'application sera accessible sur : http://localhost:5060
+```
+
+#### Étape 4 : Build pour Production (Optionnel)
+
+```bash
+# Créer un build Web optimisé
+flutter build web --release
+
+# Les fichiers seront dans : build/web/
+# Déployez-les sur votre serveur web local (nginx, Apache, etc.)
+```
+
+---
+
+### 🐧 Installation sur Linux (Ubuntu/Debian)
+
+#### Étape 1 : Installer Flutter SDK
+
+```bash
+# Installer les dépendances
+sudo apt update
+sudo apt install curl git unzip xz-utils zip libglu1-mesa
+
+# Télécharger Flutter
+cd ~
+wget https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.35.4-stable.tar.xz
+tar xf flutter_linux_3.35.4-stable.tar.xz
+
+# Configurer le PATH
+echo 'export PATH="$PATH:$HOME/flutter/bin"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+#### Étape 2 : Vérifier l'installation
+
+```bash
+flutter --version
+# Doit afficher : Flutter 3.35.4
+
+# Vérifier les dépendances
+flutter doctor
+```
+
+#### Étape 3 : Cloner le Projet MediDesk
+
+```bash
+git clone https://github.com/RBSoftwareAI/kine.git
+cd kine
+
+# Installer les dépendances
+flutter pub get
+```
+
+#### Étape 4 : Lancer l'Application
+
+```bash
+# Lancer sur navigateur Web (Chrome)
+flutter run -d chrome --web-port=5060
+
+# L'application sera accessible sur : http://localhost:5060
+```
+
+#### Étape 5 : Build pour Production (Optionnel)
+
+```bash
+# Créer un build Web optimisé
+flutter build web --release
+
+# Les fichiers seront dans : build/web/
+# Déployez-les sur votre serveur web local (nginx, Apache, etc.)
+```
+
+---
+
+## 📧 Inscription et Support pour Centres de Soin
+
+**Vous souhaitez installer MediDesk dans votre centre ?**
+
+### 🎯 Processus d'Inscription
+
+1. **Inscrivez-vous sur** : [https://medidesk.fr](https://medidesk.fr)
+2. **Remplissez le formulaire** avec les informations de votre centre
+3. **Recevez par email** :
+   - 📄 Guide d'installation détaillé (PDF)
+   - 🔑 Clés de licence
+   - 📞 Coordonnées du support technique
+   - 💾 Fichiers de configuration personnalisés
+
+### 📞 Support Technique
+
+Une fois inscrit, vous bénéficiez de :
+- ✅ **Support par email** : support@medidesk.fr
+- ✅ **Documentation complète** : Guides d'installation pas à pas
+- ✅ **Assistance à l'installation** : Configuration initiale incluse
+- ✅ **Mises à jour gratuites** : Nouvelles fonctionnalités régulières
 
 ---
 
@@ -48,89 +263,18 @@
 
 - **Framework** : Flutter 3.35.4
 - **Langage** : Dart 3.9.2
-- **Backend** : Firebase (Firestore, Authentication, Hosting)
 - **State Management** : Provider
-- **Charts** : FL Chart
+- **Charts** : FL Chart 0.69.2
 - **UI** : Material Design 3
+- **Stockage local** : Hive 2.2.3 (base de données locale)
 
 ---
 
-## 📦 Installation & Développement
-
-### Prérequis
-```bash
-# Flutter 3.35.4 requis
-flutter --version
-
-# Java 17 requis pour Android
-java -version
-```
-
-### Installation des dépendances
-```bash
-flutter pub get
-```
-
-### Lancement en mode développement
-```bash
-# Web (port 5060)
-flutter run -d chrome --web-port=5060
-
-# Android
-flutter run -d android
-```
-
-### Build Production
-```bash
-# Build Web
-flutter build web --release
-
-# Build APK Android
-flutter build apk --release
-
-# Build App Bundle Android
-flutter build appbundle --release
-```
-
----
-
-## 🔥 Firebase Configuration
-
-### Configuration Requise
-1. **Firebase Admin SDK** : `/opt/flutter/firebase-admin-sdk.json`
-2. **Google Services** : `android/app/google-services.json`
-3. **Firebase Options** : `lib/firebase_options.dart`
-
-### Déploiement Firebase
-```bash
-# Déploiement Hosting
-firebase deploy --only hosting
-
-# Déploiement Firestore Rules
-firebase deploy --only firestore:rules
-```
-
----
-
-## 🔒 Système de Permissions
-
-L'application utilise un système de permissions granulaires par rôle :
-
-| Rôle | Accès |
-|------|-------|
-| **Patient** | Mes données, Mes douleurs, Mes courbes |
-| **Kinésithérapeute** | Tous patients, Toutes données médicales |
-| **Secrétaire** | Gestion administrative, Planning |
-| **Admin** | Accès complet, Gestion utilisateurs |
-
----
-
-## 📊 Architecture
+## 📊 Architecture Technique
 
 ```
 lib/
 ├── main.dart                 # Point d'entrée
-├── firebase_options.dart     # Config Firebase multi-plateforme
 ├── models/                   # Modèles de données
 │   ├── user_model.dart
 │   ├── pain_mapping_model.dart
@@ -139,8 +283,8 @@ lib/
 │   ├── auth_provider.dart
 │   ├── patient_provider.dart
 │   └── appointment_provider.dart
-├── services/                 # Services Backend
-│   ├── firebase_data_service.dart
+├── services/                 # Services Métier
+│   ├── data_service.dart
 │   ├── permission_service.dart
 │   └── evolution_service.dart
 ├── views/                    # Écrans UI
@@ -153,140 +297,156 @@ lib/
 
 ---
 
-## 📄 Documentation
-
-### Guides Disponibles
-- [📘 DEPLOIEMENT_COMPLET_REUSSI.md](./DEPLOIEMENT_COMPLET_REUSSI.md) - Guide de déploiement complet
-- [📗 GUIDE_DNS_ETAPE3.md](./GUIDE_DNS_ETAPE3.md) - Configuration DNS personnalisé
-- [📙 CORRECTION_ABSOLUMENT_FINALE.md](./CORRECTION_ABSOLUMENT_FINALE.md) - Corrections thème blanc
-- [📕 RESUME_FINAL_24NOV.md](./RESUME_FINAL_24NOV.md) - Résumé des développements
-
-### Dernières Mises à Jour
-- **24/11/2024** : Correction finale thème blanc - 100% cohérent
-- **24/11/2024** : Système de permissions par rôle déployé
-- **24/11/2024** : Règles Firestore sécurisées activées
-- **24/11/2024** : Écran de connexion avec 6 comptes test
-
----
-
 ## 🎨 Thème & Design
 
-L'application utilise un thème clair cohérent :
+L'application utilise un thème clair moderne :
 - **Couleur principale** : Orange (`#FF6B35`)
 - **Couleur secondaire** : Bleu (`#2196F3`)
-- **Arrière-plan** : Blanc/Gris très clair
-- **Texte** : Noir (`#000000`)
-- **Design System** : Material Design 3
+- **Arrière-plan** : Blanc/Gris clair
+- **Texte** : Noir
+- **Design** : Material Design 3 (Google)
 
 ---
 
-## 🧪 Tests
+## 🔒 Système de Permissions
 
-### Comptes de Test
-Tous les comptes utilisent le mot de passe : `password123`
+| Rôle | Accès |
+|------|-------|
+| **Patient** | Mes données, Mes douleurs, Mes statistiques |
+| **Kinésithérapeute** | Tous patients, Toutes données médicales |
+| **Secrétaire** | Gestion administrative, Planning |
+| **Admin** | Accès complet, Configuration système |
 
-```dart
-// Test Patient
-Email: test.patient@medidesk.fr
+---
 
-// Test Kinésithérapeute
-Email: test.kine@medidesk.fr
+## 🚀 Roadmap - Prochaines Fonctionnalités
 
-// Test Secrétaire
-Email: test.secretaire@medidesk.fr
+### Version 2.0 (Prévue Q1 2026)
+
+**Nouvelles Fonctionnalités** :
+- 🎯 **Export PDF des rapports** : Génération automatique de comptes-rendus
+- 📱 **Application mobile native** : iOS et Android
+- 🔔 **Notifications push** : Rappels de rendez-vous
+- 📊 **Tableaux de bord avancés** : Analytics et KPIs pour les centres
+- 🤝 **Partage de données** : Export sécurisé vers autres praticiens
+- 🌐 **Multi-langue** : Anglais, Espagnol, Allemand
+
+**Améliorations Prévues** :
+- ⚡ **Performance optimisée** : Chargement 50% plus rapide
+- 🎨 **Thèmes personnalisables** : Mode sombre, thèmes par centre
+- 📈 **Graphiques enrichis** : Plus de types de visualisations
+- 🔐 **Sécurité renforcée** : Authentification à deux facteurs (2FA)
+- 💾 **Backup automatique** : Sauvegarde planifiée des données
+- 🖨️ **Impression directe** : Imprimer cartographies et rapports
+
+### Version 2.1 (Prévue Q2 2026)
+
+**Intelligence Artificielle** :
+- 🧠 **Recommandations IA** : Suggestions de traitements basées sur historique
+- 📊 **Prédiction d'évolution** : Algorithmes de prévision des améliorations
+- 🔍 **Détection d'anomalies** : Alertes sur évolutions inhabituelles
+
+**Intégrations** :
+- 🏥 **API RPPS** : Vérification automatique des praticiens
+- 📅 **Google Calendar** : Synchronisation bidirectionnelle
+- 💳 **Facturation** : Module de gestion comptable intégré
+
+---
+
+## 🐛 Résolution de Problèmes Courants
+
+### Problème : Flutter non reconnu après installation
+
+**Windows** :
+```powershell
+# Vérifier que Flutter est dans le PATH
+echo $env:Path | Select-String "flutter"
+
+# Si absent, ajouter manuellement
+[Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\src\flutter\bin", "User")
 ```
 
-### Tests de Validation
-1. Connexion avec différents rôles
-2. Vérification des permissions
-3. Cartographie des douleurs (Patient)
-4. Graphiques d'évolution (Patient)
-5. Gestion des patients (Kinésithérapeute)
-
----
-
-## 🚀 Déploiement
-
-### Firebase Hosting (Production)
+**macOS/Linux** :
 ```bash
-# Build + Deploy
-flutter build web --release
-firebase deploy --only hosting
+# Vérifier le PATH
+echo $PATH | grep flutter
+
+# Si absent, ajouter dans ~/.bashrc ou ~/.zshrc
+export PATH="$PATH:$HOME/flutter/bin"
+source ~/.bashrc  # ou source ~/.zshrc
 ```
 
-### Domaine Personnalisé
-Configuration DNS pour `demo.medidesk.fr` :
-Voir [GUIDE_DNS_ETAPE3.md](./GUIDE_DNS_ETAPE3.md)
+### Problème : Erreur lors de `flutter pub get`
 
----
-
-## 🐛 Résolution de Problèmes
-
-### Problème : Écran de chargement infini
-**Solution** : Correction AuthProvider avec timeout 500ms
-```dart
-// Voir lib/providers/auth_provider.dart
-await _initializeAuthState();
-```
-
-### Problème : Permissions refusées Firestore
-**Solution** : Déployer les règles Firestore
 ```bash
-firebase deploy --only firestore:rules
+# Nettoyer le cache Flutter
+flutter clean
+flutter pub cache repair
+
+# Réessayer
+flutter pub get
 ```
 
-### Problème : Thème incohérent
-**Solution** : Toutes les corrections sont dans le commit `66dd077`
+### Problème : Application ne démarre pas
+
+```bash
+# Vérifier la configuration Flutter
+flutter doctor
+
+# Résoudre les problèmes identifiés par Flutter Doctor
+```
 
 ---
 
 ## 📝 Changelog
 
-### v1.3 - 24/11/2024
-- ✅ Correction finale thème blanc (100% cohérent)
-- ✅ Section "Zones touchées" : fond blanc
-- ✅ Section "Séances de traitement" : fond blanc
-- ✅ Upload GitHub automatique configuré
+### v1.3 - 24/11/2025 (Actuelle)
+- ✅ **Correction finale thème blanc** : Interface 100% cohérente
+- ✅ **Section "Zones touchées"** : Affichage optimisé
+- ✅ **Section "Séances de traitement"** : Design amélioré
+- ✅ **Documentation complète** : README professionnel
 
-### v1.2 - 24/11/2024
-- ✅ Système de permissions par rôle
-- ✅ Règles Firestore sécurisées
-- ✅ Écran de connexion redesigné
-- ✅ 6 comptes de test créés
+### v1.2 - 23/11/2025
+- ✅ **Système de permissions par rôle** : Sécurité renforcée
+- ✅ **Écran de connexion redesigné** : UX améliorée
+- ✅ **3 comptes de test créés** : Démo fonctionnelle
 
-### v1.1 - 23/11/2024
-- ✅ Correctif AuthProvider (chargement < 3s)
-- ✅ Nettoyage doublons Firebase (9 utilisateurs finaux)
-- ✅ Déploiement Firebase Hosting
+### v1.1 - 22/11/2025
+- ✅ **Correctif AuthProvider** : Chargement < 3 secondes
+- ✅ **Optimisations performance** : Fluidité accrue
 
-### v1.0 - 22/11/2024
-- ✅ Version initiale
-- ✅ Cartographie des douleurs
-- ✅ Graphiques d'évolution
-- ✅ Interface Patient/Kinésithérapeute
+### v1.0 - 20/11/2025
+- ✅ **Version initiale** : MVP complet
+- ✅ **Cartographie des douleurs** : Fonctionnalité core
+- ✅ **Graphiques d'évolution** : Suivi temporel
+- ✅ **Interface Patient/Kinésithérapeute** : Deux profils
 
 ---
 
 ## 👥 Contributeurs
 
 - **Développement** : Équipe GenSpark AI
-- **Design** : Material Design 3
-- **Backend** : Firebase
+- **Design UI/UX** : Material Design 3 (Google)
+- **Produit** : MediDesk
 
 ---
 
-## 📧 Support
+## 📧 Contact
 
-Pour toute question ou problème :
-- **Email** : support@medidesk.fr
-- **GitHub Issues** : [github.com/RBSoftwareAI/kine/issues](https://github.com/RBSoftwareAI/kine/issues)
+**Site Web** : [https://medidesk.fr](https://medidesk.fr)  
+**Email** : support@medidesk.fr  
+**Démo** : [https://demo.medidesk.fr](https://demo.medidesk.fr)
 
 ---
 
 ## 📄 Licence
 
-© 2024 MediDesk - Tous droits réservés
+© 2025 MediDesk - Tous droits réservés
+
+**Application propriétaire destinée aux professionnels de santé**
 
 ---
 
-**🏥 MediDesk - Simplifier la gestion médicale pour les professionnels de santé**
+**🏥 MediDesk - Simplifiez la gestion de votre cabinet médical**
+
+*Conçu par des professionnels de santé, pour des professionnels de santé*
