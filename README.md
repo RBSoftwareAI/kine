@@ -14,16 +14,18 @@
 
 ### 🔐 Comptes de Test
 
+**⚠️ IMPORTANT : Ces comptes correspondent EXACTEMENT à ceux affichés sur la page de connexion de demo.medidesk.fr**
+
 **Tous les comptes utilisent le mot de passe : `password123`**
 
 | Nom | Rôle | Email |
 |-----|------|-------|
 | **Patient Test** | Patient | `test.patient@medidesk.fr` |
-| **Pierre Durand** | Kinésithérapeute | `pierre.durand@medidesk.fr` |
-| **Sophie Dupont** | Secrétaire | `so.phie@medadesk.fr` |
-| **Marie Lefèvre** | Réceptionniste | `marie.lefevre@medidesk.fr` |
-| **Jean Martin** | Comptable | `jean@medadesk.fr` |
-| **Admin Système** | Administrateur | `admin.2wat@wp.fr` |
+| **Marie Lefebvre** | Praticien (Kiné) | `marie.lefebvre@kine-paris.fr` |
+| **Pierre Durand** | Praticien (Ostéo) | `pierre.durand@osteo-lyon.fr` |
+| **Jean Martin** | Manager | `manager@medidesk.fr` |
+| **Admin Système** | Administrateur | `admin@medidesk.fr` |
+| **Sophie Dupont** | Secrétaire | `secretariat@medidesk.fr` |
 
 ---
 
