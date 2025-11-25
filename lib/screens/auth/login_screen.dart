@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
-import 'signup_screen.dart';
+import '../../widgets/guided_tour_v2.dart';
 
 /// Écran de connexion pour les utilisateurs existants
 class LoginScreen extends StatefulWidget {
@@ -18,7 +18,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   
   bool _obscurePassword = true;
-  bool _rememberMe = false;
 
   @override
   void dispose() {
@@ -73,7 +72,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = context.watch<AuthProvider>();
     final isWideScreen = MediaQuery.of(context).size.width > 900;
     
     return Scaffold(
@@ -255,6 +253,34 @@ class _LoginScreenState extends State<LoginScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+            ),
+          ),
+          const SizedBox(height: 24),
+          
+          // Bouton visite guidée
+          SizedBox(
+            height: 56,
+            child: OutlinedButton.icon(
+              onPressed: authProvider.isLoading 
+                  ? null 
+                  : () => GuidedTourV2.startTour(context),
+              icon: const Icon(Icons.play_circle_outline),
+              label: const Text(
+                '🎯 Essayer la visite guidée (5-7 min)',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              style: OutlinedButton.styleFrom(
+                side: BorderSide(
+                  color: Theme.of(context).colorScheme.primary,
+                  width: 2,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
             ),
           ),
         ],

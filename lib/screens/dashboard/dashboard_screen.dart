@@ -117,6 +117,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               );
 
               if (confirm == true && context.mounted) {
+                // Déconnexion simple - AuthWrapper gère la redirection
                 await context.read<AuthProvider>().logout();
               }
             },
@@ -290,24 +291,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 );
 
                 if (confirm == true && context.mounted) {
-                  // Afficher un indicateur de chargement
-                  showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    builder: (context) => const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
-
-                  // Déconnecter
+                  // Déconnecter directement sans dialog de chargement
+                  // pour éviter les problèmes de navigation
                   await context.read<AuthProvider>().logout();
 
-                  // Fermer l'indicateur de chargement si encore monté
-                  if (context.mounted) {
-                    Navigator.of(context).pop();
-                  }
-
                   // Le AuthWrapper devrait automatiquement rediriger vers LoginScreen
+                  // car isAuthenticated devient false
                 }
               },
             ),
