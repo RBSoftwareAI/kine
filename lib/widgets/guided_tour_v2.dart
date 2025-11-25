@@ -52,7 +52,7 @@ class GuidedTourV2 {
     }
 
     // Attendre que les données utilisateur soient chargées
-    await Future.delayed(const Duration(milliseconds: 1500));
+    await Future.delayed(const Duration(milliseconds: 2000));
 
     if (!context.mounted) return;
 
@@ -60,9 +60,15 @@ class GuidedTourV2 {
       debugPrint('✅ Connexion réussie, lancement de la visite...');
     }
 
-    // Afficher la visite guidée
-    Navigator.of(context).pushReplacement(
+    // CRITICAL FIX: Attendre un frame supplémentaire pour que le Dashboard soit monté
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    if (!context.mounted) return;
+
+    // Afficher la visite guidée en fullscreen dialog par-dessus le dashboard
+    Navigator.of(context).push(
       MaterialPageRoute(
+        fullscreenDialog: true,
         builder: (context) => const GuidedTourController(),
       ),
     );
@@ -184,12 +190,9 @@ class _GuidedTourControllerState extends State<GuidedTourController> {
   }
 
   void _finishTour() {
-    // Retourner au dashboard après la visite
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => const DashboardScreen(),
-      ),
-    );
+    // Fermer la visite guidée et retourner au dashboard
+    // Le dashboard est déjà monté en arrière-plan, donc on ferme simplement la route
+    Navigator.of(context).pop();
   }
 
   @override
@@ -199,12 +202,14 @@ class _GuidedTourControllerState extends State<GuidedTourController> {
     return Scaffold(
       body: Stack(
         children: [
-          // Écran d'arrière-plan correspondant à l'étape
-          currentConfig.screenBuilder(context),
+          // Fond de couleur correspondant à l'étape (au lieu de l'écran complet)
+          Container(
+            color: currentConfig.color.withValues(alpha: 0.1),
+          ),
           
           // Overlay semi-transparent
           Container(
-            color: Colors.black.withValues(alpha: 0.7),
+            color: Colors.black.withValues(alpha: 0.75),
           ),
           
           // Carte d'explication de l'étape
