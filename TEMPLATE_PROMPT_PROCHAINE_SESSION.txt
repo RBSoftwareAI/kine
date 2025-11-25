@@ -1,28 +1,109 @@
-===================================================================
-📋 TEMPLATE PROMPT POUR PROCHAINE SESSION - MediDesk
-===================================================================
+================================================================================
+📋 TEMPLATE PROMPT - SESSION IA MEDIDESK (Mode Auto-Priorité)
+================================================================================
 
-Bonjour ! Je continue le développement du projet **MediDesk**.
+Bonjour nous sommes le [REMPLACER PAR LA DATE ACTUELLE] ! Je continue le développement de MediDesk.
 
-📂 **Repository** : https://github.com/RBSoftwareAI/kine
-🌿 **Branche** : base
+📂 Repository : https://github.com/RBSoftwareAI/kine
+🌿 Branche : base
+📄 Documentation : Lis dans cet ordre :
+   1. AI_QUICK_START.md (guide express)
+   2. CONTEXT.md (documentation complète)
+   3. STRATEGY.md (stratégie commerciale bootstrap)
 
-📚 **Documentation à lire EN PRIORITÉ** (dans cet ordre) :
-1. README_SESSION.md          - Résumé exécutif ultra-rapide (5min)
-2. PROMPT_PROCHAINE_SESSION.md - État complet + prochaines étapes (15min)
-3. AI_QUICK_START.md          - Commandes essentielles + code structure
-4. CONTEXT.md                 - Vision stratégique + architecture + RGPD
+✅ Session 25 Nov 2025 - Accomplissements :
+   - Bandeau démo visible partout ✅
+   - 5 patients réalistes avec historiques 2-3 mois ✅
+   - Installateur Docker production-ready ✅
+   - Documentation complète README_INSTALL.md ✅
 
-🎯 **Prochaines tâches** :
-- Phase F : Architecture Hybride (DataService abstrait Flask + Firebase)
-- Option C : Documentation Juridique RGPD (6 documents)
-- Phase G : Déploiement final demo.medidesk.fr
+🎯 Ma demande pour cette session :
 
-⚠️ **Contraintes techniques** :
-- Flutter 3.35.4 + Dart 3.9.2 (NE PAS upgrader)
-- Backend Flask déjà TERMINÉ et fonctionnel (port 5000)
-- Build production Flutter déjà prêt (17.2s)
+Analyse l'état actuel du projet et propose-moi les tâches prioritaires à réaliser durant cette session. Base tes recommandations sur :
+- La stratégie bootstrap (STRATEGY.md)
+- L'avancement actuel (CONTEXT.md)
+- Les quick wins à fort impact
+- Le temps disponible (2-3h de session)
 
-Peux-tu commencer par lire les fichiers de documentation dans l'ordre indiqué, puis me confirmer que tu as bien compris l'état actuel du projet ?
+Puis implémente les tâches que tu juges les plus importantes.
 
-===================================================================
+================================================================================
+📝 INSTRUCTIONS D'UTILISATION
+================================================================================
+
+1. Copier tout le texte ci-dessus (du "Bonjour" à "les plus importantes")
+2. Remplacer [REMPLACER PAR LA DATE ACTUELLE] par la date du jour
+3. Coller dans le chat avec l'IA
+4. L'IA va :
+   - Analyser l'état du projet
+   - Proposer un plan de session priorisé
+   - Demander validation
+   - Implémenter les tâches prioritaires
+   - Commit et push sur GitHub
+
+================================================================================
+🎯 CRITÈRES DE PRIORISATION DE L'IA
+================================================================================
+
+L'IA choisira automatiquement les tâches selon :
+
+1. Impact Business (Stratégie Bootstrap)
+   ✅ Aide à convaincre les 10 kinés pilotes (Phase 1)
+   ✅ Améliore la démo pour prospects
+   ✅ Prépare l'installation locale
+
+2. Quick Wins Visibles
+   ✅ Résultats immédiats et démontrables
+   ✅ Peut être montré aux prospects
+   ✅ Boost la crédibilité professionnelle
+
+3. Stabilité Technique
+   ✅ Corrections bugs critiques
+   ✅ Performance améliorée
+   ✅ Code maintenable
+
+4. Documentation
+   ✅ Facilite l'onboarding clients
+   ✅ Réduit le support nécessaire
+   ✅ Professionnalisme
+
+================================================================================
+✨ EXEMPLE DE PLAN PROPOSÉ PAR L'IA
+================================================================================
+
+"Bonjour ! J'ai analysé l'état du projet. Voici ce que je recommande :
+
+🔴 PRIORITÉ 1 (30 min) - CRITIQUE :
+   Déployer sur demo.medidesk.fr
+   → Bandeau et données enrichies visibles en prod
+
+🟡 PRIORITÉ 2 (2h) - IMPORTANT :
+   Mode visite guidée interactive
+   → Améliore UX démo et conversion prospects
+
+🟢 PRIORITÉ 3 (30 min) - BONUS :
+   Corriger warnings Flutter
+   → Code plus propre
+
+Total estimé : 3h
+Es-tu d'accord pour que je commence ?"
+
+================================================================================
+📞 SUPPORT
+================================================================================
+
+Questions ? Consultez :
+- README.md (guide utilisateur)
+- CONTEXT.md (documentation technique)
+- STRATEGY.md (stratégie commerciale)
+- AI_QUICK_START.md (guide IA)
+
+Repository : https://github.com/RBSoftwareAI/kine
+Démo : https://demo.medidesk.fr
+
+================================================================================
+Version : 1.0
+Date création : 25 Novembre 2025
+Dernière mise à jour : 25 Novembre 2025
+Équipe : RBSoftwareAI
+================================================================================
