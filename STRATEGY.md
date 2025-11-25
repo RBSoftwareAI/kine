@@ -496,15 +496,15 @@ Garantie: 5 ans + Remplacement sous 4h
 
 ```yaml
 Ressources Disponibles:
-  👥 Équipe: Père (Vous) + Fils (Ingénieur généraliste)
+  👥 Équipe: Fils (Ingénieur généraliste - Développeur principal) + Père (Support stratégique)
   💰 Capital: 0€ au démarrage
   💻 Produit: Application déjà développée (valeur ~50k€)
   🌐 Démo: En ligne et fonctionnelle (demo.medidesk.fr)
   📚 Documentation: Complète et professionnelle
 
 Temps Disponible:
-  Père: 20h/semaine (commercial, support, marketing)
-  Fils: 15h/semaine (développement, infra, bugs)
+  Fils: 15h/semaine (développement, infra, bugs, technique)
+  Père: 20h/semaine (commercial, support, marketing, stratégie)
   Total: 35h/semaine (équivalent 1 ETP)
 
 Objectifs:
