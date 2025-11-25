@@ -209,14 +209,12 @@ class _GuidedTourControllerState extends State<GuidedTourController> {
     return Scaffold(
       body: Stack(
         children: [
-          // Fond de couleur correspondant à l'étape (au lieu de l'écran complet)
-          Container(
-            color: currentConfig.color.withValues(alpha: 0.1),
-          ),
+          // Afficher l'écran réel en arrière-plan
+          currentConfig.screenBuilder(context),
           
-          // Overlay semi-transparent
+          // Overlay semi-transparent pour assombrir l'arrière-plan
           Container(
-            color: Colors.black.withValues(alpha: 0.75),
+            color: Colors.black.withValues(alpha: 0.65),
           ),
           
           // Carte d'explication de l'étape
