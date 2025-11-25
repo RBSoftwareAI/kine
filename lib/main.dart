@@ -10,6 +10,7 @@ import 'providers/appointment_provider.dart';
 import 'screens/auth/login_screen.dart';
 import 'screens/dashboard/dashboard_screen.dart';
 import 'screens/common/loading_screen.dart';
+import 'widgets/demo_banner.dart';
 
 void main() async {
   // Assurez-vous que les bindings Flutter sont initialisés
@@ -119,15 +120,17 @@ class AuthWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<AuthProvider>(
       builder: (context, authProvider, _) {
+        Widget mainContent;
+        
         // Afficher l'écran de chargement pendant l'initialisation
         if (authProvider.isLoading) {
-          return const LoadingScreen();
+          mainContent = const LoadingScreen();
         }
         
         // Si une erreur s'est produite et que l'utilisateur existe, réessayer
-        if (authProvider.error != null && authProvider.userId != null) {
+        else if (authProvider.error != null && authProvider.userId != null) {
           // Afficher l'erreur et proposer de réessayer
-          return Scaffold(
+          mainContent = Scaffold(
             body: Center(
               child: Padding(
                 padding: const EdgeInsets.all(32),
@@ -179,12 +182,22 @@ class AuthWrapper extends StatelessWidget {
         }
         
         // Si l'utilisateur est authentifié, afficher le dashboard
-        if (authProvider.isAuthenticated) {
-          return const DashboardScreen();
+        else if (authProvider.isAuthenticated) {
+          mainContent = const DashboardScreen();
         }
         
         // Sinon, afficher l'écran de connexion
-        return const LoginScreen();
+        else {
+          mainContent = const LoginScreen();
+        }
+        
+        // Wrapper avec bandeau de démonstration au-dessus
+        return Column(
+          children: [
+            const DemoBanner(),
+            Expanded(child: mainContent),
+          ],
+        );
       },
     );
   }

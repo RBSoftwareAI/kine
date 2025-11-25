@@ -1,46 +1,50 @@
-# MediDesk Backend - Docker Image
 FROM python:3.11-slim
 
 # Métadonnées
-LABEL maintainer="contact@medidesk.fr"
-LABEL description="MediDesk Backend Flask Server"
-LABEL version="1.0"
+LABEL maintainer="RBSoftwareAI <support@medidesk.fr>"
+LABEL version="1.3"
+LABEL description="MediDesk Backend API - Gestion médicale pour kinésithérapeutes"
 
 # Variables d'environnement
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
-    PORT=8080 \
-    FLASK_ENV=production
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
 
-# Répertoire de travail
+# Créer répertoire de travail
 WORKDIR /app
 
-# Installation des dépendances système
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
+# Installer dépendances système
+RUN apt-get update && apt-get install -y \
     gcc \
-    python3-dev \
+    postgresql-client \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Copier les fichiers requirements
+# Copier requirements
 COPY requirements.txt .
 
-# Installation des dépendances Python
+# Installer dépendances Python
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copier le code source
+# Copier le code de l'application
 COPY . .
 
-# Créer les répertoires de données
-RUN mkdir -p /app/data /app/backups && \
-    chmod 755 /app/data /app/backups
+# Créer répertoires nécessaires
+RUN mkdir -p /app/logs /app/uploads /app/backups && \
+    chmod -R 755 /app
 
-# Exposer le port
-EXPOSE 8080
+# Utilisateur non-root pour la sécurité
+RUN useradd -m -u 1000 medidesk && \
+    chown -R medidesk:medidesk /app
+USER medidesk
+
+# Port exposé
+EXPOSE 5000
 
 # Healthcheck
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
-    CMD python3 -c "import requests; requests.get('http://localhost:8080/health', timeout=5)" || exit 1
+    CMD curl -f http://localhost:5000/health || exit 1
 
-# Commande de démarrage
-CMD ["python3", "start_server.py"]
+# Point d'entrée
+CMD ["python", "start_server.py"]
