@@ -8,6 +8,27 @@ import '../screens/patients/patients_list_screen.dart';
 /// Visite guidée interactive V2 pour MediDesk
 /// Permet aux utilisateurs de découvrir l'application en 6 étapes
 class GuidedTourV2 {
+  // Flag global pour indiquer qu'on veut lancer la visite guidée
+  static bool _shouldStartTour = false;
+  
+  /// Vérifier et lancer la visite guidée si nécessaire (appelé depuis Dashboard)
+  static void checkAndStartTour(BuildContext context) {
+    if (_shouldStartTour) {
+      _shouldStartTour = false;
+      // Attendre un frame pour que le Dashboard soit complètement monté
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (context.mounted) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              fullscreenDialog: true,
+              builder: (context) => const GuidedTourController(),
+            ),
+          );
+        }
+      });
+    }
+  }
+  
   /// Démarrer la visite guidée depuis n'importe quel écran
   /// Se connecte automatiquement avec le compte demo pierre.durand@osteo-lyon.fr
   static Future<void> startTour(BuildContext context) async {
@@ -51,27 +72,13 @@ class GuidedTourV2 {
       return;
     }
 
-    // Attendre que les données utilisateur soient chargées
-    await Future.delayed(const Duration(milliseconds: 2000));
-
-    if (!context.mounted) return;
-
     if (kDebugMode) {
-      debugPrint('✅ Connexion réussie, lancement de la visite...');
+      debugPrint('✅ Connexion réussie, activation du flag de visite guidée...');
     }
 
-    // CRITICAL FIX: Attendre un frame supplémentaire pour que le Dashboard soit monté
-    await Future.delayed(const Duration(milliseconds: 500));
-
-    if (!context.mounted) return;
-
-    // Afficher la visite guidée en fullscreen dialog par-dessus le dashboard
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        fullscreenDialog: true,
-        builder: (context) => const GuidedTourController(),
-      ),
-    );
+    // Activer le flag pour lancer la visite guidée
+    // Le Dashboard appellera checkAndStartTour() lors de son initState
+    _shouldStartTour = true;
   }
 }
 

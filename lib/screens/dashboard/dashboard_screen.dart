@@ -5,6 +5,7 @@ import '../../views/home/home_screen.dart'; // ✅ Nouveau HomeScreen avec gesti
 import '../patients/patients_list_screen.dart';
 import '../appointments/calendar_screen.dart';
 import '../settings/app_mode_settings_screen.dart';
+import '../../widgets/guided_tour_v2.dart';
 
 /// Écran principal du dashboard avec navigation par onglets
 class DashboardScreen extends StatefulWidget {
@@ -16,6 +17,15 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   int _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    // Vérifier si on doit lancer la visite guidée
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      GuidedTourV2.checkAndStartTour(context);
+    });
+  }
 
   // Obtenir les écrans en fonction du rôle
   List<Widget> _getScreensForRole(String? role) {
