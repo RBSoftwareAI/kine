@@ -63,6 +63,36 @@
 - Project ID : `kinecare-81f52`
 - Package Android : `fr.medidesk.demo`
 
+**💰 MODÈLE ÉCONOMIQUE (Défini Session 26 Nov 2025 - 15h30)** :
+
+**🆓 VERSION GRATUITE & OPEN SOURCE (À VIE)** :
+- Santé + Suivi Patients (cartographie, notes, historique)
+- Gestion RDV Locale (calendrier intégré, planning)
+- Conformité RGPD complète
+- Installation locale (données sur votre machine)
+- Licence MIT (code source sur GitHub)
+
+**💎 MODULES PROFESSIONNELS (SUR DEVIS - OPTIONNELS)** :
+
+**Options Disponibles** (Prêtes à installer) :
+- 📅 RDV en ligne synchronisés (widget web + sync bidirectionnelle local ↔ online)
+- ☁️ Cloud Sync & Backup avancé
+- 📄 Export PDF Pro (rapports personnalisés, e-signature)
+- 🌐 Multi-Centres (réseau de cabinets)
+
+**Options en Développement** (Roadmap) :
+- 🔗 Sync Doctolib / Maiia / APIs tierces (Q2 2026)
+- 💳 Facturation automatique (Q3 2026)
+- 📊 Analytics & Statistiques Nationales IA (Q4 2026)
+- 🤖 Conseils IA de suivi patients (Q1 2027)
+- 🔔 Notifications Push multi-canal (Q2 2026)
+
+**Processus Commercial** :
+1. Professionnel remplit formulaire de demande de devis
+2. Analyse des besoins par équipe MediDesk
+3. Proposition commerciale personnalisée (sous 48h)
+4. Installation + Formation incluses dans le devis
+
 ---
 
 ## 🎯 **Demandes Prioritaires pour Cette Session**
@@ -114,10 +144,16 @@ Nav principale :
 
 1. **Hero Section** (Above the fold) :
    - Titre accrocheur : "Le logiciel de gestion pensé pour les professionnels de santé"
-   - Sous-titre : Cartographie interactive, suivi patients, conformité RGPD - Pour kinés, ostéos, médecins, infirmiers, coachs sportifs
-   - 2 CTA : "Essayer Gratuitement" (primary) + "Découvrir les tarifs" (secondary)
-   - Badge : "🆓 100% Gratuit & Open Source" + "🔒 Conforme RGPD"
-   - Stats visuelles : "100% Gratuit (version locale)", "Open Source", "Upsells optionnels"
+   - Sous-titre : Cartographie interactive, suivi patients, gestion RDV locale, conformité RGPD - Pour kinés, ostéos, médecins, infirmiers, coachs sportifs
+   - 2 CTA : "Télécharger Gratuitement" (primary, bleu) + "Demander un Devis Pro" (secondary, orange outline)
+   - Badges : 
+     - "🆓 100% Gratuit & Open Source"
+     - "🔒 Conforme RGPD"
+     - "📅 Gestion RDV Incluse"
+   - Stats visuelles : 
+     - "Santé + RDV Local : Gratuit"
+     - "Open Source (GitHub)"
+     - "Modules Pro : Sur Devis"
    - Mockup visuel : Interface de cartographie des douleurs (silhouette + points)
 
 2. **Section Problème/Solution** :
@@ -125,41 +161,184 @@ Nav principale :
    - ✅ Solution MediDesk : Cartographie digitale, historique automatique, RGPD intégré
 
 3. **Section Fonctionnalités** (#fonctionnalites) :
-   - 🎯 Cartographie interactive des douleurs (silhouette 3D cliquable)
-   - 📊 Graphiques d'évolution temporelle
-   - 📝 Notes de séances et historique complet
-   - 👥 Gestion multi-patients
-   - 🔒 Conformité RGPD automatique
-   - 📱 Accessible Web + Mobile (à venir)
-   - Chaque fonctionnalité : Icône + Titre + Description + Screenshot/illustration
+   
+   **🆓 Fonctionnalités Gratuites (Version Open Source)** :
+   - 🎯 **Cartographie interactive des douleurs** (silhouette anatomique cliquable)
+   - 📊 **Graphiques d'évolution temporelle** (progression patients)
+   - 📝 **Notes de séances et historique complet** (dossiers sécurisés)
+   - 👥 **Gestion multi-patients illimitée** (aucune limite)
+   - 📅 **Calendrier de rendez-vous local** (planning intégré)
+   - 🔒 **Conformité RGPD automatique** (chiffrement, audit logs)
+   - 💻 **Installation locale** (vos données restent chez vous)
+   - 🌐 **Accessible Web + Mobile** (responsive design)
+   
+   **💎 Modules Professionnels (Sur Devis)** :
+   - 🌍 **RDV en ligne synchronisés** (widget web + sync calendrier local)
+   - ☁️ **Cloud Sync & Backup** (sauvegarde automatique)
+   - 📄 **Export PDF Pro** (rapports personnalisés)
+   - 🏢 **Multi-Centres** (réseau de cabinets)
+   - 🔗 **Intégrations APIs** (Doctolib, Maiia - en développement)
+   - 💳 **Facturation automatique** (en développement)
+   - 📊 **Analytics IA** (statistiques nationales - en développement)
+   - 🤖 **Conseils IA patients** (recommandations - en développement)
+   
+   - Chaque fonctionnalité : Icône + Titre + Description + Badge (Gratuit / Sur Devis) + Screenshot/illustration
 
 4. **Section Tarifs** (#tarifs) :
-   - **MODÈLE FREEMIUM** : 
-     - **Version Gratuite & Open Source** (toujours gratuite) :
-       - Téléchargement et installation locale gratuits
-       - Cartographie interactive des douleurs
-       - Graphiques d'évolution
-       - Notes de séances + historique
-       - Gestion multi-patients
-       - Conformité RGPD intégrée
-       - CTA : "Télécharger Gratuitement"
-     
-     - **Upsells Payants** (optionnels) :
-       - 📅 **Gestion Rendez-vous** : 19€/mois (calendrier, rappels, sync)
-       - ☁️ **Cloud Sync & Backup** : 14€/mois (sauvegarde auto, multi-appareils)
-       - 📄 **Export PDF Avancé** : 9€/mois (rapports, logo, e-signature)
-       - 📊 **Analytics & BI** : 24€/mois (KPIs, prédictions IA)
-       - 🌐 **Multi-Centres** : 49€/mois (réseau, partage patients)
-       - 🔔 **Notifications Push** : 7€/mois (rappels, alertes)
-     
-     - **Bundles** :
-       - **Pack Essentiel** : 39€/mois (RDV + Cloud + PDF) - Économie 15%
-       - **Pack Professionnel** : 69€/mois (Tous sauf Multi-Centres) - Économie 25%
-       - **Pack Cabinet** : 99€/mois (Tous modules) - Économie 35%
    
-   - Badge : "Version gratuite à vie - Upsells optionnels"
-   - CTA principal : "Télécharger la version gratuite"
-   - CTA secondaire : "Découvrir les modules payants"
+   **🆓 MODÈLE ÉCONOMIQUE** : **Gratuit & Open Source + Upsells Professionnels**
+   
+   ---
+   
+   ### **✅ VERSION GRATUITE & OPEN SOURCE** (Installation Locale - Toujours Gratuite)
+   
+   **🎯 Fonctionnalités Incluses** :
+   - ✅ **Santé & Suivi Patients** :
+     - Cartographie interactive des douleurs (silhouettes anatomiques)
+     - Graphiques d'évolution temporelle
+     - Notes de séances + historique complet
+     - Gestion multi-patients illimitée
+     - Dossiers patients sécurisés (chiffrement AES-256)
+   
+   - ✅ **Gestion Rendez-vous Locale** :
+     - Calendrier de rendez-vous intégré
+     - Prise de RDV manuelle en cabinet
+     - Vue journalière / hebdomadaire / mensuelle
+     - Notifications locales (rappels)
+   
+   - ✅ **Conformité & Sécurité** :
+     - 100% Conforme RGPD
+     - Hébergement local (données sur votre machine)
+     - Chiffrement des données patients
+     - Audit logs complets
+   
+   - ✅ **Open Source** :
+     - Code source disponible sur GitHub
+     - Licence MIT (libre utilisation commerciale)
+     - Communauté active
+     - Pas de télémétrie, pas de tracking
+   
+   **📥 CTA Principal** : "Télécharger Gratuitement" (lien vers GitHub Releases)
+   
+   ---
+   
+   ### **💎 UPSELLS PROFESSIONNELS** (Optionnels - Sur Devis)
+   
+   **📋 Processus** : Formulaire de demande de devis → Contact commercial → Installation personnalisée
+   
+   #### **🟢 OPTIONS DISPONIBLES** (Prêtes à être installées)
+   
+   1. **📅 Gestion Rendez-vous en Ligne Synchronisée**
+      - Prise de RDV en ligne via widget web
+      - **Synchronisation bidirectionnelle** avec calendrier local
+      - Page de réservation personnalisée (votre domaine)
+      - Notifications SMS/Email automatiques
+      - Gestion des créneaux disponibles
+      - Protection contre les doublons (local ↔ online)
+      - **💰 Prix** : Sur devis (selon volume de RDV)
+   
+   2. **☁️ Cloud Sync & Backup Avancé**
+      - Sauvegarde automatique chiffrée
+      - Synchronisation multi-appareils (cabinet + domicile)
+      - Restauration en 1 clic
+      - Historique des versions (30 jours)
+      - **💰 Prix** : Sur devis
+   
+   3. **📄 Export PDF Professionnel**
+      - Rapports personnalisés (logo, en-tête)
+      - E-signature électronique légale
+      - Templates modifiables
+      - Export massif
+      - **💰 Prix** : Sur devis
+   
+   4. **🌐 Solution Multi-Centres**
+      - Gestion réseau de cabinets
+      - Partage sécurisé de patients
+      - Statistiques consolidées
+      - Facturation centralisée
+      - **💰 Prix** : Sur devis (selon nombre de centres)
+   
+   #### **🟡 OPTIONS EN DÉVELOPPEMENT** (Roadmap - Disponibilité Future)
+   
+   1. **🔗 Synchronisation Doctolib / Maiia / Autres APIs**
+      - Import automatique RDV Doctolib → MediDesk local
+      - Import automatique RDV Maiia → MediDesk local
+      - Support APIs tierces (selon disponibilité)
+      - Synchronisation temps réel
+      - **📅 Disponibilité** : Q2 2026 (estimation)
+      - **💰 Prix** : Sur devis (selon plateformes intégrées)
+   
+   2. **💳 Facturation Automatique**
+      - Génération factures conforme loi française
+      - Numérotation automatique
+      - Export comptable (CSV, Excel)
+      - Relances automatiques
+      - Intégration logiciels comptables
+      - **📅 Disponibilité** : Q3 2026
+      - **💰 Prix** : Sur devis
+   
+   3. **📊 Statistiques & Analyse Nationale**
+      - Dashboard KPIs avancés
+      - Benchmarking anonymisé (comparaison nationale)
+      - Prédictions IA (taux de remplissage, tendances)
+      - Export rapports analytiques
+      - **📅 Disponibilité** : Q4 2026
+      - **💰 Prix** : Sur devis
+   
+   4. **🤖 IA - Conseils de Suivi Patients**
+      - Suggestions personnalisées par patient
+      - Détection automatique anomalies
+      - Recommandations exercices adaptés
+      - Alertes préventives (risque aggravation)
+      - **📅 Disponibilité** : Q1 2027 (recherche en cours)
+      - **💰 Prix** : Sur devis
+   
+   5. **🔔 Notifications Push Multi-Canal**
+      - Rappels SMS patients
+      - Notifications Email automatiques
+      - Push notifications mobile (app iOS/Android)
+      - **📅 Disponibilité** : Q2 2026
+      - **💰 Prix** : Sur devis
+   
+   ---
+   
+   ### **📋 DEMANDE DE DEVIS**
+   
+   **Formulaire de Contact Professionnel** :
+   - Nom & Prénom
+   - Email professionnel
+   - Téléphone
+   - Type de cabinet (solo / groupe / centre)
+   - Modules souhaités (checkboxes)
+   - Volume estimé (nombre RDV/mois, nombre praticiens)
+   - Message / Besoins spécifiques
+   
+   **CTA Formulaire** : "Demander un Devis Personnalisé"
+   
+   **Processus** :
+   1. Professionnel remplit le formulaire
+   2. Équipe MediDesk analyse les besoins
+   3. Proposition commerciale sur mesure (sous 48h)
+   4. Installation & formation incluses
+   
+   ---
+   
+   ### **🎁 AVANTAGES**
+   
+   - ✅ **Version gratuite à vie** (pas de piège, pas d'expiration)
+   - ✅ **Pas d'abonnement forcé** (upsells 100% optionnels)
+   - ✅ **Données locales** (souveraineté complète)
+   - ✅ **Tarification transparente** (devis personnalisé, pas de frais cachés)
+   - ✅ **Support prioritaire** pour clients upsells
+   - ✅ **Mises à jour gratuites** de la version open source
+   
+   ---
+   
+   **Badge Principal** : "🆓 Gratuit & Open Source à Vie - Upsells Professionnels Sur Devis"
+   
+   **CTAs Section Tarifs** :
+   - **CTA Principal** : "Télécharger la Version Gratuite" (bouton bleu, prominent)
+   - **CTA Secondaire** : "Demander un Devis pour Modules Pro" (bouton orange, outline)
 
 5. **Section Témoignages** (optionnel - factices pour V1) :
    - 3 témoignages de praticiens (photos + nom + rôle + citation)
@@ -167,20 +346,65 @@ Nav principale :
 
 6. **Section FAQ** (#faq) :
    - Accordion/Collapsible
-   - 8-10 questions fréquentes :
+   - 10-12 questions fréquentes :
+     - "MediDesk est-il vraiment gratuit ?"
+       → Réponse : Oui, la version open source avec santé + RDV local est 100% gratuite à vie. Les modules pro sont optionnels et sur devis.
+     - "Qu'est-ce qui est inclus dans la version gratuite ?"
+       → Réponse : Cartographie douleurs, graphiques, notes, gestion patients, calendrier RDV local, RGPD.
+     - "Comment fonctionnent les modules payants ?"
+       → Réponse : Sur devis personnalisé via formulaire. Installation et formation incluses.
+     - "La gestion des RDV en ligne est-elle payante ?"
+       → Réponse : Oui, la synchronisation avec widget web de prise de RDV en ligne est un module pro sur devis.
+     - "Puis-je synchroniser avec Doctolib ?"
+       → Réponse : En développement (Q2 2026). Module pro sur devis une fois disponible.
      - "MediDesk est-il conforme RGPD ?"
-     - "Puis-je essayer gratuitement ?"
+       → Réponse : Oui, 100% conforme. Données locales, chiffrement AES-256, audit logs.
      - "Mes données sont-elles sécurisées ?"
+       → Réponse : Oui, hébergement local sur votre machine, chiffrement, aucune télémétrie.
      - "Y a-t-il une version mobile ?"
-     - "Puis-je exporter mes données ?"
-     - "Comment fonctionne la cartographie des douleurs ?"
+       → Réponse : Interface web responsive (mobile/tablette). Apps natives iOS/Android en roadmap.
      - "Le logiciel est-il Open Source ?"
+       → Réponse : Oui, licence MIT sur GitHub. Code source transparent et auditable.
      - "Quel support est disponible ?"
+       → Réponse : Documentation + communauté (gratuit). Support prioritaire pour clients modules pro.
+     - "Puis-je tester avant d'acheter des modules ?"
+       → Réponse : Oui, démo en ligne disponible. Modules pro testables après devis.
+     - "Comment demander un devis ?"
+       → Réponse : Formulaire de contact sur la page Tarifs. Réponse sous 48h.
 
 7. **Section Contact** (#contact) :
-   - Formulaire de contact : Nom, Email, Message
-   - Email direct : `contact@medidesk.fr`
+   
+   **Deux formulaires distincts** :
+   
+   **A) Formulaire de Demande de Devis (Modules Pro)** :
+   - Nom & Prénom *
+   - Email professionnel *
+   - Téléphone
+   - Type de cabinet * (dropdown : Solo / Groupe / Centre de soins / Réseau)
+   - Nombre de praticiens
+   - Volume RDV estimé/mois
+   - **Modules souhaités** (checkboxes) :
+     - [ ] RDV en ligne synchronisés
+     - [ ] Cloud Sync & Backup
+     - [ ] Export PDF Pro
+     - [ ] Multi-Centres
+     - [ ] Sync Doctolib/Maiia (en développement)
+     - [ ] Facturation automatique (en développement)
+     - [ ] Analytics IA (en développement)
+     - [ ] Conseils IA patients (en développement)
+     - [ ] Autre (préciser)
+   - Message / Besoins spécifiques (textarea)
+   - Checkbox : "J'accepte d'être contacté par l'équipe MediDesk" *
+   - **CTA** : "Demander un Devis Personnalisé" (bouton orange)
+   - Temps de réponse : "📧 Réponse sous 48h ouvrées"
+   
+   **B) Formulaire de Contact Général** :
+   - Nom, Email, Message
+   - **CTA** : "Envoyer" (bouton bleu)
    - Temps de réponse : "Nous répondons sous 24h"
+   
+   - Email direct : `contact@medidesk.fr`
+   - Email commercial : `devis@medidesk.fr`
 
 8. **Footer** :
    - Logo + Slogan
@@ -208,9 +432,11 @@ Nav principale :
 - Images : Illustrations SVG ou photos professionnelles (Unsplash OK)
 
 **🚫 Ce qui N'EST PAS demandé** :
-- Pas de système de paiement intégré dans cette phase (juste lien vers formulaire)
-- Pas de backend authentification (lien vers demo.medidesk.fr)
+- Pas de système de paiement en ligne (les modules pro sont sur devis uniquement)
+- Pas de backend authentification (lien vers demo.medidesk.fr pour la démo)
 - Pas de chatbot (peut être ajouté plus tard)
+- Pas de prix affichés (tout sur devis personnalisé)
+- Pas de tarifs fixes mensuels (modèle B2B sur mesure)
 
 ---
 
