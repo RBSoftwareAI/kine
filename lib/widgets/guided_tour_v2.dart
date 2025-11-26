@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
 import '../screens/dashboard/dashboard_screen.dart';
 import '../screens/patients/patients_list_screen.dart';
+import '../views/guided_tour/statistics_preview_screen.dart';
+import '../views/guided_tour/evolution_preview_screen.dart';
 
 /// Visite guidée interactive V2 pour MediDesk
 /// Permet aux utilisateurs de découvrir l'application en 6 étapes
@@ -133,7 +135,7 @@ class _GuidedTourControllerState extends State<GuidedTourController> {
             'Le dashboard vous donne une vue d\'ensemble de votre activité.',
         icon: Icons.dashboard,
         color: Colors.orange,
-        screenBuilder: (context) => const DashboardScreen(),
+        screenBuilder: (context) => const StatisticsPreviewScreen(),
       ),
       TourStepConfig(
         title: '👥 Dossiers Patients',
@@ -160,7 +162,7 @@ class _GuidedTourControllerState extends State<GuidedTourController> {
             'et démontrez visuellement les progrès thérapeutiques.',
         icon: Icons.show_chart,
         color: Colors.purple,
-        screenBuilder: (context) => const PatientsListScreen(),
+        screenBuilder: (context) => const EvolutionPreviewScreen(),
       ),
       TourStepConfig(
         title: '✅ Visite Terminée !',
@@ -194,6 +196,12 @@ class _GuidedTourControllerState extends State<GuidedTourController> {
 
   void _skipTour() {
     _finishTour();
+  }
+
+  void _restartTour() {
+    setState(() {
+      _currentStep = 0;
+    });
   }
 
   void _finishTour() {
@@ -306,11 +314,23 @@ class _GuidedTourControllerState extends State<GuidedTourController> {
                             else
                               const SizedBox(width: 120),
                             
-                            // Bouton Passer
-                            TextButton(
-                              onPressed: _skipTour,
-                              child: const Text('Passer'),
-                            ),
+                            // Bouton Passer (sauf à la dernière étape)
+                            if (_currentStep < _steps.length - 1)
+                              TextButton(
+                                onPressed: _skipTour,
+                                child: const Text('Passer'),
+                              )
+                            else
+                              // Bouton Recommencer à la dernière étape
+                              OutlinedButton.icon(
+                                onPressed: _restartTour,
+                                icon: const Icon(Icons.restart_alt),
+                                label: const Text('Recommencer'),
+                                style: OutlinedButton.styleFrom(
+                                  foregroundColor: currentConfig.color,
+                                  side: BorderSide(color: currentConfig.color),
+                                ),
+                              ),
                             
                             // Bouton Suivant/Terminer
                             ElevatedButton.icon(
