@@ -195,13 +195,6 @@ class _GuidedTourControllerState extends State<GuidedTourController> {
     }
   }
   
-  void _skipStep() {
-    // Permet de passer une étape spécifique
-    if (_currentStep < _steps.length - 1) {
-      _nextStep();
-    }
-  }
-
   void _skipTour() {
     _finishTour();
   }
@@ -263,10 +256,10 @@ class _GuidedTourControllerState extends State<GuidedTourController> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                  child: Container(
-                    constraints: const BoxConstraints(maxWidth: 600),
-                    padding: const EdgeInsets.all(32),
-                    child: Column(
+                    child: Container(
+                      constraints: const BoxConstraints(maxWidth: 600),
+                      padding: const EdgeInsets.all(32),
+                      child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         // Icône de l'étape
@@ -395,6 +388,7 @@ class _GuidedTourControllerState extends State<GuidedTourController> {
                           ),
                         ),
                       ],
+                      ),
                     ),
                   ),
                 ),
