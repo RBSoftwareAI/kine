@@ -6,6 +6,7 @@ import '../screens/dashboard/dashboard_screen.dart';
 import '../screens/patients/patients_list_screen.dart';
 import '../views/guided_tour/statistics_preview_screen.dart';
 import '../views/guided_tour/evolution_preview_screen.dart';
+import '../views/guided_tour/pain_mapping_preview_screen.dart';
 
 /// Visite guidée interactive V2 pour MediDesk
 /// Permet aux utilisateurs de découvrir l'application en 6 étapes
@@ -153,7 +154,7 @@ class _GuidedTourControllerState extends State<GuidedTourController> {
             'Un outil visuel puissant pour le suivi thérapeutique.',
         icon: Icons.accessibility_new,
         color: Colors.red,
-        screenBuilder: (context) => const PatientsListScreen(),
+        screenBuilder: (context) => const PainMappingPreviewScreen(),
       ),
       TourStepConfig(
         title: '📈 Graphiques d\'Évolution',

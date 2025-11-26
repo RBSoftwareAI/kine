@@ -7,6 +7,7 @@ import '../professional/patients_dashboard_screen.dart';
 import '../audit/audit_history_screen.dart';
 import '../evolution/evolution_screen.dart';
 import '../admin/permissions_management_screen.dart';
+import '../../widgets/guided_tour_v2.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -95,6 +96,68 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
+
+              const SizedBox(height: 16),
+
+              // Bouton Visite Guidée (pour les professionnels uniquement)
+              if (user.isProfessional)
+                Card(
+                  color: AppTheme.primaryOrange.withValues(alpha: 0.1),
+                  child: InkWell(
+                    onTap: () async {
+                      await GuidedTourV2.startTour(context);
+                    },
+                    borderRadius: BorderRadius.circular(12),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: AppTheme.primaryOrange,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: const Icon(
+                              Icons.explore,
+                              color: Colors.white,
+                              size: 28,
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          const Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Découvrir MediDesk',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppTheme.darkBackground,
+                                  ),
+                                ),
+                                SizedBox(height: 4),
+                                Text(
+                                  'Visite guidée interactive (5-7 min)',
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Icon(
+                            Icons.arrow_forward_ios,
+                            color: AppTheme.primaryOrange,
+                            size: 20,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
 
               const SizedBox(height: 24),
 
