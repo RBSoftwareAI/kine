@@ -1,5 +1,32 @@
 # 🚀 Prompt Détaillé - Prochaine Session MediDesk
 
+## ✅ **CORRECTIONS SESSION 26 NOVEMBRE 2025 - 15h00 (COMPLÉTÉES)**
+
+### **🐛 Correction Critique #1 : Navigation Patient depuis Menu Gauche**
+**Problème** : Clic depuis "Liste des patients" (menu gauche) → Message "Patient introuvable"  
+**Cause** : Incohérence des IDs entre `PatientService` (mock: patient_001) et Firebase (IDs réels)  
+**Solution** : Remplacement de `PatientService` par `PatientProvider` dans `PatientsDashboardScreen`  
+**Fichier modifié** : `lib/views/professional/patients_dashboard_screen.dart` (réécriture complète)  
+**Commit** : `73d5611` - "🐛 Fix(Critical): Corriger 'Patient introuvable'"
+
+### **📝 Correction #2 : Wording Site Web Inclusif**
+**Objectif** : Garder focus "Kinésithérapeute" + signaler ouverture tous professionnels de santé  
+**Modifications** (5 emplacements dans `website/index.html`) :
+1. Meta description SEO : + "ostéopathes et professionnels de santé"
+2. Keywords : + "ostéopathe, centre de soins"
+3. Hero subtitle : + mention discrète "(ostéopathes, centres de soins, professionnels de santé)"
+4. Section Features : "conçus par kinés, pour tous les professionnels de santé"
+5. CTA : "(kinés, ostéos, centres de soins)"
+6. Footer : "kinésithérapeutes et tous les professionnels de santé"
+
+**Commits** :
+- `2cd6d18` - "🐛 Fix(Navigation): Navigation patient + Wording inclusif"
+- `73d5611` - "🐛 Fix(Critical): Corriger 'Patient introuvable'"
+
+**Tests** : ✅ Build Flutter Web 52.1s | ✅ Serveur PID 7111 | ✅ HTTP 200 OK
+
+---
+
 ## 📋 **Contexte du Projet**
 
 **Application** : MediDesk - Plateforme de gestion de cabinet médical pour kinésithérapeutes et ostéopathes  
@@ -20,7 +47,8 @@
 - ✅ Visite guidée 100% cohérente (6 étapes corrigées)
 - ✅ Historique consultations par patient
 - ✅ Cartographie professionnelle des douleurs avec comparatif patient vs professionnel
-- ✅ Session du 26 novembre 2025 : Toutes demandes satisfaites
+- ✅ Session du 26 novembre 2025 - 10h00 : Toutes demandes satisfaites
+- ✅ Session du 26 novembre 2025 - 15h00 : Bug navigation corrigé + Wording site web inclusif
 
 **Comptes de test disponibles** :
 - **Praticien (Ostéo)** : `pierre.durand@osteo-lyon.fr` / `password123`
