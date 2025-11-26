@@ -22,8 +22,9 @@
 ### Informations Projet
 
 - **Nom** : MediDesk
-- **Type** : Application Flutter de gestion médicale
-- **Cible** : Tous professionnels de santé (kinés, ostéopathes, médecins, infirmiers, coachs sportifs, etc.)
+- **Type** : Solution de suivi médical Flutter
+- **Cible** : Tous professionnels de santé (kinésithérapeutes EN PRIORITÉ, puis ostéopathes, EHPAD, hôpitaux, centres de rééducation, médecins, infirmiers, coachs sportifs, etc.)
+- **Positionnement** : "La solution de suivi médical pensée pour les professionnels de santé" (titre général) avec focus kinésithérapeutes (sous-titre et contenu)
 - **Modèle économique** : 
   - 🆓 **Gratuit & Open Source à vie** : Santé (cartographie, notes, historique) + Gestion RDV Locale
   - 💎 **Modules Pro sur devis** : RDV en ligne synchronisés, Cloud Sync, Export PDF Pro, Multi-Centres, Intégrations APIs (Doctolib/Maiia - en dév), Facturation auto (en dév), Analytics IA (en dév)

@@ -10,14 +10,15 @@
 **Commit** : `73d5611` - "🐛 Fix(Critical): Corriger 'Patient introuvable'"
 
 ### **📝 Correction #2 : Wording Site Web Inclusif**
-**Objectif** : Garder focus "Kinésithérapeute" + signaler ouverture tous professionnels de santé  
+**Objectif** : Titre général "professionnels de santé" + focus "Kinésithérapeute" dans sous-titre et contenu  
 **Modifications** (5 emplacements dans `website/index.html`) :
-1. Meta description SEO : + "ostéopathes et professionnels de santé"
-2. Keywords : + "ostéopathe, centre de soins"
-3. Hero subtitle : + mention discrète "(ostéopathes, centres de soins, professionnels de santé)"
-4. Section Features : "conçus par kinés, pour tous les professionnels de santé"
-5. CTA : "(kinés, ostéos, centres de soins)"
-6. Footer : "kinésithérapeutes et tous les professionnels de santé"
+1. Meta description SEO : "professionnels de santé : kinésithérapeutes, ostéopathes, EHPAD, hôpitaux"
+2. Keywords : + "kinésithérapeute, ostéopathe, ehpad, hôpital, centre de rééducation, centre de soins"
+3. Hero title : "professionnels de santé" (général)
+4. Hero subtitle : Focus principal "Kinésithérapeutes" + mention "ostéopathes, EHPAD, hôpitaux, centres de rééducation"
+5. Section Features : "conçus avec kinés, pour tous les professionnels de santé"
+6. CTA : "(kinés, ostéos, EHPAD, hôpitaux, centres de soins)"
+7. Footer : "Pour kinésithérapeutes et tous les professionnels de santé"
 
 **Commits** :
 - `2cd6d18` - "🐛 Fix(Navigation): Navigation patient + Wording inclusif"
@@ -27,9 +28,33 @@
 
 ---
 
+---
+
+## 🎯 **STRATÉGIE DE COMMUNICATION - NOUVELLE DIRECTIVE (26 Nov 2025 - 16h45)**
+
+**❌ ANCIEN** : "Le logiciel de gestion pensé pour les kinésithérapeutes"  
+**Problèmes identifiés** :
+- ❌ "Gestion" → Connotation comptabilité (trop restrictif)
+- ❌ "Kinésithérapeutes" seul → Exclut grosses structures et autres professions
+
+**✅ NOUVEAU** : "La solution de suivi médical pensée pour les professionnels de santé"  
+**Justification** :
+- ✅ **Titre général** : "professionnels de santé" (ouverture maximale)
+- ✅ **Sous-titre focus** : "Kinésithérapeutes" EN PRIORITÉ + ostéopathes + EHPAD + hôpitaux
+- ✅ **Élargissement cible** : Grosses structures (EHPAD, hôpitaux, centres rééducation) + professionnels libéraux
+- ✅ **Vocabulaire adapté** : "Suivi médical" (plus large que "gestion")
+
+**Hiérarchie de communication** :
+1. **Titre/Hero** : Mention "professionnels de santé" (général)
+2. **Sous-titre** : Focus "Kinésithérapeutes" (priorité #1) + "ostéopathes, EHPAD, hôpitaux" (priorité #2)
+3. **Contenu/Features** : Exemples concrets pour toutes structures (petites et grosses)
+4. **SEO/Meta** : Keywords élargis (kiné, ostéo, ehpad, hôpital, centre rééducation)
+
+---
+
 ## 📋 **Contexte du Projet**
 
-**Application** : MediDesk - Plateforme de gestion de cabinet médical pour kinésithérapeutes et ostéopathes  
+**Application** : MediDesk - Solution de suivi médical pour professionnels de santé (kinésithérapeutes, ostéopathes, EHPAD, hôpitaux, centres de rééducation)  
 **Repository GitHub** : `https://github.com/RBSoftwareAI/kine` (branche `base`)  
 **URLs** :
 - **Site vitrine** : `https://medidesk.fr` (à refaire)
@@ -143,8 +168,15 @@ Nav principale :
 **Sections à Créer** :
 
 1. **Hero Section** (Above the fold) :
-   - Titre accrocheur : "Le logiciel de gestion pensé pour les professionnels de santé"
-   - Sous-titre : Cartographie interactive, suivi patients, gestion RDV locale, conformité RGPD - Pour kinés, ostéos, médecins, infirmiers, coachs sportifs
+   
+   **🎯 STRATÉGIE DE COMMUNICATION CRITIQUE** :
+   - **TITRE** : Générique "professionnels de santé" pour élargir l'audience
+   - **SOUS-TITRE** : Focus principal sur "Kinésithérapeutes" + mention EHPAD/hôpitaux/ostéopathes
+   - **RAISON** : Éviter restriction "gestion" (connotation comptabilité) et "kinésithérapeutes" seul (trop restrictif)
+   - **OBJECTIF** : Englober grosses structures (EHPAD, hôpitaux, centres rééducation) + ostéopathes + kinés
+   
+   - Titre accrocheur : "La solution de suivi médical pensée pour les professionnels de santé"
+   - Sous-titre : Cartographie interactive, suivi patients, gestion RDV locale, conformité RGPD - Kinésithérapeutes, ostéopathes, EHPAD, hôpitaux, centres de rééducation, médecins, infirmiers, coachs sportifs
    - 2 CTA : "Télécharger Gratuitement" (primary, bleu) + "Demander un Devis Pro" (secondary, orange outline)
    - Badges : 
      - "🆓 100% Gratuit & Open Source"
