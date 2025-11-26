@@ -8,6 +8,7 @@ import '../audit/audit_history_screen.dart';
 import '../evolution/evolution_screen.dart';
 import '../admin/permissions_management_screen.dart';
 import '../../widgets/guided_tour_v2.dart';
+import '../../screens/session_notes/session_notes_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -138,11 +139,12 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(height: 4),
-                                Text(
+                                const Text(
                                   'Visite guidée interactive (5-7 min)',
                                   style: TextStyle(
                                     fontSize: 13,
-                                    color: Colors.grey,
+                                    color: Color(0xB3000000),
+                                    fontWeight: FontWeight.w500,
                                   ),
                                 ),
                               ],
@@ -328,13 +330,31 @@ class HomeScreen extends StatelessWidget {
       ),
       _buildMenuCard(
         context,
+        icon: Icons.accessibility_new,
+        title: 'Cartographie des douleurs',
+        subtitle: 'Localiser les zones douloureuses',
+        color: Colors.red,
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const PainTrackingScreen(),
+            ),
+          );
+        },
+      ),
+      _buildMenuCard(
+        context,
         icon: Icons.edit_note,
         title: 'Notes de séance',
-        subtitle: 'Ajouter des observations',
+        subtitle: 'Consulter et ajouter des observations',
         color: AppTheme.info,
         onTap: () {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Fonctionnalité en développement')),
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const SessionNotesScreen(),
+            ),
           );
         },
       ),
