@@ -194,6 +194,13 @@ class _GuidedTourControllerState extends State<GuidedTourController> {
       });
     }
   }
+  
+  void _skipStep() {
+    // Permet de passer une étape spécifique
+    if (_currentStep < _steps.length - 1) {
+      _nextStep();
+    }
+  }
 
   void _skipTour() {
     _finishTour();
@@ -221,21 +228,41 @@ class _GuidedTourControllerState extends State<GuidedTourController> {
           // Afficher l'écran réel en arrière-plan
           currentConfig.screenBuilder(context),
           
-          // Overlay semi-transparent pour assombrir l'arrière-plan
-          Container(
+          // Overlay semi-transparent pour assombrir l'arrière-plan avec animation
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
             color: Colors.black.withValues(alpha: 0.65),
           ),
           
-          // Carte d'explication de l'étape
+          // Carte d'explication de l'étape avec animation de transition
           SafeArea(
             child: Center(
               child: Padding(
                 padding: const EdgeInsets.all(24.0),
-                child: Card(
-                  elevation: 8,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 400),
+                  switchInCurve: Curves.easeInOut,
+                  switchOutCurve: Curves.easeInOut,
+                  transitionBuilder: (Widget child, Animation<double> animation) {
+                    return FadeTransition(
+                      opacity: animation,
+                      child: ScaleTransition(
+                        scale: Tween<double>(begin: 0.8, end: 1.0).animate(
+                          CurvedAnimation(
+                            parent: animation,
+                            curve: Curves.easeOutCubic,
+                          ),
+                        ),
+                        child: child,
+                      ),
+                    );
+                  },
+                  child: Card(
+                    key: ValueKey<int>(_currentStep),
+                    elevation: 8,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                   child: Container(
                     constraints: const BoxConstraints(maxWidth: 600),
                     padding: const EdgeInsets.all(32),
