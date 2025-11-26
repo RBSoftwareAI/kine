@@ -11,13 +11,13 @@
 
 ### **📝 Correction #2 : Wording Site Web Inclusif**
 **Objectif** : Titre général "professionnels de santé" + focus "Kinésithérapeute" dans sous-titre et contenu  
-**Modifications** (5 emplacements dans `website/index.html`) :
-1. Meta description SEO : "professionnels de santé : kinésithérapeutes, ostéopathes, EHPAD, hôpitaux"
-2. Keywords : + "kinésithérapeute, ostéopathe, ehpad, hôpital, centre de rééducation, centre de soins"
+**Modifications** (7 emplacements dans `website/index.html`) :
+1. Meta description SEO : "professionnels de santé : kinésithérapeutes, ostéopathes, centres de rééducation, ergothérapeutes"
+2. Keywords : + "kinésithérapeute, ostéopathe, ergothérapeute, centre de rééducation, cabinet pluridisciplinaire, centre de soins"
 3. Hero title : "professionnels de santé" (général)
-4. Hero subtitle : Focus principal "Kinésithérapeutes" + mention "ostéopathes, EHPAD, hôpitaux, centres de rééducation"
+4. Hero subtitle : Focus principal "Kinésithérapeutes" + mention "ostéopathes, centres de rééducation, ergothérapeutes, cabinets pluridisciplinaires"
 5. Section Features : "conçus avec kinés, pour tous les professionnels de santé"
-6. CTA : "(kinés, ostéos, EHPAD, hôpitaux, centres de soins)"
+6. CTA : "(kinés, ostéos, ergothérapeutes, centres de rééducation, cabinets pluridisciplinaires)"
 7. Footer : "Pour kinésithérapeutes et tous les professionnels de santé"
 
 **Commits** :
@@ -54,7 +54,7 @@
 
 ## 📋 **Contexte du Projet**
 
-**Application** : MediDesk - Solution de suivi médical pour professionnels de santé (kinésithérapeutes, ostéopathes, EHPAD, hôpitaux, centres de rééducation)  
+**Application** : MediDesk - Solution de suivi médical pour professionnels de santé (kinésithérapeutes, ostéopathes, centres de rééducation, ergothérapeutes, cabinets pluridisciplinaires)  
 **Repository GitHub** : `https://github.com/RBSoftwareAI/kine` (branche `base`)  
 **URLs** :
 - **Site vitrine** : `https://medidesk.fr` (à refaire)
@@ -176,7 +176,7 @@ Nav principale :
    - **OBJECTIF** : Englober grosses structures (EHPAD, hôpitaux, centres rééducation) + ostéopathes + kinés
    
    - Titre accrocheur : "La solution de suivi médical pensée pour les professionnels de santé"
-   - Sous-titre : Cartographie interactive, suivi patients, gestion RDV locale, conformité RGPD - Kinésithérapeutes, ostéopathes, EHPAD, hôpitaux, centres de rééducation, médecins, infirmiers, coachs sportifs
+   - Sous-titre : Cartographie interactive, suivi patients, gestion RDV locale, conformité RGPD - Kinésithérapeutes, ostéopathes, centres de rééducation, ergothérapeutes, cabinets pluridisciplinaires
    - 2 CTA : "Télécharger Gratuitement" (primary, bleu) + "Demander un Devis Pro" (secondary, orange outline)
    - Badges : 
      - "🆓 100% Gratuit & Open Source"
