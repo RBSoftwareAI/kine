@@ -54,10 +54,12 @@ class _PatientConsultationHistoryScreenState
   /// Génère des notes factices pour le patient sélectionné
   List<SessionNote> _getMockSessionNotesForPatient(String patientId) {
     final now = DateTime.now();
+    final patientName = _patient?.nomComplet ?? 'Patient';
     return [
       SessionNote(
         id: 'note_${patientId}_1',
         patientId: patientId,
+        patientName: patientName,
         professionalId: 'prof_1',
         professionalName: 'Dr. Pierre Durand',
         sessionDate: now.subtract(const Duration(days: 2)),
@@ -72,6 +74,7 @@ class _PatientConsultationHistoryScreenState
       SessionNote(
         id: 'note_${patientId}_2',
         patientId: patientId,
+        patientName: patientName,
         professionalId: 'prof_1',
         professionalName: 'Dr. Pierre Durand',
         sessionDate: now.subtract(const Duration(days: 9)),
@@ -86,6 +89,7 @@ class _PatientConsultationHistoryScreenState
       SessionNote(
         id: 'note_${patientId}_3',
         patientId: patientId,
+        patientName: patientName,
         professionalId: 'prof_1',
         professionalName: 'Dr. Pierre Durand',
         sessionDate: now.subtract(const Duration(days: 16)),
@@ -100,6 +104,7 @@ class _PatientConsultationHistoryScreenState
       SessionNote(
         id: 'note_${patientId}_4',
         patientId: patientId,
+        patientName: patientName,
         professionalId: 'prof_1',
         professionalName: 'Dr. Pierre Durand',
         sessionDate: now.subtract(const Duration(days: 30)),

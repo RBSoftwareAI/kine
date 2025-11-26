@@ -23,8 +23,9 @@
 
 - **Nom** : MediDesk
 - **Type** : Application Flutter de gestion médicale
-- **Cible** : Cabinets de kinésithérapie
-- **Version actuelle** : v1.3 (24 Novembre 2025)
+- **Cible** : Tous professionnels de santé (kinés, ostéopathes, médecins, infirmiers, coachs sportifs, etc.)
+- **Modèle économique** : Gratuit & Open Source (installation locale) + Upsells payants (gestion RDV, cloud sync, exports avancés)
+- **Version actuelle** : v1.3 (26 Novembre 2025)
 - **URL Production** : https://demo.medidesk.fr
 - **Repository GitHub** : https://github.com/RBSoftwareAI/kine
 - **Branche principale** : `base` et `main` (synchronisées)
@@ -311,15 +312,39 @@ Future<void> _initializeAuthState() async {
 
 ## 🗺️ ROADMAP
 
+### Modèle Économique Détaillé
+
+**🆓 Version Gratuite & Open Source** (Installation locale) :
+- ✅ Cartographie interactive des douleurs
+- ✅ Graphiques d'évolution
+- ✅ Notes de séances
+- ✅ Historique des consultations
+- ✅ Gestion multi-patients
+- ✅ Conformité RGPD
+- ✅ Code source accessible sur GitHub
+
+**💰 Upsells Payants** (Fonctionnalités premium) :
+- 📅 **Module Gestion des Rendez-vous** : 19€/mois (calendrier, rappels SMS/Email, synchronisation)
+- ☁️ **Cloud Sync & Backup** : 14€/mois (sauvegarde automatique, accès multi-appareils)
+- 📄 **Export PDF Avancé** : 9€/mois (rapports personnalisés, logo cabinet, e-signature)
+- 📊 **Analytics & BI** : 24€/mois (tableaux de bord avancés, KPIs, prédictions IA)
+- 🌐 **Multi-Centres** : 49€/mois (réseau de centres, partage patients avec consentement)
+- 🔔 **Notifications Push** : 7€/mois (rappels patients, alertes évolution)
+
+**Bundles** :
+- **Pack Essentiel** : 39€/mois (RDV + Cloud + Export PDF) - Économie 15%
+- **Pack Professionnel** : 69€/mois (Tous modules sauf Multi-Centres) - Économie 25%
+- **Pack Cabinet** : 99€/mois (Tous modules inclus) - Économie 35%
+
 ### Version 2.0 (Q1 2026 - Mars 2026)
 
 **Fonctionnalités principales** :
-- 📄 Export PDF des rapports
-- 📱 Application mobile native (iOS/Android)
-- 🔔 Notifications push
-- 📊 Tableaux de bord avancés
-- 🤝 Partage de données sécurisé
-- 🌐 Multi-langue (FR/EN/ES/DE)
+- 📄 Export PDF des rapports (**Upsell payant**)
+- 📱 Application mobile native (iOS/Android) (**Gratuit**)
+- 🔔 Notifications push (**Upsell payant**)
+- 📊 Tableaux de bord avancés (**Upsell payant**)
+- 🤝 Partage de données sécurisé (**Gratuit**)
+- 🌐 Multi-langue (FR/EN/ES/DE) (**Gratuit**)
 
 **Améliorations techniques** :
 - ⚡ Performance +50%
@@ -455,4 +480,4 @@ flutter install
 
 **Date de création** : 24 Novembre 2025  
 **Version** : 1.0  
-**Dernière mise à jour** : 24 Novembre 2025 - 16:30
+**Dernière mise à jour** : 26 Novembre 2025 - Corrections majeures positionnement

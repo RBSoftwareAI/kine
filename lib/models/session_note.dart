@@ -2,6 +2,7 @@
 class SessionNote {
   final String id;
   final String patientId;
+  final String patientName;  // Nom du patient
   final String professionalId;
   final String professionalName;
   final DateTime sessionDate;
@@ -15,6 +16,7 @@ class SessionNote {
   SessionNote({
     required this.id,
     required this.patientId,
+    required this.patientName,
     required this.professionalId,
     required this.professionalName,
     required this.sessionDate,
@@ -31,6 +33,7 @@ class SessionNote {
     return SessionNote(
       id: id,
       patientId: data['patientId'] as String? ?? '',
+      patientName: data['patientName'] as String? ?? 'Patient inconnu',
       professionalId: data['professionalId'] as String? ?? '',
       professionalName: data['professionalName'] as String? ?? '',
       sessionDate: (data['sessionDate'] as dynamic)?.toDate() ?? DateTime.now(),
@@ -53,6 +56,7 @@ class SessionNote {
   Map<String, dynamic> toFirestore() {
     return {
       'patientId': patientId,
+      'patientName': patientName,
       'professionalId': professionalId,
       'professionalName': professionalName,
       'sessionDate': sessionDate,

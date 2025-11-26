@@ -37,6 +37,7 @@ class _SessionNotesScreenState extends State<SessionNotesScreen> {
       SessionNote(
         id: 'note_1',
         patientId: 'patient_1',
+        patientName: 'Jean Dupont',
         professionalId: 'prof_1',
         professionalName: 'Dr. Pierre Durand',
         sessionDate: now.subtract(const Duration(days: 1)),
@@ -49,6 +50,7 @@ class _SessionNotesScreenState extends State<SessionNotesScreen> {
       SessionNote(
         id: 'note_2',
         patientId: 'patient_2',
+        patientName: 'Marie Martin',
         professionalId: 'prof_1',
         professionalName: 'Dr. Pierre Durand',
         sessionDate: now.subtract(const Duration(days: 2)),
@@ -61,6 +63,7 @@ class _SessionNotesScreenState extends State<SessionNotesScreen> {
       SessionNote(
         id: 'note_3',
         patientId: 'patient_3',
+        patientName: 'Sophie Bernard',
         professionalId: 'prof_1',
         professionalName: 'Dr. Pierre Durand',
         sessionDate: now.subtract(const Duration(days: 3)),
@@ -73,6 +76,7 @@ class _SessionNotesScreenState extends State<SessionNotesScreen> {
       SessionNote(
         id: 'note_4',
         patientId: 'patient_4',
+        patientName: 'Thomas Petit',
         professionalId: 'prof_1',
         professionalName: 'Dr. Pierre Durand',
         sessionDate: now.subtract(const Duration(days: 5)),
@@ -85,6 +89,7 @@ class _SessionNotesScreenState extends State<SessionNotesScreen> {
       SessionNote(
         id: 'note_5',
         patientId: 'patient_5',
+        patientName: 'Claire Dubois',
         professionalId: 'prof_1',
         professionalName: 'Dr. Pierre Durand',
         sessionDate: now.subtract(const Duration(days: 7)),
@@ -200,18 +205,37 @@ class _SessionNotesScreenState extends State<SessionNotesScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.person,
+                              size: 16,
+                              color: AppTheme.primaryOrange,
+                            ),
+                            const SizedBox(width: 6),
+                            Text(
+                              note.patientName,
+                              style: const TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: AppTheme.primaryOrange,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 6),
                         Text(
                           _formatDate(note.sessionDate),
                           style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
-                        const SizedBox(height: 4),
+                        const SizedBox(height: 2),
                         Text(
                           note.professionalName,
                           style: TextStyle(
-                            fontSize: 13,
+                            fontSize: 12,
                             color: Colors.grey[600],
                           ),
                         ),
