@@ -5,6 +5,7 @@ import '../../models/patient_summary.dart';
 import '../../models/session_note.dart';
 import '../../services/patient_service.dart';
 import '../../utils/app_theme.dart';
+import '../../screens/patients/patient_detail_screen.dart';
 import 'widgets/patient_card.dart';
 import 'widgets/dashboard_stats.dart';
 
@@ -285,13 +286,18 @@ class _PatientsDashboardScreenState extends State<PatientsDashboardScreen> {
     );
   }
 
-  void _navigateToPatientDetail(PatientSummary patient) {
-    // TODO: Navigation vers détail patient
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Détail patient : ${patient.patientName}'),
-        backgroundColor: AppTheme.info,
+  Future<void> _navigateToPatientDetail(PatientSummary patient) async {
+    // Navigation vers PatientDetailScreen
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PatientDetailScreen(patientId: patient.patientId),
       ),
     );
+    
+    // Rafraîchir la liste si des changements ont été effectués
+    if (result == true && mounted) {
+      _loadPatients();
+    }
   }
 }
