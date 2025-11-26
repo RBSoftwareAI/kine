@@ -10,6 +10,8 @@ class BodySilhouette extends StatelessWidget {
   final Function(Offset position, Size size) onTap;
   final Function(PainPoint point) onPointTap;
   final Function(PainPoint point) onPointRemove;
+  final bool displayOnly; // Mode affichage seul (pas d'interaction)
+  final bool professionalMode; // Mode professionnel (couleur orange)
 
   const BodySilhouette({
     super.key,
@@ -19,6 +21,8 @@ class BodySilhouette extends StatelessWidget {
     required this.onTap,
     required this.onPointTap,
     required this.onPointRemove,
+    this.displayOnly = false,
+    this.professionalMode = false,
   });
 
   @override
@@ -28,22 +32,30 @@ class BodySilhouette extends StatelessWidget {
         constraints: const BoxConstraints(maxWidth: 400, maxHeight: 600),
         child: LayoutBuilder(
           builder: (context, constraints) {
+            Widget silhouette = CustomPaint(
+              size: Size(constraints.maxWidth, constraints.maxHeight),
+              painter: _BodySilhouettePainter(
+                view: view,
+                painPoints: painPoints,
+                selectedPoint: selectedPoint,
+                onPointTap: onPointTap,
+                professionalMode: professionalMode,
+              ),
+              child: Container(), // Zone cliquable
+            );
+
+            // Si mode affichage seul, pas de GestureDetector
+            if (displayOnly) {
+              return silhouette;
+            }
+
             return GestureDetector(
               onTapDown: (details) {
                 final renderBox = context.findRenderObject() as RenderBox;
                 final localPosition = renderBox.globalToLocal(details.globalPosition);
                 onTap(localPosition, renderBox.size);
               },
-              child: CustomPaint(
-                size: Size(constraints.maxWidth, constraints.maxHeight),
-                painter: _BodySilhouettePainter(
-                  view: view,
-                  painPoints: painPoints,
-                  selectedPoint: selectedPoint,
-                  onPointTap: onPointTap,
-                ),
-                child: Container(), // Zone cliquable
-              ),
+              child: silhouette,
             );
           },
         ),
@@ -58,12 +70,14 @@ class _BodySilhouettePainter extends CustomPainter {
   final List<PainPoint> painPoints;
   final PainPoint? selectedPoint;
   final Function(PainPoint point) onPointTap;
+  final bool professionalMode;
 
   _BodySilhouettePainter({
     required this.view,
     required this.painPoints,
     this.selectedPoint,
     required this.onPointTap,
+    this.professionalMode = false,
   });
 
   @override

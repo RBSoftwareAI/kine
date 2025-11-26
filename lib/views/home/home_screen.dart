@@ -330,21 +330,6 @@ class HomeScreen extends StatelessWidget {
       ),
       _buildMenuCard(
         context,
-        icon: Icons.accessibility_new,
-        title: 'Cartographie des douleurs',
-        subtitle: 'Localiser les zones douloureuses',
-        color: Colors.red,
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const PainTrackingScreen(),
-            ),
-          );
-        },
-      ),
-      _buildMenuCard(
-        context,
         icon: Icons.edit_note,
         title: 'Notes de séance',
         subtitle: 'Consulter et ajouter des observations',

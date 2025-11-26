@@ -5,6 +5,8 @@ import '../../providers/patient_provider.dart';
 import '../../providers/auth_provider.dart';
 import '../../models/patient.dart';
 import 'patient_form_screen.dart';
+import '../consultations/patient_consultation_history_screen.dart';
+import '../pain/professional_pain_assessment_screen.dart';
 
 /// Écran de détail d'un patient
 class PatientDetailScreen extends StatefulWidget {
@@ -296,36 +298,155 @@ class _PatientDetailScreenState extends State<PatientDetailScreen> {
                 ],
               ),
 
-            // Historique
+            // Actions rapides
             _buildSection(
-              'Historique des consultations',
+              'Évaluation & Suivi',
               [
-                Container(
-                  padding: const EdgeInsets.all(32),
-                  child: Column(
-                    children: [
-                      Icon(
-                        Icons.event_note_outlined,
-                        size: 48,
-                        color: Colors.grey.shade400,
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        'Aucune consultation',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey.shade600,
+                // Cartographie professionnelle des douleurs
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => ProfessionalPainAssessmentScreen(
+                          patientId: patient.id,
                         ),
                       ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Fonctionnalité à venir (Phase D)',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey.shade500,
+                    );
+                  },
+                  borderRadius: BorderRadius.circular(12),
+                  child: Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [
+                          Color(0xFFFF6B35),
+                          Color(0xFFFF8C42),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withValues(alpha: 0.3),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: const Icon(
+                            Icons.medical_services,
+                            size: 28,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        const Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Cartographie des douleurs',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                'Enregistrer votre évaluation professionnelle',
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Icon(
+                          Icons.arrow_forward_ios,
+                          size: 18,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                
+                const SizedBox(height: 12),
+                
+                // Historique des consultations
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => PatientConsultationHistoryScreen(
+                          patientId: patient.id,
                         ),
                       ),
-                    ],
+                    );
+                  },
+                  borderRadius: BorderRadius.circular(12),
+                  child: Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+                          Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.2),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Icon(
+                            Icons.event_note,
+                            size: 32,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Historique des consultations',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                'Notes de séances, observations cliniques, recommandations',
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  color: Colors.grey.shade600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          size: 18,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
