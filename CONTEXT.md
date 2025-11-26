@@ -24,7 +24,9 @@
 - **Nom** : MediDesk
 - **Type** : Application Flutter de gestion médicale
 - **Cible** : Tous professionnels de santé (kinés, ostéopathes, médecins, infirmiers, coachs sportifs, etc.)
-- **Modèle économique** : Gratuit & Open Source (installation locale) + Upsells payants (gestion RDV, cloud sync, exports avancés)
+- **Modèle économique** : 
+  - 🆓 **Gratuit & Open Source à vie** : Santé (cartographie, notes, historique) + Gestion RDV Locale
+  - 💎 **Modules Pro sur devis** : RDV en ligne synchronisés, Cloud Sync, Export PDF Pro, Multi-Centres, Intégrations APIs (Doctolib/Maiia - en dév), Facturation auto (en dév), Analytics IA (en dév)
 - **Version actuelle** : v1.3 (26 Novembre 2025)
 - **URL Production** : https://demo.medidesk.fr
 - **Repository GitHub** : https://github.com/RBSoftwareAI/kine
@@ -312,29 +314,99 @@ Future<void> _initializeAuthState() async {
 
 ## 🗺️ ROADMAP
 
-### Modèle Économique Détaillé
+### Modèle Économique Détaillé (Mise à jour 26 Nov 2025)
 
-**🆓 Version Gratuite & Open Source** (Installation locale) :
-- ✅ Cartographie interactive des douleurs
-- ✅ Graphiques d'évolution
-- ✅ Notes de séances
-- ✅ Historique des consultations
-- ✅ Gestion multi-patients
-- ✅ Conformité RGPD
-- ✅ Code source accessible sur GitHub
+**🆓 VERSION GRATUITE & OPEN SOURCE** (À VIE - Installation locale) :
 
-**💰 Upsells Payants** (Fonctionnalités premium) :
-- 📅 **Module Gestion des Rendez-vous** : 19€/mois (calendrier, rappels SMS/Email, synchronisation)
-- ☁️ **Cloud Sync & Backup** : 14€/mois (sauvegarde automatique, accès multi-appareils)
-- 📄 **Export PDF Avancé** : 9€/mois (rapports personnalisés, logo cabinet, e-signature)
-- 📊 **Analytics & BI** : 24€/mois (tableaux de bord avancés, KPIs, prédictions IA)
-- 🌐 **Multi-Centres** : 49€/mois (réseau de centres, partage patients avec consentement)
-- 🔔 **Notifications Push** : 7€/mois (rappels patients, alertes évolution)
+**Santé & Suivi Patients** :
+- ✅ Cartographie interactive des douleurs (silhouettes anatomiques)
+- ✅ Graphiques d'évolution temporelle
+- ✅ Notes de séances + historique complet
+- ✅ Gestion multi-patients illimitée
+- ✅ Dossiers patients sécurisés (chiffrement AES-256)
 
-**Bundles** :
-- **Pack Essentiel** : 39€/mois (RDV + Cloud + Export PDF) - Économie 15%
-- **Pack Professionnel** : 69€/mois (Tous modules sauf Multi-Centres) - Économie 25%
-- **Pack Cabinet** : 99€/mois (Tous modules inclus) - Économie 35%
+**Gestion Rendez-vous Locale** :
+- ✅ Calendrier de rendez-vous intégré
+- ✅ Prise de RDV manuelle en cabinet
+- ✅ Vue journalière / hebdomadaire / mensuelle
+- ✅ Notifications locales (rappels)
+
+**Conformité & Sécurité** :
+- ✅ 100% Conforme RGPD
+- ✅ Hébergement local (données sur votre machine)
+- ✅ Chiffrement des données patients
+- ✅ Audit logs complets
+
+**Open Source** :
+- ✅ Code source accessible sur GitHub (licence MIT)
+- ✅ Communauté active
+- ✅ Pas de télémétrie, pas de tracking
+
+---
+
+**💎 MODULES PROFESSIONNELS** (SUR DEVIS - Optionnels) :
+
+**🟢 Options Disponibles** (Prêtes à être installées) :
+1. **📅 Gestion Rendez-vous en Ligne Synchronisée**
+   - Prise de RDV en ligne via widget web
+   - Synchronisation bidirectionnelle avec calendrier local
+   - Notifications SMS/Email automatiques
+   - Gestion des créneaux disponibles
+   - **Prix** : Sur devis (selon volume)
+
+2. **☁️ Cloud Sync & Backup Avancé**
+   - Sauvegarde automatique chiffrée
+   - Synchronisation multi-appareils
+   - Restauration en 1 clic
+   - **Prix** : Sur devis
+
+3. **📄 Export PDF Professionnel**
+   - Rapports personnalisés (logo, en-tête)
+   - E-signature électronique légale
+   - Templates modifiables
+   - **Prix** : Sur devis
+
+4. **🌐 Solution Multi-Centres**
+   - Gestion réseau de cabinets
+   - Partage sécurisé de patients
+   - Statistiques consolidées
+   - **Prix** : Sur devis (selon nombre de centres)
+
+**🟡 Options en Développement** (Roadmap) :
+1. **🔗 Sync Doctolib / Maiia / Autres APIs** (Q2 2026)
+   - Import automatique RDV → MediDesk local
+   - Synchronisation temps réel
+   - **Prix** : Sur devis
+
+2. **💳 Facturation Automatique** (Q3 2026)
+   - Génération factures conforme
+   - Export comptable
+   - Relances automatiques
+   - **Prix** : Sur devis
+
+3. **📊 Statistiques & Analyse Nationale** (Q4 2026)
+   - Dashboard KPIs avancés
+   - Benchmarking anonymisé
+   - Prédictions IA
+   - **Prix** : Sur devis
+
+4. **🤖 IA - Conseils de Suivi Patients** (Q1 2027)
+   - Suggestions personnalisées
+   - Détection anomalies
+   - Recommandations exercices
+   - **Prix** : Sur devis
+
+5. **🔔 Notifications Push Multi-Canal** (Q2 2026)
+   - Rappels SMS patients
+   - Notifications Email automatiques
+   - Push mobile
+   - **Prix** : Sur devis
+
+**Processus Commercial** :
+1. Professionnel remplit formulaire de demande de devis
+2. Analyse des besoins par équipe MediDesk
+3. Proposition commerciale personnalisée (sous 48h)
+4. Installation + Formation incluses dans le devis
 
 ### Version 2.0 (Q1 2026 - Mars 2026)
 
