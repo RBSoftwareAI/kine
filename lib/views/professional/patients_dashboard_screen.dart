@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
-import '../../models/patient_summary.dart';
-import '../../models/session_note.dart';
-import '../../services/patient_service.dart';
+import '../../providers/patient_provider.dart';
+import '../../models/patient.dart';
 import '../../utils/app_theme.dart';
 import '../../screens/patients/patient_detail_screen.dart';
-import 'widgets/patient_card.dart';
-import 'widgets/dashboard_stats.dart';
 
 /// Tableau de bord professionnel pour kinésithérapeutes et coachs
 class PatientsDashboardScreen extends StatefulWidget {
@@ -18,21 +15,17 @@ class PatientsDashboardScreen extends StatefulWidget {
 }
 
 class _PatientsDashboardScreenState extends State<PatientsDashboardScreen> {
-  final PatientService _patientService = PatientService();
   final TextEditingController _searchController = TextEditingController();
   
-  List<PatientSummary> _allPatients = [];
-  List<PatientSummary> _filteredPatients = [];
-  bool _isLoading = true;
-  String? _errorMessage;
-  
-  ProgressStatus? _selectedStatusFilter;
-  bool _showOnlyNeedingAttention = false;
+  List<Patient> _filteredPatients = [];
+  bool _showOnlyActive = true;
 
   @override
   void initState() {
     super.initState();
-    _loadPatients();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _loadPatients();
+    });
   }
 
   @override
@@ -42,57 +35,33 @@ class _PatientsDashboardScreenState extends State<PatientsDashboardScreen> {
   }
 
   Future<void> _loadPatients() async {
-    setState(() {
-      _isLoading = true;
-      _errorMessage = null;
-    });
-
-    try {
-      final authProvider = context.read<AuthProvider>();
-      final user = authProvider.currentUser;
-      
-      if (user == null) {
-        throw Exception('Utilisateur non connecté');
-      }
-
-      final patients = await _patientService.getPatientsForProfessional(user.id);
-      
-      setState(() {
-        _allPatients = patients;
-        _applyFilters();
-        _isLoading = false;
-      });
-    } catch (e) {
-      setState(() {
-        _errorMessage = e.toString();
-        _isLoading = false;
-      });
+    final authProvider = context.read<AuthProvider>();
+    final patientProvider = context.read<PatientProvider>();
+    final user = authProvider.currentUser;
+    
+    if (user != null) {
+      await patientProvider.loadPatients(user.centreId);
+      _applyFilters();
     }
   }
 
   void _applyFilters() {
-    var filtered = List<PatientSummary>.from(_allPatients);
+    final patientProvider = context.read<PatientProvider>();
+    var filtered = List<Patient>.from(patientProvider.allPatients);
 
     // Filtre de recherche
     final query = _searchController.text.toLowerCase();
     if (query.isNotEmpty) {
       filtered = filtered
           .where((p) =>
-              p.patientName.toLowerCase().contains(query) ||
-              p.patientEmail.toLowerCase().contains(query))
+              p.nomComplet.toLowerCase().contains(query) ||
+              (p.email?.toLowerCase().contains(query) ?? false))
           .toList();
     }
 
-    // Filtre par statut
-    if (_selectedStatusFilter != null) {
-      filtered = filtered
-          .where((p) => p.latestStatus == _selectedStatusFilter)
-          .toList();
-    }
-
-    // Filtre attention nécessaire
-    if (_showOnlyNeedingAttention) {
-      filtered = filtered.where((p) => p.needsAttention).toList();
+    // Filtre actif/inactif
+    if (_showOnlyActive) {
+      filtered = filtered.where((p) => p.actif).toList();
     }
 
     setState(() {
@@ -102,75 +71,51 @@ class _PatientsDashboardScreenState extends State<PatientsDashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<AuthProvider>();
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Mes Patients'),
-        actions: [
-          IconButton(
-            icon: Icon(
-              _showOnlyNeedingAttention ? Icons.notifications_active : Icons.notifications_outlined,
-              color: _showOnlyNeedingAttention ? AppTheme.warning : null,
-            ),
-            tooltip: 'Patients nécessitant attention',
-            onPressed: () {
-              setState(() {
-                _showOnlyNeedingAttention = !_showOnlyNeedingAttention;
-                _applyFilters();
-              });
-            },
+    return Consumer<PatientProvider>(
+      builder: (context, patientProvider, child) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Liste des patients'),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.refresh),
+                onPressed: _loadPatients,
+              ),
+            ],
           ),
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: _loadPatients,
-          ),
-        ],
-      ),
-      body: SafeArea(
-        child: RefreshIndicator(
-          onRefresh: _loadPatients,
-          child: _buildBody(),
-        ),
-      ),
+          body: patientProvider.isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : patientProvider.error != null
+                  ? Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.error, size: 64, color: Colors.red),
+                          const SizedBox(height: 16),
+                          Text(
+                            patientProvider.error!,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(color: Colors.red),
+                          ),
+                          const SizedBox(height: 16),
+                          ElevatedButton(
+                            onPressed: _loadPatients,
+                            child: const Text('Réessayer'),
+                          ),
+                        ],
+                      ),
+                    )
+                  : _buildContent(),
+        );
+      },
     );
   }
 
-  Widget _buildBody() {
-    if (_isLoading) {
-      return const Center(child: CircularProgressIndicator());
-    }
-
-    if (_errorMessage != null) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.error_outline, size: 64, color: AppTheme.error),
-            const SizedBox(height: 16),
-            Text(
-              'Erreur de chargement',
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            Text(_errorMessage!, textAlign: TextAlign.center),
-            const SizedBox(height: 24),
-            ElevatedButton(
-              onPressed: _loadPatients,
-              child: const Text('Réessayer'),
-            ),
-          ],
-        ),
-      );
-    }
-
+  Widget _buildContent() {
+    final patientProvider = context.watch<PatientProvider>();
+    
     return Column(
       children: [
-        // Statistiques globales
-        DashboardStats(patients: _allPatients),
-
-        const SizedBox(height: 8),
-
         // Barre de recherche
         Padding(
           padding: const EdgeInsets.all(16),
@@ -188,49 +133,40 @@ class _PatientsDashboardScreenState extends State<PatientsDashboardScreen> {
                       },
                     )
                   : null,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              filled: true,
+              fillColor: Colors.white,
             ),
             onChanged: (value) => _applyFilters(),
           ),
         ),
 
-        // Filtres de statut
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Row(
-            children: [
-              FilterChip(
-                label: const Text('Tous'),
-                selected: _selectedStatusFilter == null,
-                onSelected: (selected) {
-                  setState(() {
-                    _selectedStatusFilter = null;
-                    _applyFilters();
-                  });
-                },
+        // Statistiques simplifiées
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _buildStatItem(
+                    'Total',
+                    patientProvider.patientsCount.toString(),
+                    Icons.people,
+                    AppTheme.info,
+                  ),
+                  _buildStatItem(
+                    'Actifs',
+                    patientProvider.allPatients.where((p) => p.actif).length.toString(),
+                    Icons.check_circle,
+                    Colors.green,
+                  ),
+                ],
               ),
-              const SizedBox(width: 8),
-              ...ProgressStatus.values.map((status) => Padding(
-                    padding: const EdgeInsets.only(right: 8),
-                    child: FilterChip(
-                      label: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(status.emoji),
-                          const SizedBox(width: 4),
-                          Text(status.displayName),
-                        ],
-                      ),
-                      selected: _selectedStatusFilter == status,
-                      onSelected: (selected) {
-                        setState(() {
-                          _selectedStatusFilter = selected ? status : null;
-                          _applyFilters();
-                        });
-                      },
-                    ),
-                  )),
-            ],
+            ),
           ),
         ),
 
@@ -244,14 +180,92 @@ class _PatientsDashboardScreenState extends State<PatientsDashboardScreen> {
                   padding: const EdgeInsets.all(16),
                   itemCount: _filteredPatients.length,
                   itemBuilder: (context, index) {
-                    return PatientCard(
-                      patient: _filteredPatients[index],
-                      onTap: () => _navigateToPatientDetail(_filteredPatients[index]),
-                    );
+                    return _buildPatientCard(_filteredPatients[index]);
                   },
                 ),
         ),
       ],
+    );
+  }
+
+  Widget _buildStatItem(String label, String value, IconData icon, Color color) {
+    return Column(
+      children: [
+        Icon(icon, color: color, size: 32),
+        const SizedBox(height: 8),
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+        ),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 12,
+            color: Colors.grey[600],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPatientCard(Patient patient) {
+    return Card(
+      margin: const EdgeInsets.only(bottom: 12),
+      elevation: 2,
+      child: InkWell(
+        onTap: () => _navigateToPatientDetail(patient),
+        borderRadius: BorderRadius.circular(12),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              CircleAvatar(
+                radius: 28,
+                backgroundColor: AppTheme.info.withValues(alpha: 0.1),
+                child: Text(
+                  patient.initiales,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: AppTheme.info,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      patient.nomComplet,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      '${patient.age} ans',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Icon(
+                Icons.chevron_right,
+                color: Colors.grey[400],
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -261,37 +275,32 @@ class _PatientsDashboardScreenState extends State<PatientsDashboardScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(
-            _showOnlyNeedingAttention
-                ? Icons.check_circle_outline
-                : Icons.people_outline,
+            Icons.people_outline,
             size: 64,
             color: AppTheme.grey,
           ),
           const SizedBox(height: 16),
-          Text(
-            _showOnlyNeedingAttention
-                ? 'Aucun patient nécessitant attention'
-                : 'Aucun patient trouvé',
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          const Text(
+            'Aucun patient trouvé',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
           Text(
-            _showOnlyNeedingAttention
-                ? 'Tous vos patients vont bien !'
-                : 'Ajustez vos filtres de recherche',
-            style: TextStyle(color: AppTheme.grey),
+            'Aucun patient ne correspond à vos critères de recherche.',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.grey[600]),
           ),
         ],
       ),
     );
   }
 
-  Future<void> _navigateToPatientDetail(PatientSummary patient) async {
+  Future<void> _navigateToPatientDetail(Patient patient) async {
     // Navigation vers PatientDetailScreen
     final result = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => PatientDetailScreen(patientId: patient.patientId),
+        builder: (context) => PatientDetailScreen(patientId: patient.id),
       ),
     );
     
