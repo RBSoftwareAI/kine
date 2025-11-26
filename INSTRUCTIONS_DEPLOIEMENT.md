@@ -25,6 +25,9 @@ flutter pub get
 
 ```bash
 flutter build web --release
+
+# Copier le site vitrine dans le build
+cp -r website build/web/
 ```
 
 ### 4. Se Connecter à Firebase
@@ -46,8 +49,10 @@ OU utiliser le script automatisé :
 
 ## 🌐 URLs après Déploiement
 
-- **Firebase principale** : https://kinecare-81f52.web.app
-- **Domaine personnalisé** : https://demo.medidesk.fr
+- **📱 Application Flutter** : https://demo.medidesk.fr
+- **🌐 Site Vitrine** : https://demo.medidesk.fr/website/
+- **Firebase URL principale** : https://kinecare-81f52.web.app
+- **Firebase URL alternative** : https://kinecare-81f52.firebaseapp.com
 
 ## ✨ Nouveautés de cette Version
 
@@ -64,11 +69,19 @@ OU utiliser le script automatisé :
 
 ## 🔍 Vérification Post-Déploiement
 
-1. Ouvrir https://demo.medidesk.fr
-2. Vérifier que le site vitrine est à jour
-3. Cliquer sur "Essayer la Démo Guidée"
-4. Tester la visite guidée interactive
-5. Vérifier la page de connexion (clic sur carte = connexion auto)
+### Site Vitrine
+1. Ouvrir https://demo.medidesk.fr/website/
+2. Vérifier le nouveau wording "Solution de suivi médical pour professionnels de santé"
+3. Vérifier les 3 badges dans Hero (Gratuit, RGPD, RDV)
+4. Vérifier la section "Démo Interactive"
+5. Cliquer sur "Essayer la Démo Guidée" → doit rediriger vers l'application
+
+### Application Flutter
+6. Ouvrir https://demo.medidesk.fr
+7. Vérifier la page de connexion avec cartes cliquables
+8. Cliquer sur une carte de compte test → connexion automatique
+9. Vérifier que la visite guidée démarre automatiquement
+10. Parcourir les 6 étapes avec animations fluides
 
 ## 📝 Notes
 
@@ -79,5 +92,9 @@ OU utiliser le script automatisé :
 ---
 
 **Dernière mise à jour** : 27 Novembre 2025  
-**Commits** : 5d7fe31, 8954bde  
+**Commits** : 5d7fe31, 8954bde, [nouveau commit avec script de déploiement amélioré]  
 **Branche** : base
+
+## 🎯 Important
+
+Le script `deploy-simple.sh` a été mis à jour pour automatiquement copier le site vitrine dans `build/web/website/` lors du déploiement. Cela garantit que le site vitrine et l'application Flutter sont toujours déployés ensemble.
