@@ -1,16 +1,64 @@
-// ========================================
-// MediDesk Marketing Website - JavaScript
-// ========================================
+/**
+ * MediDesk Website - Main JavaScript
+ * Handles navigation, smooth scrolling, FAQ accordion, and form interactions
+ */
 
-document.addEventListener('DOMContentLoaded', function() {
-    // === SMOOTH SCROLLING ===
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
+(function() {
+    'use strict';
+
+    // ========================================
+    // Navigation
+    // ========================================
+    const navbar = document.getElementById('navbar');
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+    
+    // Mobile menu toggle
+    if (mobileMenuBtn && navLinks) {
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenuBtn.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking on a link
+        const navLinksItems = navLinks.querySelectorAll('a');
+        navLinksItems.forEach(function(link) {
+            link.addEventListener('click', function() {
+                mobileMenuBtn.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+    }
+    
+    // ========================================
+    // Smooth Scrolling for Anchor Links
+    // ========================================
+    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            
+            // Skip if href is just "#"
+            if (href === '#') {
+                e.preventDefault();
+                return;
+            }
+            
+            const target = document.querySelector(href);
             if (target) {
-                const offset = 80; // Navbar height
-                const targetPosition = target.offsetTop - offset;
+                e.preventDefault();
+                
+                const navbarHeight = navbar ? navbar.offsetHeight : 0;
+                const targetPosition = target.offsetTop - navbarHeight - 20;
+                
                 window.scrollTo({
                     top: targetPosition,
                     behavior: 'smooth'
@@ -18,255 +66,202 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-
-    // === MOBILE MENU TOGGLE ===
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const navLinks = document.querySelector('.nav-links');
     
-    if (mobileMenuBtn) {
-        mobileMenuBtn.addEventListener('click', function() {
-            navLinks.classList.toggle('active');
-            this.classList.toggle('active');
+    // ========================================
+    // FAQ Accordion
+    // ========================================
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(function(item) {
+        const question = item.querySelector('.faq-question');
+        
+        if (question) {
+            question.addEventListener('click', function() {
+                // Close all other FAQs
+                faqItems.forEach(function(otherItem) {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current FAQ
+                item.classList.toggle('active');
+            });
+        }
+    });
+    
+    // ========================================
+    // Back to Top Button
+    // ========================================
+    const backToTopBtn = document.getElementById('backToTop');
+    
+    if (backToTopBtn) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 500) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
     }
-
-    // === NAVBAR SCROLL EFFECT ===
-    let lastScroll = 0;
-    const navbar = document.querySelector('.navbar');
     
-    window.addEventListener('scroll', function() {
-        const currentScroll = window.pageYOffset;
-        
-        if (currentScroll > 100) {
-            navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-        } else {
-            navbar.style.boxShadow = 'none';
-        }
-        
-        lastScroll = currentScroll;
-    });
-
-    // === CONTACT FORM HANDLING ===
+    // ========================================
+    // Form Handling
+    // ========================================
+    
+    // Quote Form
+    const quoteForm = document.getElementById('quoteForm');
+    if (quoteForm) {
+        quoteForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(quoteForm);
+            const data = {
+                firstname: formData.get('firstname'),
+                lastname: formData.get('lastname'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                cabinetType: formData.get('cabinet-type'),
+                practitioners: formData.get('practitioners'),
+                appointments: formData.get('appointments'),
+                modules: formData.getAll('modules'),
+                message: formData.get('message'),
+                consent: formData.get('consent')
+            };
+            
+            // Validation
+            if (!data.consent) {
+                alert('Veuillez accepter d\'être contacté pour continuer.');
+                return;
+            }
+            
+            if (data.modules.length === 0) {
+                alert('Veuillez sélectionner au moins un module.');
+                return;
+            }
+            
+            // Show success message
+            showSuccessMessage(quoteForm, 
+                '✅ Demande de devis envoyée avec succès ! Nous vous recontacterons sous 48h ouvrées.'
+            );
+            
+            // Log data (in production, send to backend)
+            console.log('Quote request:', data);
+            
+            // Reset form
+            quoteForm.reset();
+        });
+    }
+    
+    // General Contact Form
     const contactForm = document.getElementById('contactForm');
-    
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
             // Get form data
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                cabinet: document.getElementById('cabinet').value,
-                message: document.getElementById('message').value
+            const formData = new FormData(contactForm);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                message: formData.get('message')
             };
             
-            // Show success message (in production, send to backend)
-            alert('Merci pour votre message ! Nous vous recontacterons sous 24h.\n\n' +
-                  'Email de confirmation envoyé à : ' + formData.email);
+            // Show success message
+            showSuccessMessage(contactForm, 
+                '✅ Message envoyé avec succès ! Nous vous répondrons sous 24h.'
+            );
+            
+            // Log data (in production, send to backend)
+            console.log('Contact message:', data);
             
             // Reset form
             contactForm.reset();
-            
-            // In production, replace with actual API call:
-            /*
-            fetch('/api/contact', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    showSuccessMessage('Message envoyé avec succès !');
-                    contactForm.reset();
-                } else {
-                    showErrorMessage('Erreur lors de l\'envoi. Réessayez.');
-                }
-            })
-            .catch(error => {
-                showErrorMessage('Erreur réseau. Réessayez.');
-            });
-            */
         });
     }
-
-    // === INTERSECTION OBSERVER (Animate on scroll) ===
+    
+    // Helper function to show success message
+    function showSuccessMessage(form, message) {
+        const successDiv = document.createElement('div');
+        successDiv.className = 'form-success-message';
+        successDiv.textContent = message;
+        successDiv.style.cssText = `
+            padding: 1rem;
+            margin-top: 1rem;
+            background: #dcfce7;
+            color: #166534;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-align: center;
+            animation: fadeInUp 0.5s ease-out;
+        `;
+        
+        // Remove any existing success message
+        const existingMessage = form.querySelector('.form-success-message');
+        if (existingMessage) {
+            existingMessage.remove();
+        }
+        
+        // Add new success message
+        form.appendChild(successDiv);
+        
+        // Remove success message after 5 seconds
+        setTimeout(function() {
+            successDiv.style.opacity = '0';
+            successDiv.style.transition = 'opacity 0.5s ease-out';
+            setTimeout(function() {
+                successDiv.remove();
+            }, 500);
+        }, 5000);
+        
+        // Scroll to success message
+        successDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    
+    // ========================================
+    // Scroll Reveal Animation
+    // ========================================
     const observerOptions = {
         threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        rootMargin: '0px 0px -100px 0px'
     };
-
+    
     const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
+        entries.forEach(function(entry) {
             if (entry.isIntersecting) {
                 entry.target.classList.add('fade-in-up');
                 observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
-
-    // Observe all feature cards
-    document.querySelectorAll('.feature-card, .pricing-card, .faq-item').forEach(el => {
-        observer.observe(el);
-    });
-
-    // === STATS COUNTER ANIMATION ===
-    function animateCounter(element, target, duration = 2000) {
-        const start = 0;
-        const increment = target / (duration / 16); // 60fps
-        let current = start;
-        
-        const timer = setInterval(() => {
-            current += increment;
-            if (current >= target) {
-                element.textContent = target;
-                clearInterval(timer);
-            } else {
-                element.textContent = Math.floor(current);
-            }
-        }, 16);
-    }
-
-    // Animate stats when visible
-    const statsObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const statValue = entry.target.querySelector('.stat-value');
-                if (statValue && !statValue.classList.contains('animated')) {
-                    const targetValue = statValue.textContent;
-                    if (!isNaN(targetValue)) {
-                        animateCounter(statValue, parseInt(targetValue));
-                        statValue.classList.add('animated');
-                    }
-                }
-            }
-        });
-    }, { threshold: 0.5 });
-
-    document.querySelectorAll('.stat').forEach(stat => {
-        statsObserver.observe(stat);
-    });
-
-    // === PRICING TOGGLE (Annual/Monthly) - Placeholder ===
-    // Can be activated later if annual pricing is added
     
-    // === DEMO VIDEO MODAL (Placeholder) ===
-    const demoLinks = document.querySelectorAll('a[href="#demo"]');
-    demoLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            alert('🎥 Démo vidéo à venir !\n\nEn attendant, contactez-nous pour une démo personnalisée en visio.');
-            // In production, open video modal or redirect to demo page
-        });
-    });
-
-    // === EMAIL VALIDATION ===
-    function validateEmail(email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email);
-    }
-
-    // === HELPER FUNCTIONS ===
-    function showSuccessMessage(message) {
-        const alert = document.createElement('div');
-        alert.className = 'alert alert-success';
-        alert.textContent = message;
-        alert.style.cssText = `
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            background: #10b981;
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            z-index: 9999;
-            animation: slideInRight 0.3s ease;
-        `;
-        document.body.appendChild(alert);
-        setTimeout(() => alert.remove(), 3000);
-    }
-
-    function showErrorMessage(message) {
-        const alert = document.createElement('div');
-        alert.className = 'alert alert-error';
-        alert.textContent = message;
-        alert.style.cssText = `
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            background: #ef4444;
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            z-index: 9999;
-            animation: slideInRight 0.3s ease;
-        `;
-        document.body.appendChild(alert);
-        setTimeout(() => alert.remove(), 3000);
-    }
-
-    // === COPY TO CLIPBOARD (for code snippets if needed) ===
-    function copyToClipboard(text) {
-        navigator.clipboard.writeText(text).then(() => {
-            showSuccessMessage('Copié dans le presse-papiers !');
-        });
-    }
-
-    // === TRACK CTA CLICKS (for analytics) ===
-    document.querySelectorAll('.btn-primary, .btn-secondary').forEach(button => {
-        button.addEventListener('click', function() {
-            const buttonText = this.textContent.trim();
-            console.log('CTA clicked:', buttonText);
-            
-            // In production, send to analytics:
-            /*
-            gtag('event', 'click', {
-                'event_category': 'CTA',
-                'event_label': buttonText
-            });
-            */
-        });
-    });
-
-    // === LAZY LOAD IMAGES (if images are added later) ===
-    if ('IntersectionObserver' in window) {
-        const lazyImages = document.querySelectorAll('img[data-src]');
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.dataset.src;
-                    img.removeAttribute('data-src');
-                    imageObserver.unobserve(img);
-                }
-            });
-        });
-
-        lazyImages.forEach(img => imageObserver.observe(img));
-    }
-
-    // === CONSOLE BRANDING ===
-    console.log('%c🏥 MediDesk', 'font-size: 24px; font-weight: bold; color: #2563eb;');
-    console.log('%cLogiciel open source pour kinésithérapeutes', 'font-size: 14px; color: #6b7280;');
-    console.log('%c💚 Code disponible sur GitHub: https://github.com/RBSoftwareAI/kine', 'font-size: 12px; color: #10b981;');
-});
-
-// === KEYBOARD SHORTCUTS (Easter egg) ===
-document.addEventListener('keydown', function(e) {
-    // Ctrl+K = Open search (future feature)
-    if (e.ctrlKey && e.key === 'k') {
-        e.preventDefault();
-        console.log('Recherche rapide (à implémenter)');
-    }
+    // Observe elements
+    const animateElements = document.querySelectorAll(
+        '.feature-card, .pricing-card, .faq-item, .contact-card, .ps-problem, .ps-solution'
+    );
     
-    // Esc = Close modals (future feature)
-    if (e.key === 'Escape') {
-        console.log('Fermeture modals (à implémenter)');
-    }
-});
+    animateElements.forEach(function(element) {
+        observer.observe(element);
+    });
+    
+    // ========================================
+    // External Links
+    // ========================================
+    document.querySelectorAll('a[target="_blank"]').forEach(function(link) {
+        link.setAttribute('rel', 'noopener noreferrer');
+    });
+    
+    // ========================================
+    // Initialize
+    // ========================================
+    console.log('✅ MediDesk website initialized');
+    
+})();

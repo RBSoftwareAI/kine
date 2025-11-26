@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
 import '../../widgets/guided_tour_v2.dart';
@@ -51,23 +50,13 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  void _fillCredentials(String email, String password) {
+  void _fillAndLogin(String email, String password) {
     setState(() {
       _emailController.text = email;
       _passwordController.text = password;
     });
-  }
-
-  void _copyToClipboard(String text, String label) {
-    Clipboard.setData(ClipboardData(text: text));
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('$label copié !'),
-        backgroundColor: Colors.green,
-        duration: const Duration(seconds: 2),
-        behavior: SnackBarBehavior.floating,
-      ),
-    );
+    // Connexion automatique
+    _handleLogin();
   }
 
   @override
@@ -327,10 +316,11 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           const SizedBox(height: 8),
           Text(
-            'Cliquez sur un compte pour remplir automatiquement',
+            'Cliquez sur un compte pour vous connecter automatiquement',
             style: TextStyle(
               fontSize: 14,
               color: Colors.grey.shade600,
+              fontWeight: FontWeight.w500,
             ),
           ),
           const SizedBox(height: 24),
@@ -405,6 +395,32 @@ class _LoginScreenState extends State<LoginScreen> {
           const Divider(),
           const SizedBox(height: 16),
           
+          // Info - Connexion automatique
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.blue.shade50,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: Colors.blue.shade200),
+            ),
+            child: Row(
+              children: [
+                Icon(Icons.touch_app, color: Colors.blue.shade900),
+                const SizedBox(width: 12),
+                const Expanded(
+                  child: Text(
+                    '✨ Cliquez sur une carte pour connexion automatique en 1 clic',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
+          
           // Info sur le mot de passe commun
           Container(
             padding: const EdgeInsets.all(16),
@@ -419,7 +435,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(width: 12),
                 const Expanded(
                   child: Text(
-                    'Tous les comptes utilisent le mot de passe : password123',
+                    '🔑 Tous les comptes : password123',
                     style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
@@ -444,129 +460,83 @@ class _LoginScreenState extends State<LoginScreen> {
     required String description,
     required MaterialColor color,
   }) {
-    return InkWell(
-      onTap: () => _fillCredentials(email, password),
-      borderRadius: BorderRadius.circular(12),
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          border: Border.all(color: color[200]!),
-          borderRadius: BorderRadius.circular(12),
-          color: color[50]!,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: color[100]!,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Icon(icon, color: color[700]!, size: 20),
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: () => _fillAndLogin(email, password),
+        borderRadius: BorderRadius.circular(12),
+        splashColor: color[200]!.withOpacity(0.3),
+        highlightColor: color[100]!.withOpacity(0.5),
+        child: Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            border: Border.all(color: color[200]!, width: 2),
+            borderRadius: BorderRadius.circular(12),
+            color: color[50]!,
+          ),
+          child: Row(
+            children: [
+              // Icône du rôle
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: color[100]!,
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        role,
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: color[700]!,
-                        ),
-                      ),
-                      Text(
-                        name,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            Text(
-              description,
-              style: TextStyle(
-                fontSize: 13,
-                color: Colors.grey.shade700,
+                child: Icon(icon, color: color[700]!, size: 24),
               ),
-            ),
-            const SizedBox(height: 12),
-            
-            // Email avec bouton copier
-            Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8),
+              const SizedBox(width: 12),
+              
+              // Informations du compte
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Rôle + Nom
+                    Text(
+                      '$role - $name',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: color[900]!,
+                      ),
                     ),
-                    child: Text(
+                    const SizedBox(height: 4),
+                    
+                    // Email (police réduite, gris)
+                    Text(
                       email,
-                      style: const TextStyle(
-                        fontSize: 12,
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey.shade600,
                         fontFamily: 'monospace',
                       ),
+                      overflow: TextOverflow.ellipsis,
                     ),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                IconButton(
-                  icon: const Icon(Icons.copy, size: 18),
-                  onPressed: () => _copyToClipboard(email, 'Email'),
-                  tooltip: 'Copier l\'email',
-                  style: IconButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    padding: const EdgeInsets.all(8),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            
-            // Mot de passe avec bouton copier
-            Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Text(
-                      password,
-                      style: const TextStyle(
+                    const SizedBox(height: 4),
+                    
+                    // Description
+                    Text(
+                      description,
+                      style: TextStyle(
                         fontSize: 12,
-                        fontFamily: 'monospace',
+                        color: Colors.grey.shade700,
                       ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                  ),
+                  ],
                 ),
-                const SizedBox(width: 8),
-                IconButton(
-                  icon: const Icon(Icons.copy, size: 18),
-                  onPressed: () => _copyToClipboard(password, 'Mot de passe'),
-                  tooltip: 'Copier le mot de passe',
-                  style: IconButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    padding: const EdgeInsets.all(8),
-                  ),
-                ),
-              ],
-            ),
-          ],
+              ),
+              
+              // Indicateur visuel de clic
+              Icon(
+                Icons.arrow_forward_ios,
+                size: 16,
+                color: color[400]!,
+              ),
+            ],
+          ),
         ),
       ),
     );
