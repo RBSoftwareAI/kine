@@ -13,7 +13,7 @@ import 'package:medidesk/main.dart';
 void main() {
   testWidgets('MediDesk app initialization test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(const MediDeskApp());
 
     // Verify that the app starts with login or loading screen
     await tester.pumpAndSettle();
