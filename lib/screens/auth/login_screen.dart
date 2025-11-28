@@ -50,14 +50,31 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  void _fillAndLogin(String email, String password) {
+  /// Connexion automatique 1-clic pour les comptes test
+  Future<void> _handleQuickLogin(String email, String password) async {
+    // Auto-remplir les champs (pour la visibilité)
     setState(() {
       _emailController.text = email;
       _passwordController.text = password;
     });
+
     // Connexion automatique
-    _handleLogin();
+    final authProvider = context.read<AuthProvider>();
+    
+    final success = await authProvider.login(email, password);
+
+    if (mounted && !success) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(authProvider.error ?? 'Erreur de connexion'),
+          backgroundColor: Colors.red,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -316,7 +333,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           const SizedBox(height: 8),
           Text(
-            'Cliquez sur un compte pour vous connecter automatiquement',
+            'Cliquez sur une carte pour vous connecter instantanément',
             style: TextStyle(
               fontSize: 14,
               color: Colors.grey.shade600,
@@ -395,7 +412,7 @@ class _LoginScreenState extends State<LoginScreen> {
           const Divider(),
           const SizedBox(height: 16),
           
-          // Info - Connexion automatique
+          // Info sur la connexion 1-clic
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
@@ -409,33 +426,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(width: 12),
                 const Expanded(
                   child: Text(
-                    '✨ Cliquez sur une carte pour connexion automatique en 1 clic',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 12),
-          
-          // Info sur le mot de passe commun
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Colors.amber.shade50,
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.amber.shade200),
-            ),
-            child: Row(
-              children: [
-                Icon(Icons.key, color: Colors.amber.shade900),
-                const SizedBox(width: 12),
-                const Expanded(
-                  child: Text(
-                    '🔑 Tous les comptes : password123',
+                    '💡 Cliquez sur une carte pour vous connecter instantanément',
                     style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
@@ -450,7 +441,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  // Carte de compte test
+  // Carte de compte test avec connexion 1-clic
   Widget _buildTestAccountCard({
     required IconData icon,
     required String role,
@@ -460,80 +451,124 @@ class _LoginScreenState extends State<LoginScreen> {
     required String description,
     required MaterialColor color,
   }) {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: () => _fillAndLogin(email, password),
+    return Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
-        splashColor: color[200]!.withOpacity(0.3),
-        highlightColor: color[100]!.withOpacity(0.5),
+        side: BorderSide(color: color[200]!, width: 2),
+      ),
+      child: InkWell(
+        onTap: () => _handleQuickLogin(email, password),
+        borderRadius: BorderRadius.circular(12),
         child: Container(
-          padding: const EdgeInsets.all(12),
+          padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            border: Border.all(color: color[200]!, width: 2),
             borderRadius: BorderRadius.circular(12),
-            color: color[50]!,
+            gradient: LinearGradient(
+              colors: [color[50]!, Colors.white],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
           ),
-          child: Row(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Icône du rôle
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: color[100]!,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Icon(icon, color: color[700]!, size: 24),
+              Row(
+                children: [
+                  // Avatar avec icône
+                  Container(
+                    width: 56,
+                    height: 56,
+                    decoration: BoxDecoration(
+                      color: color[100]!,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Icon(icon, color: color[700]!, size: 28),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          name,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(height: 4),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            color: color[200]!,
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: Text(
+                            role,
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: color[900]!,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    size: 18,
+                    color: color[400]!,
+                  ),
+                ],
               ),
-              const SizedBox(width: 12),
-              
-              // Informations du compte
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              const SizedBox(height: 12),
+              Text(
+                description,
+                style: TextStyle(
+                  fontSize: 13,
+                  color: Colors.grey.shade700,
+                  height: 1.4,
+                ),
+              ),
+              const SizedBox(height: 12),
+              // Email (lecture seule, plus de bouton copier)
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.7),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: color[200]!),
+                ),
+                child: Row(
                   children: [
-                    // Rôle + Nom
-                    Text(
-                      '$role - $name',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: color[900]!,
-                      ),
+                    Icon(
+                      Icons.email_outlined,
+                      size: 16,
+                      color: Colors.grey.shade600,
                     ),
-                    const SizedBox(height: 4),
-                    
-                    // Email (police réduite, gris)
-                    Text(
-                      email,
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: Colors.grey.shade600,
-                        fontFamily: 'monospace',
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        email,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'monospace',
+                          color: Colors.grey.shade800,
+                        ),
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: 4),
-                    
-                    // Description
-                    Text(
-                      description,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey.shade700,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
-              ),
-              
-              // Indicateur visuel de clic
-              Icon(
-                Icons.arrow_forward_ios,
-                size: 16,
-                color: color[400]!,
               ),
             ],
           ),
