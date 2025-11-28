@@ -1,0 +1,28 @@
+# robots.txt for MediDesk
+# https://medidesk.fr
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://medidesk.fr/sitemap.xml
+
+# Disallow development/internal paths
+Disallow: /backend_contact.py
+Disallow: /backend_stripe.py
+Disallow: /.env
+Disallow: /.env.example
+Disallow: /archive-beta/
+
+# Allow all major crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
