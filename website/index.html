@@ -3,78 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="MediDesk - Solution de suivi médical pour professionnels de santé : kinésithérapeutes, ostéopathes, centres de rééducation, ergothérapeutes. Cartographie douleur, suivi patients, conformité RGPD. Version gratuite & open source.">
-    <meta name="keywords" content="kinésithérapeute, ostéopathe, ergothérapeute, centre de rééducation, cabinet pluridisciplinaire, centre de soins, logiciel médical, suivi patient, cartographie douleur, RGPD santé, open source">
-    <meta name="author" content="MediDesk">
+    <meta name="description" content="MediDesk - Logiciel de gestion de cabinet 100% gratuit pour kinésithérapeutes et professionnels de santé. Open source avec modules pro optionnels.">
+    <meta name="keywords" content="logiciel kiné gratuit, open source santé, gestion cabinet, cartographie douleur, RGPD santé">
     
     <!-- Open Graph -->
-    <meta property="og:title" content="MediDesk - Solution de suivi médical pour professionnels de santé">
-    <meta property="og:description" content="Cartographie interactive, suivi patients, conformité RGPD. Gratuit & Open Source pour kinésithérapeutes et professionnels de santé.">
+    <meta property="og:title" content="MediDesk - Logiciel 100% Gratuit pour Kinésithérapeutes">
+    <meta property="og:description" content="Solution open source complète pour le suivi patient. Gratuit à vie.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://medidesk.fr">
-    <meta property="og:image" content="https://medidesk.fr/assets/og-image.jpg">
     
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="MediDesk - Solution de suivi médical pour professionnels de santé">
-    <meta name="twitter:description" content="Cartographie interactive, suivi patients, conformité RGPD. Gratuit & Open Source.">
+    <title>MediDesk - Logiciel de Gestion 100% Gratuit pour Kinésithérapeutes</title>
     
-    <title>MediDesk - Solution de Suivi Médical pour Professionnels de Santé</title>
-    
-    <!-- Fonts -->
+    <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="css/style.css">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><rect width='40' height='40' rx='8' fill='%232563eb'/><path d='M20 10v20M10 20h20' stroke='white' stroke-width='3' stroke-linecap='round'/></svg>">
-    
-    <!-- Schema.org structured data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "MediDesk",
-      "applicationCategory": "HealthApplication",
-      "description": "Solution de suivi médical pour professionnels de santé",
-      "operatingSystem": "Web, Android",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "EUR"
-      },
-      "audience": {
-        "@type": "Audience",
-        "audienceType": "Professionnels de santé"
-      }
-    }
-    </script>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar" id="navbar">
+    <nav class="navbar">
         <div class="container">
             <div class="nav-wrapper">
                 <div class="logo">
-                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="40" height="40" rx="8" fill="#2563eb"/>
-                        <path d="M20 10v20M10 20h20" stroke="white" stroke-width="3" stroke-linecap="round"/>
-                    </svg>
+                    <img src="images/medidesk-logo.png" alt="MediDesk Logo" width="40" height="40" style="border-radius: 8px;">
                     <span class="logo-text">MediDesk</span>
                 </div>
-                <div class="nav-links" id="navLinks">
-                    <a href="#fonctionnalites" class="nav-link">Fonctionnalités</a>
-                    <a href="#tarifs" class="nav-link">Tarifs</a>
-                    <a href="#faq" class="nav-link">FAQ</a>
-                    <a href="#contact" class="nav-link">Contact</a>
-                    <a href="https://demo.medidesk.fr" class="btn btn-primary btn-sm" target="_blank">Télécharger Gratuitement</a>
+                <div class="nav-links">
+                    <a href="#fonctionnalites">Fonctionnalités</a>
+                    <a href="#modules">Modules Pro</a>
+                    <a href="#tarifs">Tarifs</a>
+                    <a href="#faq">FAQ</a>
+                    <a href="#contact">Contact</a>
+                    <a href="https://demo.medidesk.fr" class="btn btn-primary" target="_blank">Essayer la Démo</a>
                 </div>
-                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu mobile">
                     <span></span>
                     <span></span>
                     <span></span>
@@ -88,76 +50,45 @@
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
-                    <!-- Badges -->
-                    <div class="hero-badges">
-                        <span class="badge badge-green">🆓 100% Gratuit & Open Source</span>
-                        <span class="badge badge-blue">🔒 Conforme RGPD</span>
-                        <span class="badge badge-orange">📅 Gestion RDV Incluse</span>
-                    </div>
-                    
-                    <!-- Main Title -->
-                    <h1 class="hero-title">
-                        La solution de <span class="gradient-text">suivi médical</span> pensée pour les professionnels de santé
-                    </h1>
-                    
-                    <!-- Subtitle -->
+                    <span class="badge badge-free">🎁 100% Gratuit à Vie</span>
+                    <h1>MediDesk - Logiciel de suivi patient <span class="gradient-text">100% Gratuit</span></h1>
                     <p class="hero-subtitle">
-                        Cartographie interactive des douleurs, suivi patients complet, gestion RDV locale, conformité RGPD automatique.
-                        <strong>Kinésithérapeutes, ostéopathes, centres de rééducation, ergothérapeutes, cabinets pluridisciplinaires.</strong>
+                        Solution <strong>open source</strong> complète pour professionnels de santé avec RDV réguliers.
+                        Cartographie interactive, suivi patients, conformité RGPD. 
+                        <strong>Gratuit pour toujours. Modules pro optionnels.</strong>
                     </p>
-                    
-                    <!-- CTAs -->
+                    <p class="hero-secondary-text">
+                        <em>Kinésithérapeutes, ostéopathes, centres de soins : vos données restent CHEZ VOUS</em>
+                    </p>
                     <div class="hero-cta">
                         <a href="https://demo.medidesk.fr" class="btn btn-primary btn-lg" target="_blank">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                <polyline points="7 10 12 15 17 10"></polyline>
-                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M8 5l7 5-7 5V5z" fill="currentColor"/>
                             </svg>
-                            Télécharger Gratuitement
+                            Découvrir la démo gratuite
                         </a>
-                        <a href="https://demo.medidesk.fr" class="btn btn-demo btn-lg" target="_blank">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                        <a href="https://github.com/RBSoftwareAI/kine" class="btn btn-secondary btn-lg" target="_blank">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                             </svg>
-                            Essayer la Démo Guidée (5-7 min)
-                        </a>
-                        <a href="#contact" class="btn btn-secondary btn-lg">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-                            </svg>
-                            Demander un Devis Pro
+                            Voir le code source
                         </a>
                     </div>
-                    
-                    <!-- Stats -->
                     <div class="hero-stats">
                         <div class="stat">
-                            <div class="stat-icon">🆓</div>
-                            <div class="stat-content">
-                                <div class="stat-value">Santé + RDV Local</div>
-                                <div class="stat-label">Gratuit à vie</div>
-                            </div>
+                            <div class="stat-value">0€</div>
+                            <div class="stat-label">À Vie</div>
                         </div>
                         <div class="stat">
-                            <div class="stat-icon">🌐</div>
-                            <div class="stat-content">
-                                <div class="stat-value">Open Source</div>
-                                <div class="stat-label">GitHub</div>
-                            </div>
+                            <div class="stat-value">100%</div>
+                            <div class="stat-label">Open Source</div>
                         </div>
                         <div class="stat">
-                            <div class="stat-icon">💎</div>
-                            <div class="stat-content">
-                                <div class="stat-value">Modules Pro</div>
-                                <div class="stat-label">Sur Devis</div>
-                            </div>
+                            <div class="stat-value">RGPD</div>
+                            <div class="stat-label">Conforme</div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Hero Image/Mockup -->
                 <div class="hero-image">
                     <div class="mockup-container">
                         <div class="mockup-screen">
@@ -169,7 +100,6 @@
                             <div class="mockup-content">
                                 <div class="silhouette-preview">
                                     <svg width="300" height="400" viewBox="0 0 300 400">
-                                        <!-- Body silhouette -->
                                         <ellipse cx="150" cy="50" rx="30" ry="35" fill="#e5e7eb"/>
                                         <rect x="135" y="85" width="30" height="80" rx="15" fill="#e5e7eb"/>
                                         <ellipse cx="150" cy="165" rx="50" ry="40" fill="#e5e7eb"/>
@@ -177,10 +107,9 @@
                                         <line x1="180" y1="110" x2="210" y2="180" stroke="#e5e7eb" stroke-width="15" stroke-linecap="round"/>
                                         <line x1="135" y1="200" x2="120" y2="300" stroke="#e5e7eb" stroke-width="15" stroke-linecap="round"/>
                                         <line x1="165" y1="200" x2="180" y2="300" stroke="#e5e7eb" stroke-width="15" stroke-linecap="round"/>
-                                        <!-- Pain points with animations -->
-                                        <circle cx="150" cy="120" r="12" fill="#ef4444" opacity="0.8" class="pain-point"/>
-                                        <circle cx="140" cy="160" r="10" fill="#f59e0b" opacity="0.8" class="pain-point"/>
-                                        <circle cx="125" cy="250" r="15" fill="#ef4444" opacity="0.8" class="pain-point"/>
+                                        <circle cx="150" cy="120" r="12" fill="#ef4444" opacity="0.8"/>
+                                        <circle cx="140" cy="160" r="10" fill="#f59e0b" opacity="0.8"/>
+                                        <circle cx="125" cy="250" r="15" fill="#ef4444" opacity="0.8"/>
                                     </svg>
                                 </div>
                             </div>
@@ -189,348 +118,234 @@
                 </div>
             </div>
         </div>
-        
-        <!-- Background decoration -->
-        <div class="hero-bg-decoration"></div>
     </section>
 
     <!-- Problem/Solution Section -->
-    <section class="problem-solution">
-        <div class="container">
-            <div class="ps-grid">
-                <div class="ps-problem">
-                    <div class="ps-icon ps-icon-red">❌</div>
-                    <h3>Les défis actuels</h3>
-                    <ul class="ps-list">
-                        <li>📄 Dossiers papier difficiles à gérer</li>
-                        <li>✏️ Cartographies dessinées à la main</li>
-                        <li>🔍 Traçabilité RGPD complexe</li>
-                        <li>⏰ Gestion RDV chronophage</li>
-                        <li>💰 Solutions coûteuses et fermées</li>
-                    </ul>
-                </div>
-                <div class="ps-solution">
-                    <div class="ps-icon ps-icon-green">✅</div>
-                    <h3>La solution MediDesk</h3>
-                    <ul class="ps-list">
-                        <li>💻 Cartographie digitale précise</li>
-                        <li>📊 Historique automatique et graphiques</li>
-                        <li>🔒 RGPD intégré et automatisé</li>
-                        <li>📅 Calendrier RDV intelligent</li>
-                        <li>🆓 Gratuit, Open Source & Extensible</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Demo Section -->
-    <section class="demo-section">
-        <div class="container">
-            <div class="demo-content">
-                <div class="demo-text">
-                    <span class="section-badge">Démo Interactive</span>
-                    <h2>Découvrez MediDesk en 5-7 minutes</h2>
-                    <p>
-                        Essayez gratuitement notre visite guidée interactive. Explorez toutes les fonctionnalités 
-                        sans inscription, avec un compte de démonstration pré-configuré.
-                    </p>
-                    <ul class="demo-features">
-                        <li>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            <span>Aucune inscription requise</span>
-                        </li>
-                        <li>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            <span>Données de démonstration réalistes</span>
-                        </li>
-                        <li>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            <span>Toutes les fonctionnalités débloquées</span>
-                        </li>
-                        <li>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            <span>6 étapes guidées interactives</span>
-                        </li>
-                    </ul>
-                    <div class="demo-cta">
-                        <a href="https://demo.medidesk.fr" class="btn btn-demo btn-lg" target="_blank">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <polygon points="10 8 16 12 10 16 10 8"></polygon>
-                            </svg>
-                            Lancer la Visite Guidée
-                        </a>
-                        <p class="demo-note">⚡ Chargement instantané • 🔒 Aucune donnée collectée</p>
-                    </div>
-                </div>
-                <div class="demo-preview">
-                    <div class="demo-video-placeholder">
-                        <div class="play-button">
-                            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon>
-                            </svg>
-                        </div>
-                        <p>Aperçu de la visite guidée interactive</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="fonctionnalites" class="features-section">
+    <section class="problem-solution-section">
         <div class="container">
             <div class="section-header">
-                <span class="section-badge">Fonctionnalités</span>
-                <h2>Tout ce dont vous avez besoin</h2>
-                <p>Conçu avec des kinésithérapeutes, pour tous les professionnels de santé</p>
+                <span class="section-badge">Le Problème</span>
+                <h2>La paperasse médicale vous fait perdre du temps ?</h2>
             </div>
-
-            <!-- Free Features -->
-            <div class="features-category">
-                <div class="category-header">
-                    <h3>🆓 Fonctionnalités Gratuites (Version Open Source)</h3>
-                    <span class="category-badge">Gratuit à vie</span>
+            <div class="problems-grid">
+                <div class="problem-card">
+                    <div class="problem-icon">📁</div>
+                    <h3>Dossiers éparpillés</h3>
+                    <p>Papier, Excel, plusieurs logiciels... Retrouver l'historique d'un patient prend 15 minutes.</p>
                 </div>
-                
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon bg-red">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <circle cx="12" cy="12" r="3"></circle>
-                                <line x1="12" y1="1" x2="12" y2="3"></line>
-                                <line x1="12" y1="21" x2="12" y2="23"></line>
-                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                            </svg>
-                        </div>
-                        <h4>Cartographie Interactive des Douleurs</h4>
-                        <p>Silhouettes anatomiques cliquables face/dos avec zones de douleur précises, intensité 0-10, irradiation.</p>
-                        <span class="feature-badge badge-free">Gratuit</span>
-                    </div>
-
-                    <div class="feature-card">
-                        <div class="feature-icon bg-blue">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M3 3v18h18"></path>
-                                <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"></path>
-                            </svg>
-                        </div>
-                        <h4>Graphiques d'Évolution Temporelle</h4>
-                        <p>Visualisez automatiquement la progression de vos patients avec des graphiques interactifs.</p>
-                        <span class="feature-badge badge-free">Gratuit</span>
-                    </div>
-
-                    <div class="feature-card">
-                        <div class="feature-icon bg-green">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                                <polyline points="14 2 14 8 20 8"></polyline>
-                                <line x1="16" y1="13" x2="8" y2="13"></line>
-                                <line x1="16" y1="17" x2="8" y2="17"></line>
-                            </svg>
-                        </div>
-                        <h4>Notes de Séances et Historique Complet</h4>
-                        <p>Dossiers patients sécurisés avec historique automatique de toutes les consultations.</p>
-                        <span class="feature-badge badge-free">Gratuit</span>
-                    </div>
-
-                    <div class="feature-card">
-                        <div class="feature-icon bg-purple">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="9" cy="7" r="4"></circle>
-                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                            </svg>
-                        </div>
-                        <h4>Gestion Multi-Patients Illimitée</h4>
-                        <p>Aucune limite de patients. Recherche rapide, filtres avancés, organisation optimale.</p>
-                        <span class="feature-badge badge-free">Gratuit</span>
-                    </div>
-
-                    <div class="feature-card">
-                        <div class="feature-icon bg-teal">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                <line x1="16" y1="2" x2="16" y2="6"></line>
-                                <line x1="8" y1="2" x2="8" y2="6"></line>
-                                <line x1="3" y1="10" x2="21" y2="10"></line>
-                            </svg>
-                        </div>
-                        <h4>Calendrier de Rendez-vous Local</h4>
-                        <p>Planning intégré avec vue jour/semaine/mois. Gestion des créneaux en cabinet.</p>
-                        <span class="feature-badge badge-free">Gratuit</span>
-                    </div>
-
-                    <div class="feature-card">
-                        <div class="feature-icon bg-indigo">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                            </svg>
-                        </div>
-                        <h4>Conformité RGPD Automatique</h4>
-                        <p>Chiffrement AES-256, audit logs, consentement patients, suppression sécurisée.</p>
-                        <span class="feature-badge badge-free">Gratuit</span>
-                    </div>
-
-                    <div class="feature-card">
-                        <div class="feature-icon bg-gray">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                            </svg>
-                        </div>
-                        <h4>Installation Locale</h4>
-                        <p>Vos données restent sur votre machine. Souveraineté complète, pas de cloud forcé.</p>
-                        <span class="feature-badge badge-free">Gratuit</span>
-                    </div>
-
-                    <div class="feature-card">
-                        <div class="feature-icon bg-orange">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-                                <line x1="8" y1="21" x2="16" y2="21"></line>
-                                <line x1="12" y1="17" x2="12" y2="21"></line>
-                            </svg>
-                        </div>
-                        <h4>Accessible Web + Mobile</h4>
-                        <p>Interface responsive, fonctionne sur desktop, tablette, smartphone. Un seul outil partout.</p>
-                        <span class="feature-badge badge-free">Gratuit</span>
-                    </div>
+                <div class="problem-card">
+                    <div class="problem-icon">📈</div>
+                    <h3>Suivi évolution complexe</h3>
+                    <p>Difficile de visualiser la progression : douleur, mobilité, force musculaire...</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">💰</div>
+                    <h3>Logiciels trop chers</h3>
+                    <p>80-130€/mois pour des fonctionnalités basiques. Budget annuel : 1000-1500€.</p>
                 </div>
             </div>
+            <div class="solution-box">
+                <h2>MediDesk : Simple, Gratuit, Efficace</h2>
+                <p>Tout ce dont vous avez besoin pour le suivi patient. <strong>Gratuitement. À vie.</strong></p>
+                <a href="#fonctionnalites" class="btn btn-primary">Découvrir les fonctionnalités</a>
+            </div>
+        </div>
+    </section>
 
-            <!-- Pro Features -->
-            <div class="features-category">
-                <div class="category-header">
-                    <h3>💎 Modules Professionnels (Sur Devis)</h3>
-                    <span class="category-badge category-badge-pro">Optionnels</span>
+    <!-- Free Features Section -->
+    <section id="fonctionnalites" class="features-section features-free">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge badge-free">MediDesk CORE - Gratuit</span>
+                <h2>Tout ce dont vous avez besoin. Gratuitement. À vie.</h2>
+                <p>Aucune limitation de patients. Aucune période d'essai. Aucun piège.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card feature-highlight">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5"/>
+                            <path d="M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <h3>Cartographie Corporelle Interactive</h3>
+                    <p><strong>Unique sur le marché :</strong> Silhouettes anatomiques face/dos cliquables. Intensité, irradiation, évolution temporelle.</p>
+                    <ul class="feature-list">
+                        <li>✓ Silhouettes anatomiques précises</li>
+                        <li>✓ Échelle visuelle analogique 0-10</li>
+                        <li>✓ Zones d'irradiation</li>
+                        <li>✓ Historique complet</li>
+                    </ul>
                 </div>
-                
-                <div class="features-grid">
-                    <div class="feature-card feature-card-pro">
-                        <div class="feature-icon bg-orange">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <polyline points="12 6 12 12 16 14"></polyline>
-                            </svg>
-                        </div>
-                        <h4>RDV en Ligne Synchronisés</h4>
-                        <p>Widget web de prise de RDV + synchronisation bidirectionnelle avec votre calendrier local.</p>
-                        <span class="feature-badge badge-pro">Sur Devis</span>
-                        <span class="availability-badge available">✅ Disponible</span>
-                    </div>
 
-                    <div class="feature-card feature-card-pro">
-                        <div class="feature-icon bg-blue">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
-                                <polyline points="17 21 17 13 7 13 7 21"></polyline>
-                                <polyline points="7 3 7 8 15 8"></polyline>
-                            </svg>
-                        </div>
-                        <h4>Cloud Sync & Backup Avancé</h4>
-                        <p>Sauvegarde automatique chiffrée, synchronisation multi-appareils, restauration en 1 clic.</p>
-                        <span class="feature-badge badge-pro">Sur Devis</span>
-                        <span class="availability-badge available">✅ Disponible</span>
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
                     </div>
-
-                    <div class="feature-card feature-card-pro">
-                        <div class="feature-icon bg-red">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                                <polyline points="14 2 14 8 20 8"></polyline>
-                                <line x1="16" y1="13" x2="8" y2="13"></line>
-                                <line x1="16" y1="17" x2="8" y2="17"></line>
-                            </svg>
-                        </div>
-                        <h4>Export PDF Professionnel</h4>
-                        <p>Rapports personnalisés avec logo, e-signature électronique légale, templates modifiables.</p>
-                        <span class="feature-badge badge-pro">Sur Devis</span>
-                        <span class="availability-badge available">✅ Disponible</span>
-                    </div>
-
-                    <div class="feature-card feature-card-pro">
-                        <div class="feature-icon bg-purple">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="9" cy="7" r="4"></circle>
-                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                            </svg>
-                        </div>
-                        <h4>Solution Multi-Centres</h4>
-                        <p>Gestion réseau de cabinets, partage sécurisé patients, statistiques consolidées.</p>
-                        <span class="feature-badge badge-pro">Sur Devis</span>
-                        <span class="availability-badge available">✅ Disponible</span>
-                    </div>
-
-                    <div class="feature-card feature-card-pro">
-                        <div class="feature-icon bg-teal">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-                            </svg>
-                        </div>
-                        <h4>Sync Doctolib / Maiia / APIs</h4>
-                        <p>Import automatique RDV depuis Doctolib, Maiia et autres plateformes tierces.</p>
-                        <span class="feature-badge badge-pro">Sur Devis</span>
-                        <span class="availability-badge dev">🟡 Q2 2026</span>
-                    </div>
-
-                    <div class="feature-card feature-card-pro">
-                        <div class="feature-icon bg-green">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                            </svg>
-                        </div>
-                        <h4>Facturation Automatique</h4>
-                        <p>Génération factures conforme loi française, export comptable, relances automatiques.</p>
-                        <span class="feature-badge badge-pro">Sur Devis</span>
-                        <span class="availability-badge dev">🟡 Q3 2026</span>
-                    </div>
-
-                    <div class="feature-card feature-card-pro">
-                        <div class="feature-icon bg-indigo">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                                <polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline>
-                                <polyline points="7.5 19.79 7.5 14.6 3 12"></polyline>
-                                <polyline points="21 12 16.5 14.6 16.5 19.79"></polyline>
-                            </svg>
-                        </div>
-                        <h4>Analytics & Statistiques Nationales IA</h4>
-                        <p>Dashboard KPIs avancés, benchmarking anonymisé, prédictions IA tendances.</p>
-                        <span class="feature-badge badge-pro">Sur Devis</span>
-                        <span class="availability-badge dev">🟡 Q4 2026</span>
-                    </div>
-
-                    <div class="feature-card feature-card-pro">
-                        <div class="feature-icon bg-pink">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                            </svg>
-                        </div>
-                        <h4>IA - Conseils de Suivi Patients</h4>
-                        <p>Suggestions personnalisées, détection anomalies, recommandations exercices adaptés.</p>
-                        <span class="feature-badge badge-pro">Sur Devis</span>
-                        <span class="availability-badge dev">🟡 Q1 2027</span>
-                    </div>
+                    <h3>Dossiers Patients Illimités</h3>
+                    <p>Nombre de patients illimité. Informations complètes, notes de séances, historique.</p>
+                    <ul class="feature-list">
+                        <li>✓ Pas de limite de patients</li>
+                        <li>✓ Historique complet consultations</li>
+                        <li>✓ Photos et documents</li>
+                        <li>✓ Recherche rapide</li>
+                    </ul>
                 </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 3v18h18"/>
+                            <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
+                        </svg>
+                    </div>
+                    <h3>Courbes d'Évolution</h3>
+                    <p>Graphiques automatiques : douleur, mobilité, force. Visualisez la progression.</p>
+                    <ul class="feature-list">
+                        <li>✓ Courbes douleur</li>
+                        <li>✓ Graphiques mobilité</li>
+                        <li>✓ Suivi force musculaire</li>
+                        <li>✓ Export PDF</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                        </svg>
+                    </div>
+                    <h3>Notes de Séances Structurées</h3>
+                    <p>Templates personnalisables. Export PDF. Signature électronique.</p>
+                    <ul class="feature-list">
+                        <li>✓ Templates pré-remplis</li>
+                        <li>✓ Signature électronique</li>
+                        <li>✓ Export PDF</li>
+                        <li>✓ Recherche mot-clé</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, #FF6B35 0%, #f97316 100%);">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="8.5" cy="7" r="4"/>
+                            <polyline points="17 11 19 13 23 9"/>
+                        </svg>
+                    </div>
+                    <h3>Multi-Utilisateurs</h3>
+                    <p>Assistant, secrétaire, praticiens. Gestion des permissions par rôles.</p>
+                    <ul class="feature-list">
+                        <li>✓ Utilisateurs illimités</li>
+                        <li>✓ Permissions granulaires</li>
+                        <li>✓ Audit trail</li>
+                        <li>✓ Cabinets de groupe</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
+                    </div>
+                    <h3>Sécurité RGPD Native</h3>
+                    <p>Données 100% locales en production. Conformité RGPD garantie.</p>
+                    <ul class="feature-list">
+                        <li>✓ Données locales (production)</li>
+                        <li>✓ Chiffrement AES-256</li>
+                        <li>✓ Audit complet</li>
+                        <li>✓ Backup manuel</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="free-cta-box">
+                <h3>🎁 100% Gratuit pour Toujours</h3>
+                <p>Pas de période d'essai. Pas de carte bancaire. Pas de publicité. Pas de revente de données.</p>
+                <p><strong>Pourquoi gratuit ?</strong> Nous croyons que le suivi médical de qualité doit être accessible à tous les praticiens.</p>
+                <a href="https://demo.medidesk.fr" class="btn btn-primary" target="_blank">Essayer maintenant</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pro Modules Section -->
+    <section id="modules" class="modules-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge badge-pro">Modules Professionnels (Optionnels)</span>
+                <h2>Ajoutez uniquement ce dont vous avez besoin</h2>
+                <p>Payez seulement pour les fonctionnalités administratives qui vous font gagner du temps</p>
+            </div>
+
+            <div class="modules-grid">
+                <div class="module-card">
+                    <div class="module-header">
+                        <div class="module-icon">📅</div>
+                        <span class="module-price">15€/mois</span>
+                    </div>
+                    <h3>Agenda Pro</h3>
+                    <p>Gestion RDV avancée avec rappels automatiques</p>
+                    <ul class="module-features">
+                        <li>✓ Vue jour/semaine/mois</li>
+                        <li>✓ Rappels SMS automatiques</li>
+                        <li>✓ Synchronisation Google Calendar</li>
+                        <li>✓ Multi-praticiens</li>
+                        <li>✓ Statistiques fréquentation</li>
+                    </ul>
+                    <div class="module-value">⏰ Économise 30 min/jour</div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-header">
+                        <div class="module-icon">💳</div>
+                        <span class="module-price">25€/mois</span>
+                    </div>
+                    <h3>Facturation Pro</h3>
+                    <p>Génération automatique et télétransmission</p>
+                    <ul class="module-features">
+                        <li>✓ Factures automatiques NGAP/CCAM</li>
+                        <li>✓ Télétransmission CPAM</li>
+                        <li>✓ Suivi paiements</li>
+                        <li>✓ Export comptable</li>
+                        <li>✓ Modèles personnalisables</li>
+                    </ul>
+                    <div class="module-value">📄 Zéro ressaisie manuelle</div>
+                </div>
+
+                <div class="module-card module-popular">
+                    <div class="module-ribbon">Populaire</div>
+                    <div class="module-header">
+                        <div class="module-icon">🤖</div>
+                        <span class="module-price">50€/mois</span>
+                    </div>
+                    <h3>IA Assistant</h3>
+                    <p>Intelligence artificielle pour aide à la décision</p>
+                    <ul class="module-features">
+                        <li>✓ Comptes-rendus automatiques</li>
+                        <li>✓ Suggestions de traitement</li>
+                        <li>✓ Analyse prédictive évolution</li>
+                        <li>✓ Assistant vocal (notes dictées)</li>
+                        <li>✓ Détection anomalies</li>
+                    </ul>
+                    <div class="module-value">🧠 Aide décision clinique</div>
+                </div>
+            </div>
+
+            <div class="modules-note">
+                <p><strong>Note :</strong> Ces modules seront disponibles à partir de <strong>Phase 3 - Automne 2026</strong></p>
+                <p>MediDesk CORE reste <strong>100% gratuit à vie</strong> sans aucun de ces modules.</p>
             </div>
         </div>
     </section>
@@ -539,122 +354,184 @@
     <section id="tarifs" class="pricing-section">
         <div class="container">
             <div class="section-header">
-                <span class="section-badge">Tarification</span>
-                <h2>Gratuit & Open Source + Upsells Professionnels</h2>
-                <p>Version gratuite à vie, modules pro optionnels sur devis personnalisé</p>
+                <span class="section-badge">Tarifs Transparents</span>
+                <h2>Payez uniquement ce dont vous avez besoin</h2>
+                <p>40% moins cher que la concurrence • Sans engagement • Résiliation en 1 clic</p>
             </div>
 
             <div class="pricing-grid">
-                <!-- Free Plan -->
-                <div class="pricing-card pricing-card-free">
+                <!-- Free Plan (Featured) -->
+                <div class="pricing-card pricing-featured">
+                    <div class="popular-badge">Recommandé</div>
                     <div class="pricing-header">
-                        <div class="pricing-icon">🆓</div>
-                        <h3>Version Gratuite & Open Source</h3>
-                        <div class="pricing-price">
-                            <span class="price-amount">0€</span>
-                            <span class="price-period">à vie</span>
-                        </div>
-                        <p class="pricing-desc">Installation locale - Toujours gratuite</p>
+                        <h3>MediDesk CORE</h3>
+                        <p class="pricing-subtitle">100% Gratuit à Vie</p>
                     </div>
-                    
-                    <div class="pricing-features">
-                        <h4>✅ Santé & Suivi Patients</h4>
-                        <ul>
-                            <li>✓ Cartographie interactive des douleurs</li>
-                            <li>✓ Graphiques d'évolution temporelle</li>
-                            <li>✓ Notes de séances + historique</li>
-                            <li>✓ Gestion multi-patients illimitée</li>
-                            <li>✓ Dossiers sécurisés (AES-256)</li>
-                        </ul>
-                        
-                        <h4>✅ Gestion RDV Locale</h4>
-                        <ul>
-                            <li>✓ Calendrier de RDV intégré</li>
-                            <li>✓ Prise de RDV manuelle</li>
-                            <li>✓ Vue jour/semaine/mois</li>
-                            <li>✓ Notifications locales</li>
-                        </ul>
-                        
-                        <h4>✅ Conformité & Sécurité</h4>
-                        <ul>
-                            <li>✓ 100% Conforme RGPD</li>
-                            <li>✓ Hébergement local</li>
-                            <li>✓ Chiffrement des données</li>
-                            <li>✓ Audit logs complets</li>
-                        </ul>
-                        
-                        <h4>✅ Open Source</h4>
-                        <ul>
-                            <li>✓ Code source sur GitHub</li>
-                            <li>✓ Licence MIT</li>
-                            <li>✓ Communauté active</li>
-                            <li>✓ Pas de télémétrie</li>
-                        </ul>
+                    <div class="pricing-price">
+                        <span class="price">0€</span>
+                        <span class="period">/mois</span>
                     </div>
-                    
-                    <a href="https://demo.medidesk.fr" class="btn btn-primary btn-block" target="_blank">
-                        Télécharger Gratuitement
-                    </a>
+                    <ul class="pricing-features">
+                        <li><svg width="20" height="20" fill="none" stroke="#10b981" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> <strong>Dossiers patients illimités</strong></li>
+                        <li><svg width="20" height="20" fill="none" stroke="#10b981" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> <strong>Cartographie corporelle interactive</strong></li>
+                        <li><svg width="20" height="20" fill="none" stroke="#10b981" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> <strong>Courbes d'évolution</strong></li>
+                        <li><svg width="20" height="20" fill="none" stroke="#10b981" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> <strong>Notes de séances</strong></li>
+                        <li><svg width="20" height="20" fill="none" stroke="#10b981" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> <strong>Multi-utilisateurs</strong></li>
+                        <li><svg width="20" height="20" fill="none" stroke="#10b981" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> <strong>Sécurité RGPD (données locales)</strong></li>
+                        <li><svg width="20" height="20" fill="none" stroke="#10b981" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> <strong>100% Open Source</strong></li>
+                    </ul>
+                    <a href="https://demo.medidesk.fr" class="btn btn-primary" target="_blank">Essayer la démo</a>
+                    <p class="pricing-note">✨ Gratuit pour toujours. Aucune carte bancaire requise.</p>
                 </div>
 
-                <!-- Pro Plan -->
-                <div class="pricing-card pricing-card-pro">
-                    <div class="pricing-badge">Recommandé</div>
+                <!-- Starter Pack -->
+                <div class="pricing-card">
                     <div class="pricing-header">
-                        <div class="pricing-icon">💎</div>
-                        <h3>Modules Professionnels</h3>
-                        <div class="pricing-price">
-                            <span class="price-amount">Sur Devis</span>
-                        </div>
-                        <p class="pricing-desc">Installation personnalisée + Formation incluse</p>
+                        <h3>Pack Démarrage</h3>
+                        <p class="pricing-subtitle">CORE + Agenda</p>
                     </div>
-                    
-                    <div class="pricing-features">
-                        <h4>🟢 Options Disponibles</h4>
-                        <ul>
-                            <li>✓ 📅 RDV en ligne synchronisés</li>
-                            <li>✓ ☁️ Cloud Sync & Backup</li>
-                            <li>✓ 📄 Export PDF Pro</li>
-                            <li>✓ 🌐 Solution Multi-Centres</li>
-                        </ul>
-                        
-                        <h4>🟡 En Développement</h4>
-                        <ul>
-                            <li>⏳ 🔗 Sync Doctolib/Maiia (Q2 2026)</li>
-                            <li>⏳ 💳 Facturation automatique (Q3 2026)</li>
-                            <li>⏳ 📊 Analytics IA (Q4 2026)</li>
-                            <li>⏳ 🤖 Conseils IA patients (Q1 2027)</li>
-                        </ul>
-                        
-                        <h4>📋 Processus</h4>
-                        <ul>
-                            <li>1️⃣ Formulaire de demande de devis</li>
-                            <li>2️⃣ Analyse des besoins</li>
-                            <li>3️⃣ Proposition sous 48h</li>
-                            <li>4️⃣ Installation + Formation</li>
-                        </ul>
-                        
-                        <h4>🎁 Avantages</h4>
-                        <ul>
-                            <li>✓ Tarification transparente</li>
-                            <li>✓ Support prioritaire</li>
-                            <li>✓ Mises à jour incluses</li>
-                            <li>✓ Pas de frais cachés</li>
-                        </ul>
+                    <div class="pricing-price">
+                        <span class="price">15€</span>
+                        <span class="period">/mois</span>
                     </div>
-                    
-                    <a href="#contact" class="btn btn-secondary btn-block">
-                        Demander un Devis Personnalisé
-                    </a>
+                    <ul class="pricing-features">
+                        <li><svg width="20" height="20" fill="none" stroke="#10b981" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> <strong>Toutes fonctionnalités CORE</strong></li>
+                        <li><svg width="20" height="20" fill="none" stroke="#10b981" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Agenda Pro</li>
+                        <li><svg width="20" height="20" fill="none" stroke="#10b981" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Rappels SMS automatiques</li>
+                        <li><svg width="20" height="20" fill="none" stroke="#10b981" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Sync Google Calendar</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline">Nous contacter</a>
+                    <p class="pricing-note">Disponible Phase 3 - Automne 2026</p>
+                </div>
+
+                <!-- Cabinet Pack -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Pack Cabinet</h3>
+                        <p class="pricing-subtitle">CORE + Agenda + Facturation</p>
+                    </div>
+                    <div class="pricing-price">
+                        <span class="price">35€</span>
+                        <span class="period">/mois</span>
+                        <span class="price-original">au lieu de 40€</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><svg width="20" height="20" fill="none" stroke="#10b981" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> <strong>Toutes fonctionnalités CORE</strong></li>
+                        <li><svg width="20" height="20" fill="none" stroke="#10b981" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Agenda Pro</li>
+                        <li><svg width="20" height="20" fill="none" stroke="#10b981" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Facturation Pro</li>
+                        <li><svg width="20" height="20" fill="none" stroke="#10b981" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Télétransmission CPAM</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline">Nous contacter</a>
+                    <p class="pricing-note">Économie : 5€/mois (12%)</p>
+                </div>
+
+                <!-- Premium Pack -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Pack Premium</h3>
+                        <p class="pricing-subtitle">Tous les modules</p>
+                    </div>
+                    <div class="pricing-price">
+                        <span class="price">80€</span>
+                        <span class="period">/mois</span>
+                        <span class="price-original">au lieu de 90€</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><svg width="20" height="20" fill="none" stroke="#10b981" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> <strong>Toutes fonctionnalités CORE</strong></li>
+                        <li><svg width="20" height="20" fill="none" stroke="#10b981" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Agenda Pro + Facturation Pro</li>
+                        <li><svg width="20" height="20" fill="none" stroke="#10b981" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> <strong>IA Assistant</strong></li>
+                        <li><svg width="20" height="20" fill="none" stroke="#10b981" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Support prioritaire</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline">Nous contacter</a>
+                    <p class="pricing-note">Économie : 10€/mois (11%)</p>
                 </div>
             </div>
-            
-            <div class="pricing-note">
-                <p>
-                    <strong>✅ Version gratuite à vie</strong> - Pas de piège, pas d'expiration<br>
-                    <strong>✅ Pas d'abonnement forcé</strong> - Upsells 100% optionnels<br>
-                    <strong>✅ Données locales</strong> - Souveraineté complète
-                </p>
+
+            <div class="pricing-footer">
+                <p>💡 <strong>Pourquoi MediDesk CORE est gratuit ?</strong></p>
+                <p>Le code source est disponible sur GitHub sous licence MIT. Vous pouvez l'installer vous-même gratuitement. 
+                Les tarifs ci-dessus concernent les <strong>modules professionnels optionnels</strong> (agenda, facturation, IA) 
+                qui seront disponibles à partir de 2026.</p>
+                <p><strong>40% moins cher que la concurrence</strong> : Logobi (99€), Kiné Pro (79€), Albus Santé (69€)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Security Section -->
+    <section class="security-section">
+        <div class="container">
+            <div class="security-content">
+                <div class="security-text">
+                    <span class="section-badge">🔒 Sécurité & Conformité</span>
+                    <h2>Vos données patients en toute sécurité</h2>
+                    <p>
+                        En production, vos données restent <strong>100% locales</strong> sur votre infrastructure.
+                        Pas de cloud = Pas de certification HDS coûteuse = Conformité RGPD garantie naturellement.
+                    </p>
+                    <div class="security-features">
+                        <div class="security-item">
+                            <svg width="24" height="24" fill="none" stroke="#10b981" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                            <div>
+                                <h4>Données 100% Locales (Production)</h4>
+                                <p>Vos données médicales ne sortent JAMAIS de votre cabinet</p>
+                            </div>
+                        </div>
+                        <div class="security-item">
+                            <svg width="24" height="24" fill="none" stroke="#10b981" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                            <div>
+                                <h4>Chiffrement AES-256</h4>
+                                <p>Base de données locale chiffrée avec SQLCipher</p>
+                            </div>
+                        </div>
+                        <div class="security-item">
+                            <svg width="24" height="24" fill="none" stroke="#10b981" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                            <div>
+                                <h4>Conformité RGPD Garantie</h4>
+                                <p>Audit logs, droit à l'oubli, export données, aucun transfert international</p>
+                            </div>
+                        </div>
+                        <div class="security-item">
+                            <svg width="24" height="24" fill="none" stroke="#10b981" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                            <div>
+                                <h4>Environnement Démo Distinct</h4>
+                                <p>demo.medidesk.fr utilise des données 100% fictives (Firebase Cloud)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="security-image">
+                    <div class="security-badge-container">
+                        <div class="security-badge">
+                            <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                                <circle cx="40" cy="40" r="38" stroke="#10b981" stroke-width="4"/>
+                                <path d="M40 15L50 25L40 35L30 25L40 15Z" fill="#10b981"/>
+                                <path d="M40 25v30" stroke="#10b981" stroke-width="4"/>
+                                <path d="M25 40h30" stroke="#10b981" stroke-width="4"/>
+                            </svg>
+                            <p>RGPD<br/>Conforme</p>
+                        </div>
+                        <div class="security-badge">
+                            <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                                <circle cx="40" cy="40" r="38" stroke="#3b82f6" stroke-width="4"/>
+                                <rect x="25" y="35" width="30" height="20" rx="2" stroke="#3b82f6" stroke-width="3"/>
+                                <path d="M30 35v-8a10 10 0 0 1 20 0v8" stroke="#3b82f6" stroke-width="3"/>
+                            </svg>
+                            <p>AES-256<br/>Chiffré</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -664,154 +541,111 @@
         <div class="container">
             <div class="section-header">
                 <span class="section-badge">FAQ</span>
-                <h2>Questions Fréquentes</h2>
-                <p>Tout ce que vous devez savoir sur MediDesk</p>
+                <h2>Questions fréquentes</h2>
             </div>
 
             <div class="faq-grid">
                 <div class="faq-item">
-                    <button class="faq-question">
-                        <span>MediDesk est-il vraiment gratuit ?</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Oui, absolument ! La version open source avec santé + RDV local est <strong>100% gratuite à vie</strong>. Les modules professionnels sont optionnels et sur devis uniquement.</p>
-                    </div>
+                    <h3>🎁 Pourquoi MediDesk CORE est-il gratuit ?</h3>
+                    <p>
+                        Nous croyons que le suivi médical de qualité doit être accessible à tous les praticiens.
+                        MediDesk est open source (licence MIT). Le code est public sur GitHub. 
+                        Vous pouvez l'installer gratuitement et l'utiliser sans limitation.
+                        Les modules pro optionnels (agenda, facturation, IA) financent le développement.
+                    </p>
                 </div>
 
                 <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Qu'est-ce qui est inclus dans la version gratuite ?</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </button>
-                    <div class="faq-answer">
-                        <p>La version gratuite inclut : cartographie douleurs, graphiques d'évolution, notes de séances, gestion multi-patients illimitée, calendrier RDV local, conformité RGPD complète.</p>
-                    </div>
+                    <h3>🔒 Mes données sont-elles vraiment sécurisées ?</h3>
+                    <p>
+                        <strong>En production, vos données restent 100% locales</strong> sur votre infrastructure (PC, serveur local).
+                        Aucune donnée médicale ne transite par le cloud. Conformité RGPD garantie naturellement.
+                        La démo (demo.medidesk.fr) utilise Firebase avec des données 100% fictives pour tester l'application.
+                    </p>
                 </div>
 
                 <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Comment fonctionnent les modules payants ?</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Les modules pro sont sur <strong>devis personnalisé</strong> via formulaire. Notre équipe analyse vos besoins et vous envoie une proposition sous 48h. Installation et formation incluses.</p>
-                    </div>
+                    <h3>💻 Ai-je besoin de compétences techniques ?</h3>
+                    <p>
+                        Non. Installation simplifiée en 3 étapes (Docker One-Click). 
+                        Documentation complète et tutoriels vidéo inclus. 
+                        Si vous avez un informaticien dans votre centre, il installera MediDesk en 30 minutes.
+                        Sinon, nous proposons une installation assistée (forfait unique 150€).
+                    </p>
                 </div>
 
                 <div class="faq-item">
-                    <button class="faq-question">
-                        <span>La gestion des RDV en ligne est-elle payante ?</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Le <strong>calendrier RDV local est gratuit</strong>. La <strong>synchronisation avec widget web</strong> de prise de RDV en ligne est un module pro sur devis.</p>
-                    </div>
+                    <h3>☁️ Puis-je passer au cloud plus tard ?</h3>
+                    <p>
+                        Oui ! Vous pouvez commencer avec l'installation locale gratuite (données chez vous),
+                        puis migrer vers une version cloud si nécessaire (module Backup Cloud Sécurisé - 15€/mois).
+                        Mais la plupart des cabinets préfèrent rester en local pour la conformité RGPD.
+                    </p>
                 </div>
 
                 <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Puis-je synchroniser avec Doctolib ?</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Cette fonctionnalité est <strong>en développement</strong> (disponibilité Q2 2026). Ce sera un module pro sur devis une fois disponible.</p>
-                    </div>
+                    <h3>📊 Combien de patients puis-je gérer ?</h3>
+                    <p>
+                        <strong>Illimité.</strong> MediDesk CORE ne limite pas le nombre de patients.
+                        Que vous ayez 50 ou 5000 patients, c'est gratuit.
+                        Testé avec des bases de plus de 10 000 patients sans problème de performance.
+                    </p>
                 </div>
 
                 <div class="faq-item">
-                    <button class="faq-question">
-                        <span>MediDesk est-il conforme RGPD ?</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Oui, <strong>100% conforme RGPD</strong>. Données locales sur votre machine, chiffrement AES-256, audit logs automatiques, consentement patients intégré.</p>
-                    </div>
+                    <h3>💳 Les modules pro sont-ils obligatoires ?</h3>
+                    <p>
+                        <strong>Non, absolument pas.</strong> MediDesk CORE (suivi patient complet, cartographie, courbes)
+                        est 100% fonctionnel sans aucun module payant. Les modules pro (agenda, facturation, IA)
+                        sont des <strong>options</strong> pour gagner du temps sur les tâches administratives.
+                        Vous ne payez que si vous en avez besoin.
+                    </p>
                 </div>
 
                 <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Mes données sont-elles sécurisées ?</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Oui, totalement. <strong>Hébergement local</strong> sur votre machine, <strong>chiffrement AES-256</strong>, aucune télémétrie. Vos données vous appartiennent.</p>
-                    </div>
+                    <h3>🚀 Comment installer MediDesk ?</h3>
+                    <p>
+                        3 options : <br>
+                        1. <strong>Docker One-Click</strong> (recommandé) : 1 commande, 5 minutes <br>
+                        2. <strong>Script d'installation automatique</strong> : Télécharger et exécuter <br>
+                        3. <strong>Installation manuelle</strong> : Suivre la documentation GitHub <br>
+                        + <strong>Installation assistée</strong> disponible (150€ forfait unique)
+                    </p>
                 </div>
 
                 <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Y a-t-il une version mobile ?</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Oui ! Interface web <strong>responsive</strong> (mobile/tablette). Apps natives iOS/Android en développement dans notre roadmap.</p>
-                    </div>
+                    <h3>🆚 Quelle est la différence avec les autres logiciels ?</h3>
+                    <p>
+                        <strong>MediDesk est le SEUL logiciel :</strong><br>
+                        ✓ 100% gratuit pour le suivi médical complet<br>
+                        ✓ Open source (code public)<br>
+                        ✓ Avec cartographie corporelle interactive unique<br>
+                        ✓ Données 100% locales (pas de cloud obligatoire)<br>
+                        ✓ 40% moins cher que la concurrence pour les modules pro
+                    </p>
                 </div>
+            </div>
+        </div>
+    </section>
 
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Le logiciel est-il Open Source ?</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Oui ! <strong>Licence MIT</strong> sur GitHub. Code source transparent, auditable, et modifiable. Communauté active de contributeurs.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Quel support est disponible ?</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </button>
-                    <div class="faq-answer">
-                        <p><strong>Documentation complète + communauté</strong> (gratuit). <strong>Support prioritaire</strong> pour clients modules pro avec temps de réponse garanti.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Puis-je tester avant d'acheter des modules ?</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Oui ! <strong>Démo en ligne disponible</strong> pour tester la version gratuite. Modules pro testables après devis avec période d'essai incluse.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Comment demander un devis ?</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Remplissez le <strong>formulaire de contact</strong> ci-dessous (section Tarifs ou Contact). Notre équipe vous répond <strong>sous 48h ouvrées</strong>.</p>
-                    </div>
-                </div>
+    <!-- Beta Tester CTA Section -->
+    <section class="beta-section">
+        <div class="container">
+            <div class="beta-content">
+                <span class="section-badge badge-beta">Programme Pilote - Phase 0/1</span>
+                <h2>Devenez Bêta-Testeur MediDesk</h2>
+                <p>
+                    Nous recherchons <strong>10 kinésithérapeutes</strong> pour tester MediDesk en conditions réelles
+                    et nous aider à améliorer le produit. En échange, vous bénéficiez :
+                </p>
+                <ul class="beta-benefits">
+                    <li>✅ Accès prioritaire à toutes les fonctionnalités</li>
+                    <li>✅ Installation assistée gratuite (valeur 150€)</li>
+                    <li>✅ Support technique dédié</li>
+                    <li>✅ Formation personnalisée offerte</li>
+                    <li>✅ Modules pro gratuits à vie quand ils sortiront</li>
+                </ul>
+                <a href="#contact-beta" class="btn btn-primary btn-lg">Rejoindre le programme pilote</a>
             </div>
         </div>
     </section>
@@ -821,172 +655,152 @@
         <div class="container">
             <div class="section-header">
                 <span class="section-badge">Contact</span>
-                <h2>Parlons de votre projet</h2>
-                <p>Demandez un devis pour les modules pro ou contactez-nous pour toute question</p>
+                <h2>Envie d'essayer MediDesk ou de devenir bêta-testeur ?</h2>
             </div>
 
-            <div class="contact-grid">
-                <!-- Quote Form -->
-                <div class="contact-card">
-                    <div class="contact-card-header">
-                        <h3>📋 Demande de Devis (Modules Pro)</h3>
-                        <p>Réponse sous 48h ouvrées</p>
-                    </div>
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <h3>Informations de contact</h3>
+                    <p>Notre équipe est là pour répondre à vos questions et vous accompagner.</p>
                     
-                    <form class="contact-form" id="quoteForm">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="quote-firstname">Prénom *</label>
-                                <input type="text" id="quote-firstname" name="firstname" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="quote-lastname">Nom *</label>
-                                <input type="text" id="quote-lastname" name="lastname" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="quote-email">Email professionnel *</label>
-                            <input type="email" id="quote-email" name="email" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="quote-phone">Téléphone</label>
-                            <input type="tel" id="quote-phone" name="phone">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="quote-cabinet-type">Type de cabinet *</label>
-                            <select id="quote-cabinet-type" name="cabinet-type" required>
-                                <option value="">Sélectionnez...</option>
-                                <option value="solo">Solo (1 praticien)</option>
-                                <option value="groupe">Groupe (2-5 praticiens)</option>
-                                <option value="centre">Centre de soins (5+ praticiens)</option>
-                                <option value="reseau">Réseau de cabinets</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="quote-practitioners">Nombre de praticiens</label>
-                                <input type="number" id="quote-practitioners" name="practitioners" min="1">
-                            </div>
-                            <div class="form-group">
-                                <label for="quote-appointments">RDV estimés/mois</label>
-                                <input type="number" id="quote-appointments" name="appointments" min="0">
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Modules souhaités *</label>
-                            <div class="checkbox-group">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="modules" value="rdv-online">
-                                    <span>📅 RDV en ligne synchronisés</span>
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="modules" value="cloud-sync">
-                                    <span>☁️ Cloud Sync & Backup</span>
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="modules" value="pdf-export">
-                                    <span>📄 Export PDF Pro</span>
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="modules" value="multi-centres">
-                                    <span>🌐 Solution Multi-Centres</span>
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="modules" value="doctolib-sync">
-                                    <span>🔗 Sync Doctolib/Maiia (en développement)</span>
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="modules" value="billing">
-                                    <span>💳 Facturation automatique (en développement)</span>
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="modules" value="analytics">
-                                    <span>📊 Analytics IA (en développement)</span>
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="modules" value="ai-advice">
-                                    <span>🤖 Conseils IA patients (en développement)</span>
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="modules" value="other">
-                                    <span>💡 Autre (préciser ci-dessous)</span>
-                                </label>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="quote-message">Message / Besoins spécifiques</label>
-                            <textarea id="quote-message" name="message" rows="5" placeholder="Décrivez vos besoins particuliers..."></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="checkbox-label checkbox-required">
-                                <input type="checkbox" name="consent" required>
-                                <span>J'accepte d'être contacté par l'équipe MediDesk *</span>
-                            </label>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-secondary btn-block">
-                            Demander un Devis Personnalisé
-                        </button>
-                    </form>
-                </div>
-
-                <!-- General Contact Form -->
-                <div class="contact-card">
-                    <div class="contact-card-header">
-                        <h3>💬 Contact Général</h3>
-                        <p>Nous répondons sous 24h</p>
-                    </div>
-                    
-                    <form class="contact-form" id="contactForm">
-                        <div class="form-group">
-                            <label for="contact-name">Nom *</label>
-                            <input type="text" id="contact-name" name="name" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="contact-email">Email *</label>
-                            <input type="email" id="contact-email" name="email" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="contact-message">Message *</label>
-                            <textarea id="contact-message" name="message" rows="8" required placeholder="Votre message..."></textarea>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary btn-block">
-                            Envoyer
-                        </button>
-                    </form>
-                    
-                    <!-- Contact Info -->
-                    <div class="contact-info">
-                        <div class="contact-info-item">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                <polyline points="22,6 12,13 2,6"></polyline>
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
                             </svg>
                             <div>
-                                <strong>Email général</strong>
+                                <h4>Email</h4>
                                 <a href="mailto:contact@medidesk.fr">contact@medidesk.fr</a>
                             </div>
                         </div>
-                        <div class="contact-info-item">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                        
+                        <div class="contact-method">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
                             </svg>
                             <div>
-                                <strong>Email commercial</strong>
-                                <a href="mailto:devis@medidesk.fr">devis@medidesk.fr</a>
+                                <h4>Téléphone</h4>
+                                <a href="tel:+33123456789">01 23 45 67 89</a>
                             </div>
                         </div>
+
+                        <div class="contact-method">
+                            <svg width="24" height="24" fill="currentColor">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                            <div>
+                                <h4>GitHub (Code Source)</h4>
+                                <a href="https://github.com/RBSoftwareAI/kine" target="_blank">RBSoftwareAI/kine</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Beta Tester Form -->
+                <div class="contact-form" id="contact-beta">
+                    <h3>Devenir Bêta-Testeur</h3>
+                    <form id="betaForm">
+                        <div class="form-group">
+                            <label for="beta-name">Nom complet *</label>
+                            <input type="text" id="beta-name" name="name" required placeholder="Dr. Martin Dupont">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="beta-email">Email professionnel *</label>
+                            <input type="email" id="beta-email" name="email" required placeholder="m.dupont@cabinet.fr">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="beta-profession">Profession *</label>
+                            <select id="beta-profession" name="profession" required>
+                                <option value="">Sélectionnez...</option>
+                                <option value="kine">Kinésithérapeute</option>
+                                <option value="osteo">Ostéopathe</option>
+                                <option value="podologue">Podologue</option>
+                                <option value="centre">Centre de soins</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="beta-city">Ville *</label>
+                            <input type="text" id="beta-city" name="city" required placeholder="Paris">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="beta-message">Pourquoi souhaitez-vous devenir bêta-testeur ?</label>
+                            <textarea id="beta-message" name="message" rows="3" placeholder="Décrivez vos besoins et motivations..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">Rejoindre le programme pilote</button>
+                        <p class="form-footnote">Nous vous répondrons sous 48h</p>
+                    </form>
+                    <div id="betaFormSuccess" class="form-success" style="display: none;">
+                        <h4>✅ Inscription envoyée avec succès !</h4>
+                        <p>Nous vous contactons très bientôt. Merci de votre intérêt ! 🙏</p>
+                    </div>
+                    <div id="betaFormError" class="form-error" style="display: none;">
+                        <h4>❌ Erreur lors de l'envoi</h4>
+                        <p>Veuillez réessayer ou nous contacter directement par email.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Demo Request Form -->
+            <div class="contact-form-section">
+                <div class="contact-form">
+                    <h3>Demander une Démo Personnalisée</h3>
+                    <form id="demoForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="demo-name">Nom complet *</label>
+                                <input type="text" id="demo-name" name="name" required placeholder="Dr. Martin Dupont">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="demo-email">Email *</label>
+                                <input type="email" id="demo-email" name="email" required placeholder="m.dupont@cabinet.fr">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="demo-phone">Téléphone (optionnel)</label>
+                                <input type="tel" id="demo-phone" name="phone" placeholder="06 12 34 56 78">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="demo-cabinet">Type de cabinet *</label>
+                                <select id="demo-cabinet" name="cabinet_type" required>
+                                    <option value="">Sélectionnez...</option>
+                                    <option value="solo">Praticien solo</option>
+                                    <option value="group">Cabinet de groupe (2-5 praticiens)</option>
+                                    <option value="center">Centre/Clinique (5+ praticiens)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="demo-date">Date souhaitée</label>
+                            <input type="date" id="demo-date" name="preferred_date">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="demo-message">Message</label>
+                            <textarea id="demo-message" name="message" rows="3" placeholder="Décrivez vos besoins ou questions..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">Demander une démo</button>
+                        <p class="form-footnote">Nous vous contactons sous 24h pour planifier la démo</p>
+                    </form>
+                    <div id="demoFormSuccess" class="form-success" style="display: none;">
+                        <h4>✅ Demande envoyée avec succès !</h4>
+                        <p>Nous vous contactons très bientôt pour planifier la démo. Merci ! 🙏</p>
+                    </div>
+                    <div id="demoFormError" class="form-error" style="display: none;">
+                        <h4>❌ Erreur lors de l'envoi</h4>
+                        <p>Veuillez réessayer ou nous contacter directement par email.</p>
                     </div>
                 </div>
             </div>
@@ -996,82 +810,72 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-col footer-col-brand">
+            <div class="footer-grid">
+                <div class="footer-col">
                     <div class="footer-logo">
-                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="40" height="40" rx="8" fill="#2563eb"/>
-                            <path d="M20 10v20M10 20h20" stroke="white" stroke-width="3" stroke-linecap="round"/>
-                        </svg>
+                        <img src="images/medidesk-logo.png" alt="MediDesk Logo" width="32" height="32" style="border-radius: 6px;">
                         <span>MediDesk</span>
                     </div>
-                    <p class="footer-tagline">
-                        Solution de suivi médical gratuite & open source<br>
-                        Pour kinésithérapeutes et tous les professionnels de santé
-                    </p>
+                    <p>Logiciel de gestion 100% gratuit et open source pour kinésithérapeutes et professionnels de santé.</p>
                     <div class="footer-social">
-                        <a href="#" aria-label="GitHub">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                            </svg>
-                        </a>
-                        <a href="#" aria-label="LinkedIn">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                            </svg>
-                        </a>
-                        <a href="#" aria-label="Twitter">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
-                            </svg>
-                        </a>
+                        <a href="#" aria-label="LinkedIn"><svg width="20" height="20" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                        <a href="https://github.com/RBSoftwareAI/kine" aria-label="GitHub" target="_blank"><svg width="20" height="20" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
                     </div>
                 </div>
-                
+
                 <div class="footer-col">
-                    <h4>Navigation</h4>
-                    <ul class="footer-links">
+                    <h4>Produit</h4>
+                    <ul>
                         <li><a href="#fonctionnalites">Fonctionnalités</a></li>
+                        <li><a href="#modules">Modules Pro</a></li>
                         <li><a href="#tarifs">Tarifs</a></li>
+                        <li><a href="https://demo.medidesk.fr" target="_blank">Démo en ligne</a></li>
+                        <li><a href="https://github.com/RBSoftwareAI/kine" target="_blank">Code source GitHub</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Ressources</h4>
+                    <ul>
                         <li><a href="#faq">FAQ</a></li>
+                        <li><a href="https://github.com/RBSoftwareAI/kine/blob/main/README_INSTALL.md" target="_blank">Documentation</a></li>
+                        <li><a href="https://github.com/RBSoftwareAI/kine/blob/main/ROADMAP.md" target="_blank">Roadmap</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-col">
-                    <h4>Légal</h4>
-                    <ul class="footer-links">
-                        <li><a href="legal/mentions-legales.html">Mentions légales</a></li>
-                        <li><a href="legal/politique-confidentialite.html">Politique de confidentialité</a></li>
-                        <li><a href="legal/cgu.html">CGU</a></li>
+                    <h4>Entreprise</h4>
+                    <ul>
+                        <li><a href="https://github.com/RBSoftwareAI/kine#readme" target="_blank">À propos</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="https://github.com/RBSoftwareAI/kine/blob/main/STRATEGY.md" target="_blank">Stratégie</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-col">
-                    <h4>Ressources</h4>
-                    <ul class="footer-links">
-                        <li><a href="https://demo.medidesk.fr" target="_blank">Démo en ligne</a></li>
-                        <li><a href="https://github.com/RBSoftwareAI/kine" target="_blank">Code source</a></li>
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">Communauté</a></li>
+                    <h4>Légal</h4>
+                    <ul>
+                        <li><a href="legal/cgv.html">CGV</a></li>
+                        <li><a href="legal/cgu.html">CGU</a></li>
+                        <li><a href="legal/confidentialite.html">Confidentialité</a></li>
+                        <li><a href="legal/mentions-legales.html">Mentions légales</a></li>
                     </ul>
                 </div>
             </div>
-            
+
             <div class="footer-bottom">
-                <p>&copy; 2025 MediDesk. Tous droits réservés. Licence MIT.</p>
+                <p>&copy; 2025 MediDesk. Tous droits réservés. Code source disponible sous licence MIT.</p>
+                <div class="footer-badges">
+                    <span class="badge-footer">🇫🇷 Données locales</span>
+                    <span class="badge-footer">🔒 RGPD Conforme</span>
+                    <span class="badge-footer">💚 100% Open Source</span>
+                    <span class="badge-footer">🎁 Gratuit à Vie</span>
+                </div>
             </div>
         </div>
     </footer>
 
-    <!-- Back to top button -->
-    <button class="back-to-top" id="backToTop" aria-label="Retour en haut">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="18 15 12 9 6 15"></polyline>
-        </svg>
-    </button>
-
-    <!-- JavaScript -->
     <script src="js/main.js"></script>
 </body>
 </html>
